@@ -19,10 +19,9 @@ import "./app.style.css";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route } from "react-router-dom";
-
-import SplashPage from "../pages/splash/splash-page";
-import NewsfeedPage from "../pages/newsfeed/newsfeed-page";
-import CreateArticle from "../pages/create-article/create-article";
+import SplashPage from "@/pages/splash/splash-page";
+import NewsfeedPage from "@/pages/newsfeed/newsfeed-page";
+import CreateArticlePage from "@/pages/create-article/create-article-page";
 
 setupIonicReact();
 
@@ -32,7 +31,7 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route path="/" exact component={SplashPage} />
         <Route path="/newsfeed" exact component={NewsfeedPage} />
-        <Route path="/create-article" exact component={CreateArticle} />
+        <Route path="/create-article" exact component={CreateArticlePage} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

@@ -18,7 +18,7 @@ import Button from "../../components/button";
 import TextEditor from "../../components/text-editor";
 import Divider from "../../components/divider";
 
-const CreateArticle: React.FC = () => {
+const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
   const history = useHistory();
 
@@ -85,4 +85,4 @@ const CreateArticle: React.FC = () => {
   );
 };
 
-export default CreateArticle;
+export default CreateArticlePage;

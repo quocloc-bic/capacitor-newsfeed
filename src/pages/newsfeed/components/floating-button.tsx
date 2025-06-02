@@ -1,7 +1,7 @@
 import { IonIcon } from "@ionic/react";
-import clsx from "clsx";
 import { add } from "ionicons/icons";
 import Button from "../../../components/button";
+import { cn } from "@/lib/utils";
 
 interface FloatingButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   onClick: () => void;
@@ -12,7 +12,7 @@ const FloatingButton = ({
   className,
   ...props
 }: FloatingButtonProps) => {
-  const finalClassName = clsx("fixed bottom-8 right-4", className);
+  const finalClassName = cn("fixed bottom-8 right-4", className);
 
   return (
     <div className={finalClassName} {...props}>

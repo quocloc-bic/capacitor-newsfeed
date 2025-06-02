@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -7,13 +7,13 @@ interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Divider = ({ height = 1, width, className, ...props }: DividerProps) => {
-  const defaultStyle = clsx(
+  const defaultStyle = cn(
     "bg-gray-200",
     height && "h-[1px] w-full",
     width && "w-[1px] h-full"
   );
 
-  const finalClassName = clsx(defaultStyle, className);
+  const finalClassName = cn(defaultStyle, className);
 
   return <div className={finalClassName} {...props} />;
 };

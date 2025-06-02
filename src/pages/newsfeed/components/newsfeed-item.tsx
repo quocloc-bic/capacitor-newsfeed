@@ -1,6 +1,6 @@
 import React from "react";
 import { type Article } from "../newsfeed-page.hook";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   item: Article;
@@ -9,7 +9,7 @@ interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
 const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ item, ...props }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         "rounded-lg bg-white p-4 shadow-md flex flex-col gap-2",
         props.className
       )}
