@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 import CollapsibleView from "../../components/collapsible-view";
 import TextEditor from "../../components/text-editor";
 import Divider from "../../components/divider";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/button";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
@@ -31,7 +31,7 @@ const CreateArticlePage: React.FC = () => {
       <IonMenu contentId="main-content" side="end">
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Table of Contents</IonTitle>
+            <IonTitle>{textConstants.tableOfContents}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
@@ -46,12 +46,14 @@ const CreateArticlePage: React.FC = () => {
                 <IonIcon icon={chevronBack} />
               </Button>
             </IonButtons>
-            <IonTitle>Create Article</IonTitle>
+            <IonTitle className="mx-4">{textConstants.title}</IonTitle>
             <IonButtons slot="end" className="flex gap-2 pr-2">
               <IonMenuToggle className="flex justify-center items-center">
                 <IonIcon icon={menu} />
               </IonMenuToggle>
-              <Button onClick={onPost}>Post</Button>
+              <Button fill="solid" color="primary" onClick={onPost}>
+                {textConstants.post}
+              </Button>
             </IonButtons>
           </IonToolbar>
         </IonHeader>
@@ -63,14 +65,16 @@ const CreateArticlePage: React.FC = () => {
               <div className="hidden flex-col md:flex">
                 <Divider height={1} className="my-2" />
                 <div className="flex-row justify-between items-center flex">
-                  <p>Saved draft at 12:00 PM</p>
-                  <Button onClick={onPost}>Post</Button>
+                  <p>{textConstants.savedDraft}</p>
+                  <Button fill="solid" onClick={onPost}>
+                    {textConstants.post}
+                  </Button>
                 </div>
               </div>
             </div>
 
             <div className="w-[250px] ml-5 hidden md:block">
-              <CollapsibleView title="Table of Contents">
+              <CollapsibleView title={textConstants.tableOfContents}>
                 <TableOfContents />
               </CollapsibleView>
             </div>
@@ -82,3 +86,10 @@ const CreateArticlePage: React.FC = () => {
 };
 
 export default CreateArticlePage;
+
+const textConstants = {
+  title: "Create Article",
+  savedDraft: "Saved draft at 12:00 PM",
+  post: "Post",
+  tableOfContents: "Table of Contents",
+};

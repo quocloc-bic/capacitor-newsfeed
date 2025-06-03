@@ -14,14 +14,14 @@ const TextEditor = ({ className, ...props }: TextEditorProps) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div
-        className={cn("bg-white flex justify-center items-center", className)}
+        className={cn("bg-white border border-red-500", className)}
         {...props}
       >
         <Plate editor={editor}>
           <EditorContainer>
             <Editor
               placeholder="Type your amazing content here...."
-              variant="demo"
+              variant="fullWidth"
             />
           </EditorContainer>
         </Plate>
