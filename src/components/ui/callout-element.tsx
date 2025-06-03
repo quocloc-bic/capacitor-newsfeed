@@ -1,17 +1,13 @@
-'use client';
+import { cn } from "@udecode/cn";
+import { useCalloutEmojiPicker } from "@udecode/plate-callout/react";
+import { useEmojiDropdownMenuState } from "@udecode/plate-emoji/react";
+import { PlateElement } from "@udecode/plate/react";
 
-import * as React from 'react';
+import { Button } from "@/components/ui/button";
 
-import { cn } from '@udecode/cn';
-import { useCalloutEmojiPicker } from '@udecode/plate-callout/react';
-import { useEmojiDropdownMenuState } from '@udecode/plate-emoji/react';
-import { PlateElement } from '@udecode/plate/react';
-
-import { Button } from '@/components/ui/button';
-
-import { emojiCategoryIcons, emojiSearchIcons } from './emoji-icons';
-import { EmojiPicker } from './emoji-picker';
-import { EmojiToolbarDropdown } from './emoji-toolbar-dropdown';
+import { emojiCategoryIcons, emojiSearchIcons } from "./emoji-icons";
+import { EmojiPicker } from "./emoji-picker";
+import { EmojiToolbarDropdown } from "./emoji-toolbar-dropdown";
 
 export function CalloutElement({
   attributes,
@@ -31,13 +27,13 @@ export function CalloutElement({
 
   return (
     <PlateElement
-      className={cn('my-1 flex rounded-sm bg-muted p-4 pl-3', className)}
+      className={cn("my-1 flex rounded-sm bg-muted p-4 pl-3", className)}
       style={{
         backgroundColor: props.element.backgroundColor as any,
       }}
       attributes={{
         ...attributes,
-        'data-plate-open-context-menu': true,
+        "data-plate-open-context-menu": true,
       }}
       {...props}
     >
@@ -54,7 +50,7 @@ export function CalloutElement({
               }}
               contentEditable={false}
             >
-              {(props.element.icon as any) || '💡'}
+              {(props.element.icon as any) || "💡"}
             </Button>
           }
         >

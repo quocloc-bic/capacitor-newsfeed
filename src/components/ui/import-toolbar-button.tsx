@@ -1,14 +1,12 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
-import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-
-import { getEditorDOMFromHtmlString } from '@udecode/plate';
-import { MarkdownPlugin } from '@udecode/plate-markdown';
-import { useEditorRef } from '@udecode/plate/react';
-import { ArrowUpToLineIcon } from 'lucide-react';
-import { useFilePicker } from 'use-file-picker';
+import { getEditorDOMFromHtmlString } from "@udecode/plate";
+import { MarkdownPlugin } from "@udecode/plate-markdown";
+import { useEditorRef } from "@udecode/plate/react";
+import { ArrowUpToLineIcon } from "lucide-react";
+import { useFilePicker } from "use-file-picker";
 
 import {
   DropdownMenu,
@@ -16,18 +14,18 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
-type ImportType = 'html' | 'markdown';
+type ImportType = "html" | "markdown";
 
 export function ImportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
 
   const getFileNodes = (text: string, type: ImportType) => {
-    if (type === 'html') {
+    if (type === "html") {
       const editorNode = getEditorDOMFromHtmlString(text);
       const nodes = editor.api.html.deserialize({
         element: editorNode,
@@ -36,7 +34,7 @@ export function ImportToolbarButton(props: DropdownMenuProps) {
       return nodes;
     }
 
-    if (type === 'markdown') {
+    if (type === "markdown") {
       return editor.getApi(MarkdownPlugin).markdown.deserialize(text);
     }
 
@@ -44,24 +42,32 @@ export function ImportToolbarButton(props: DropdownMenuProps) {
   };
 
   const { openFilePicker: openMdFilePicker } = useFilePicker({
-    accept: ['.md', '.mdx'],
+    accept: [".md", ".mdx"],
     multiple: false,
-    onFilesSelected: async ({ plainFiles }) => {
+    onFilesSelected: async (data: any) => {
+      const plainFiles = data?.plainFiles;
+
+      if (!plainFiles) return;
+
       const text = await plainFiles[0].text();
 
-      const nodes = getFileNodes(text, 'markdown');
+      const nodes = getFileNodes(text, "markdown");
 
       editor.tf.insertNodes(nodes);
     },
   });
 
   const { openFilePicker: openHtmlFilePicker } = useFilePicker({
-    accept: ['text/html'],
+    accept: ["text/html"],
     multiple: false,
-    onFilesSelected: async ({ plainFiles }) => {
+    onFilesSelected: async (data: any) => {
+      const plainFiles = data?.plainFiles;
+
+      if (!plainFiles) return;
+
       const text = await plainFiles[0].text();
 
-      const nodes = getFileNodes(text, 'html');
+      const nodes = getFileNodes(text, "html");
 
       editor.tf.insertNodes(nodes);
     },

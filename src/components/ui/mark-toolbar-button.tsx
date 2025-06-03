@@ -1,13 +1,11 @@
-'use client';
-
-import * as React from 'react';
+import * as React from "react";
 
 import {
   useMarkToolbarButton,
   useMarkToolbarButtonState,
-} from '@udecode/plate/react';
+} from "@udecode/plate/react";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function MarkToolbarButton({
   clear,

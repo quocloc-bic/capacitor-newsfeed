@@ -1,16 +1,12 @@
-'use client';
+import type { TFileElement } from "@udecode/plate-media";
+import type { PlateElementProps } from "@udecode/plate/react";
 
-import * as React from 'react';
+import { useMediaState } from "@udecode/plate-media/react";
+import { ResizableProvider } from "@udecode/plate-resizable";
+import { PlateElement, useReadOnly, withHOC } from "@udecode/plate/react";
+import { FileUp } from "lucide-react";
 
-import type { TFileElement } from '@udecode/plate-media';
-import type { PlateElementProps } from '@udecode/plate/react';
-
-import { useMediaState } from '@udecode/plate-media/react';
-import { ResizableProvider } from '@udecode/plate-resizable';
-import { PlateElement, useReadOnly, withHOC } from '@udecode/plate/react';
-import { FileUp } from 'lucide-react';
-
-import { Caption, CaptionTextarea } from './caption';
+import { Caption, CaptionTextarea } from "./caption";
 
 export const MediaFileElement = withHOC(
   ResizableProvider,

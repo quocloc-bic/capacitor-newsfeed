@@ -1,11 +1,9 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import { useEditorRef, useEditorSelector } from "@udecode/plate/react";
+import { Redo2Icon, Undo2Icon } from "lucide-react";
 
-import { useEditorRef, useEditorSelector } from '@udecode/plate/react';
-import { Redo2Icon, Undo2Icon } from 'lucide-react';
-
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function RedoToolbarButton(
   props: React.ComponentProps<typeof ToolbarButton>

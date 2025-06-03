@@ -1,14 +1,12 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { PlateElementProps } from "@udecode/plate/react";
 
-import type { PlateElementProps } from '@udecode/plate/react';
+import { EmojiInlineIndexSearch, insertEmoji } from "@udecode/plate-emoji";
+import { EmojiPlugin } from "@udecode/plate-emoji/react";
+import { PlateElement, usePluginOption } from "@udecode/plate/react";
 
-import { EmojiInlineIndexSearch, insertEmoji } from '@udecode/plate-emoji';
-import { EmojiPlugin } from '@udecode/plate-emoji/react';
-import { PlateElement, usePluginOption } from '@udecode/plate/react';
-
-import { useDebounce } from '@/hooks/use-debounce';
+import { useDebounce } from "@/hooks/use-debounce";
 
 import {
   InlineCombobox,
@@ -17,12 +15,12 @@ import {
   InlineComboboxGroup,
   InlineComboboxInput,
   InlineComboboxItem,
-} from './inline-combobox';
+} from "./inline-combobox";
 
 export function EmojiInputElement(props: PlateElementProps) {
   const { children, editor, element } = props;
-  const data = usePluginOption(EmojiPlugin, 'data')!;
-  const [value, setValue] = React.useState('');
+  const data = usePluginOption(EmojiPlugin, "data")!;
+  const [value, setValue] = React.useState("");
   const debouncedValue = useDebounce(value, 100);
   const isPending = value !== debouncedValue;
 
@@ -30,7 +28,7 @@ export function EmojiInputElement(props: PlateElementProps) {
     if (debouncedValue.trim().length === 0) return [];
 
     return EmojiInlineIndexSearch.getInstance(data)
-      .search(debouncedValue.replace(/:$/, ''))
+      .search(debouncedValue.replace(/:$/, ""))
       .get();
   }, [data, debouncedValue]);
 

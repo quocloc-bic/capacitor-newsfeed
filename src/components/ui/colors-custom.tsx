@@ -1,23 +1,21 @@
-'use client';
-
-import * as React from 'react';
+import * as React from "react";
 
 import {
   useColorsCustom,
   useColorsCustomState,
-} from '@udecode/plate-font/react';
-import { PlusIcon } from 'lucide-react';
+} from "@udecode/plate-font/react";
+import { PlusIcon } from "lucide-react";
 
-import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from "@/components/ui/button";
 // import { ColorInput } from './color-input';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 import {
   type TColor,
   ColorDropdownMenuItems,
-} from './color-dropdown-menu-items';
-import { ColorInput } from './color-input';
+} from "./color-dropdown-menu-items";
+import { ColorInput } from "./color-input";
 
 type ColorCustomProps = {
   colors: TColor[];
@@ -25,7 +23,7 @@ type ColorCustomProps = {
   updateColor: (color: string) => void;
   updateCustomColor: (color: string) => void;
   color?: string;
-} & React.ComponentPropsWithoutRef<'div'>;
+} & React.ComponentPropsWithoutRef<"div">;
 
 export function ColorCustom({
   className,
@@ -45,7 +43,7 @@ export function ColorCustom({
   const { inputProps, menuItemProps } = useColorsCustom(state);
 
   return (
-    <div className={cn('relative flex flex-col gap-4', className)} {...props}>
+    <div className={cn("relative flex flex-col gap-4", className)} {...props}>
       <ColorDropdownMenuItems
         color={color}
         colors={state.computedColors}
@@ -55,10 +53,10 @@ export function ColorCustom({
           <DropdownMenuItem
             className={cn(
               buttonVariants({
-                size: 'icon',
-                variant: 'outline',
+                size: "icon",
+                variant: "outline",
               }),
-              'absolute top-1 right-2 bottom-2 flex size-8 items-center justify-center rounded-full'
+              "absolute top-1 right-2 bottom-2 flex size-8 items-center justify-center rounded-full"
             )}
             {...menuItemProps}
           >

@@ -1,14 +1,12 @@
-'use client';
-
-import * as React from 'react';
+import * as React from "react";
 
 import {
   useLinkToolbarButton,
   useLinkToolbarButtonState,
-} from '@udecode/plate-link/react';
-import { Link } from 'lucide-react';
+} from "@udecode/plate-link/react";
+import { Link } from "lucide-react";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function LinkToolbarButton(
   props: React.ComponentProps<typeof ToolbarButton>

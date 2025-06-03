@@ -1,9 +1,7 @@
-import * as React from 'react';
+import type { SlateElementProps } from "@udecode/plate";
+import type { TAudioElement } from "@udecode/plate-media";
 
-import type { SlateElementProps } from '@udecode/plate';
-import type { TAudioElement } from '@udecode/plate-media';
-
-import { SlateElement } from '@udecode/plate';
+import { SlateElement } from "@udecode/plate";
 
 export function MediaAudioElementStatic(
   props: SlateElementProps<TAudioElement>

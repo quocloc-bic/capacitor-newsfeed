@@ -1,18 +1,16 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import { useColorInput } from "@udecode/plate-font/react";
+import { useComposedRef } from "@udecode/plate/react";
 
-import { useColorInput } from '@udecode/plate-font/react';
-import { useComposedRef } from '@udecode/plate/react';
-
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export function ColorInput({
   children,
   className,
-  value = '#000000',
+  value = "#000000",
   ...props
-}: React.ComponentProps<'input'>) {
+}: React.ComponentProps<"input">) {
   const { childProps, inputRef } = useColorInput();
 
   return (
@@ -25,7 +23,7 @@ export function ColorInput({
       <input
         {...props}
         ref={useComposedRef(props.ref, inputRef)}
-        className={cn('size-0 overflow-hidden border-0 p-0', className)}
+        className={cn("size-0 overflow-hidden border-0 p-0", className)}
         value={value}
         type="color"
       />

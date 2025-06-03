@@ -1,12 +1,8 @@
-'use client';
+import type { TExcalidrawElement } from "@udecode/plate-excalidraw";
+import type { PlateElementProps } from "@udecode/plate/react";
 
-import * as React from 'react';
-
-import type { TExcalidrawElement } from '@udecode/plate-excalidraw';
-import type { PlateElementProps } from '@udecode/plate/react';
-
-import { useExcalidrawElement } from '@udecode/plate-excalidraw/react';
-import { PlateElement } from '@udecode/plate/react';
+import { useExcalidrawElement } from "@udecode/plate-excalidraw/react";
+import { PlateElement } from "@udecode/plate/react";
 
 export function ExcalidrawElement(
   props: PlateElementProps<TExcalidrawElement>

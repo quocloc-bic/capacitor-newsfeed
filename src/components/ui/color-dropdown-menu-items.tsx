@@ -1,18 +1,16 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { DropdownMenuItemProps } from "@radix-ui/react-dropdown-menu";
 
-import type { DropdownMenuItemProps } from '@radix-ui/react-dropdown-menu';
-
-import { buttonVariants } from '@/components/ui/button';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { buttonVariants } from "@/components/ui/button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 export type TColor = {
   isBrightColor: boolean;
@@ -41,12 +39,12 @@ export function ColorDropdownMenuItem({
     <DropdownMenuItem
       className={cn(
         buttonVariants({
-          size: 'icon',
-          variant: 'outline',
+          size: "icon",
+          variant: "outline",
         }),
-        'my-1 flex size-6 items-center justify-center rounded-full border border-solid border-muted p-0 transition-all hover:scale-125',
-        !isBrightColor && 'border-transparent',
-        isSelected && 'border-2 border-primary',
+        "my-1 flex size-6 items-center justify-center rounded-full border border-solid border-muted p-0 transition-all hover:scale-125",
+        !isBrightColor && "border-transparent",
+        isSelected && "border-2 border-primary",
         className
       )}
       style={{ backgroundColor: value }}
@@ -72,7 +70,7 @@ type ColorDropdownMenuItemsProps = {
   colors: TColor[];
   updateColor: (color: string) => void;
   color?: string;
-} & React.ComponentProps<'div'>;
+} & React.ComponentProps<"div">;
 
 export function ColorDropdownMenuItems({
   className,
@@ -84,7 +82,7 @@ export function ColorDropdownMenuItems({
   return (
     <div
       className={cn(
-        'grid grid-cols-[repeat(10,1fr)] place-items-center gap-x-1',
+        "grid grid-cols-[repeat(10,1fr)] place-items-center gap-x-1",
         className
       )}
       {...props}

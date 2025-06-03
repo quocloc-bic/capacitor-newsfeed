@@ -1,8 +1,6 @@
-import * as React from 'react';
+import type { SlateLeafProps } from "@udecode/plate";
 
-import type { SlateLeafProps } from '@udecode/plate';
-
-import { SlateLeaf } from '@udecode/plate';
+import { SlateLeaf } from "@udecode/plate";
 
 export function KbdLeafStatic(props: SlateLeafProps) {
   return (

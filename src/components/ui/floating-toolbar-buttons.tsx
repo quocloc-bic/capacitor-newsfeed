@@ -1,33 +1,25 @@
-'use client';
-
-import * as React from 'react';
-
 import {
   BoldPlugin,
   CodePlugin,
   ItalicPlugin,
   StrikethroughPlugin,
   UnderlinePlugin,
-} from '@udecode/plate-basic-marks/react';
-import { useEditorReadOnly } from '@udecode/plate/react';
+} from "@udecode/plate-basic-marks/react";
+import { useEditorReadOnly } from "@udecode/plate/react";
 import {
   BoldIcon,
   Code2Icon,
   ItalicIcon,
   StrikethroughIcon,
   UnderlineIcon,
-  WandSparklesIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { AIToolbarButton } from './ai-toolbar-button';
-import { CommentToolbarButton } from './comment-toolbar-button';
-import { InlineEquationToolbarButton } from './inline-equation-toolbar-button';
-import { LinkToolbarButton } from './link-toolbar-button';
-import { MarkToolbarButton } from './mark-toolbar-button';
-import { MoreDropdownMenu } from './more-dropdown-menu';
-import { SuggestionToolbarButton } from './suggestion-toolbar-button';
-import { ToolbarGroup } from './toolbar';
-import { TurnIntoDropdownMenu } from './turn-into-dropdown-menu';
+import { InlineEquationToolbarButton } from "./inline-equation-toolbar-button";
+import { LinkToolbarButton } from "./link-toolbar-button";
+import { MarkToolbarButton } from "./mark-toolbar-button";
+import { MoreDropdownMenu } from "./more-dropdown-menu";
+import { ToolbarGroup } from "./toolbar";
+import { TurnIntoDropdownMenu } from "./turn-into-dropdown-menu";
 
 export function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly();
@@ -36,13 +28,6 @@ export function FloatingToolbarButtons() {
     <>
       {!readOnly && (
         <>
-          <ToolbarGroup>
-            <AIToolbarButton tooltip="AI commands">
-              <WandSparklesIcon />
-              Ask AI
-            </AIToolbarButton>
-          </ToolbarGroup>
-
           <ToolbarGroup>
             <TurnIntoDropdownMenu />
 
@@ -82,12 +67,7 @@ export function FloatingToolbarButtons() {
         </>
       )}
 
-      <ToolbarGroup>
-        <CommentToolbarButton />
-        <SuggestionToolbarButton />
-
-        {!readOnly && <MoreDropdownMenu />}
-      </ToolbarGroup>
+      <ToolbarGroup>{!readOnly && <MoreDropdownMenu />}</ToolbarGroup>
     </>
   );
 }

@@ -14,10 +14,7 @@ const TextEditor = ({ className, ...props }: TextEditorProps) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div
-        className={cn(
-          "bg-white border border-red-400 flex justify-center items-center",
-          className
-        )}
+        className={cn("bg-white flex justify-center items-center", className)}
         {...props}
       >
         <Plate editor={editor}>

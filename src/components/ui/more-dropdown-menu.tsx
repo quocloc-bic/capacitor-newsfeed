@@ -1,21 +1,19 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
-
-import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
 import {
   SubscriptPlugin,
   SuperscriptPlugin,
-} from '@udecode/plate-basic-marks/react';
-import { KbdPlugin } from '@udecode/plate-kbd/react';
-import { useEditorRef } from '@udecode/plate/react';
+} from "@udecode/plate-basic-marks/react";
+import { KbdPlugin } from "@udecode/plate-kbd/react";
+import { useEditorRef } from "@udecode/plate/react";
 import {
   KeyboardIcon,
   MoreHorizontalIcon,
   SubscriptIcon,
   SuperscriptIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -23,9 +21,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function MoreDropdownMenu(props: DropdownMenuProps) {
   const editor = useEditorRef();
@@ -47,7 +45,7 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
           <DropdownMenuItem
             onSelect={() => {
               editor.tf.toggleMark(KbdPlugin.key);
-              editor.tf.collapse({ edge: 'end' });
+              editor.tf.collapse({ edge: "end" });
               editor.tf.focus();
             }}
           >

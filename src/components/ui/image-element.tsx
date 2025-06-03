@@ -1,30 +1,26 @@
-'use client';
+import type { TImageElement } from "@udecode/plate-media";
+import type { PlateElementProps } from "@udecode/plate/react";
 
-import * as React from 'react';
+import { useDraggable } from "@udecode/plate-dnd";
+import { Image, ImagePlugin, useMediaState } from "@udecode/plate-media/react";
+import { ResizableProvider, useResizableValue } from "@udecode/plate-resizable";
+import { PlateElement, withHOC } from "@udecode/plate/react";
 
-import type { TImageElement } from '@udecode/plate-media';
-import type { PlateElementProps } from '@udecode/plate/react';
+import { cn } from "@/lib/utils";
 
-import { useDraggable } from '@udecode/plate-dnd';
-import { Image, ImagePlugin, useMediaState } from '@udecode/plate-media/react';
-import { ResizableProvider, useResizableValue } from '@udecode/plate-resizable';
-import { PlateElement, withHOC } from '@udecode/plate/react';
-
-import { cn } from '@/lib/utils';
-
-import { Caption, CaptionTextarea } from './caption';
-import { MediaPopover } from './media-popover';
+import { Caption, CaptionTextarea } from "./caption";
+import { MediaPopover } from "./media-popover";
 import {
   mediaResizeHandleVariants,
   Resizable,
   ResizeHandle,
-} from './resize-handle';
+} from "./resize-handle";
 
 export const ImageElement = withHOC(
   ResizableProvider,
   function ImageElement(props: PlateElementProps<TImageElement>) {
-    const { align = 'center', focused, readOnly, selected } = useMediaState();
-    const width = useResizableValue('width');
+    const { align = "center", focused, readOnly, selected } = useMediaState();
+    const width = useResizableValue("width");
 
     const { isDragging, handleRef } = useDraggable({
       element: props.element,
@@ -42,24 +38,24 @@ export const ImageElement = withHOC(
               }}
             >
               <ResizeHandle
-                className={mediaResizeHandleVariants({ direction: 'left' })}
-                options={{ direction: 'left' }}
+                className={mediaResizeHandleVariants({ direction: "left" })}
+                options={{ direction: "left" }}
               />
               <Image
                 ref={handleRef}
                 className={cn(
-                  'block w-full max-w-full cursor-pointer object-cover px-0',
-                  'rounded-sm',
-                  focused && selected && 'ring-2 ring-ring ring-offset-2',
-                  isDragging && 'opacity-50'
+                  "block w-full max-w-full cursor-pointer object-cover px-0",
+                  "rounded-sm",
+                  focused && selected && "ring-2 ring-ring ring-offset-2",
+                  isDragging && "opacity-50"
                 )}
                 alt={(props.attributes as any).alt}
               />
               <ResizeHandle
                 className={mediaResizeHandleVariants({
-                  direction: 'right',
+                  direction: "right",
                 })}
-                options={{ direction: 'right' }}
+                options={{ direction: "right" }}
               />
             </Resizable>
 

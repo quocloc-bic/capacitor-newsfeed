@@ -1,13 +1,11 @@
-'use client';
-
-import * as React from 'react';
+import * as React from "react";
 
 import {
   type UseVirtualFloatingOptions,
   flip,
   offset,
-} from '@udecode/plate-floating';
-import { type TLinkElement, getLinkAttributes } from '@udecode/plate-link';
+} from "@udecode/plate-floating";
+import { type TLinkElement, getLinkAttributes } from "@udecode/plate-link";
 import {
   type LinkFloatingToolbarState,
   FloatingLinkUrlInput,
@@ -16,25 +14,25 @@ import {
   useFloatingLinkEditState,
   useFloatingLinkInsert,
   useFloatingLinkInsertState,
-} from '@udecode/plate-link/react';
+} from "@udecode/plate-link/react";
 import {
   useEditorRef,
   useEditorSelection,
   useFormInputProps,
   usePluginOption,
-} from '@udecode/plate/react';
-import { cva } from 'class-variance-authority';
-import { ExternalLink, Link, Text, Unlink } from 'lucide-react';
+} from "@udecode/plate/react";
+import { cva } from "class-variance-authority";
+import { ExternalLink, Link, Text, Unlink } from "lucide-react";
 
-import { buttonVariants } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const popoverVariants = cva(
-  'z-50 w-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-hidden'
+  "z-50 w-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-hidden"
 );
 
 const inputVariants = cva(
-  'flex h-[28px] w-full rounded-md border-none bg-transparent px-1.5 py-1 text-base placeholder:text-muted-foreground focus-visible:ring-transparent focus-visible:outline-none md:text-sm'
+  "flex h-[28px] w-full rounded-md border-none bg-transparent px-1.5 py-1 text-base placeholder:text-muted-foreground focus-visible:ring-transparent focus-visible:outline-none md:text-sm"
 );
 
 export function LinkFloatingToolbar({
@@ -42,20 +40,20 @@ export function LinkFloatingToolbar({
 }: {
   state?: LinkFloatingToolbarState;
 }) {
-  const activeCommentId = usePluginOption({ key: 'comment' }, 'activeId');
-  const activeSuggestionId = usePluginOption({ key: 'suggestion' }, 'activeId');
+  const activeCommentId = usePluginOption({ key: "comment" }, "activeId");
+  const activeSuggestionId = usePluginOption({ key: "suggestion" }, "activeId");
 
   const floatingOptions: UseVirtualFloatingOptions = React.useMemo(() => {
     return {
       middleware: [
         offset(8),
         flip({
-          fallbackPlacements: ['bottom-end', 'top-start', 'top-end'],
+          fallbackPlacements: ["bottom-end", "top-start", "top-end"],
           padding: 12,
         }),
       ],
       placement:
-        activeSuggestionId || activeCommentId ? 'top-start' : 'bottom-start',
+        activeSuggestionId || activeCommentId ? "top-start" : "bottom-start",
     };
   }, [activeCommentId, activeSuggestionId]);
 
@@ -125,7 +123,7 @@ export function LinkFloatingToolbar({
   ) : (
     <div className="box-content flex items-center">
       <button
-        className={buttonVariants({ size: 'sm', variant: 'ghost' })}
+        className={buttonVariants({ size: "sm", variant: "ghost" })}
         type="button"
         {...editButtonProps}
       >
@@ -140,8 +138,8 @@ export function LinkFloatingToolbar({
 
       <button
         className={buttonVariants({
-          size: 'icon',
-          variant: 'ghost',
+          size: "icon",
+          variant: "ghost",
         })}
         type="button"
         {...unlinkButtonProps}
@@ -187,8 +185,8 @@ function LinkOpenButton() {
     <a
       {...attributes}
       className={buttonVariants({
-        size: 'icon',
-        variant: 'ghost',
+        size: "icon",
+        variant: "ghost",
       })}
       onMouseOver={(e) => {
         e.stopPropagation();

@@ -1,13 +1,11 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { TTableRowElement } from "@udecode/plate-table";
 
-import type { TTableRowElement } from '@udecode/plate-table';
-
-import { useComposedRef } from '@udecode/cn';
-import { type TElement, PathApi } from '@udecode/plate';
-import { useDraggable, useDropLine } from '@udecode/plate-dnd';
-import { BlockSelectionPlugin } from '@udecode/plate-selection/react';
+import { useComposedRef } from "@udecode/cn";
+import { type TElement, PathApi } from "@udecode/plate";
+import { useDraggable, useDropLine } from "@udecode/plate-dnd";
+import { BlockSelectionPlugin } from "@udecode/plate-selection/react";
 import {
   type PlateElementProps,
   PlateElement,
@@ -16,11 +14,11 @@ import {
   usePluginOption,
   useReadOnly,
   useSelected,
-} from '@udecode/plate/react';
-import { GripVertical } from 'lucide-react';
+} from "@udecode/plate/react";
+import { GripVertical } from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
   const { element } = props;
@@ -29,7 +27,7 @@ export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
   const editor = useEditorRef();
   const isSelectionAreaVisible = usePluginOption(
     BlockSelectionPlugin,
-    'isSelectionAreaVisible'
+    "isSelectionAreaVisible"
   );
   const hasControls = !readOnly && !isSelectionAreaVisible;
 
@@ -55,10 +53,10 @@ export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
       {...props}
       ref={useComposedRef(props.ref, previewRef)}
       as="tr"
-      className={cn('group/row', isDragging && 'opacity-50')}
+      className={cn("group/row", isDragging && "opacity-50")}
       attributes={{
         ...props.attributes,
-        'data-selected': selected ? 'true' : undefined,
+        "data-selected": selected ? "true" : undefined,
       }}
     >
       {hasControls && (
@@ -82,8 +80,8 @@ function RowDragHandle({ dragRef }: { dragRef: React.Ref<any> }) {
       ref={dragRef}
       variant="outline"
       className={cn(
-        'absolute top-1/2 left-0 z-51 h-6 w-4 -translate-y-1/2 p-0 focus-visible:ring-0 focus-visible:ring-offset-0',
-        'cursor-grab active:cursor-grabbing',
+        "absolute top-1/2 left-0 z-51 h-6 w-4 -translate-y-1/2 p-0 focus-visible:ring-0 focus-visible:ring-offset-0",
+        "cursor-grab active:cursor-grabbing",
         'opacity-0 transition-opacity duration-100 group-hover/row:opacity-100 group-has-data-[resizing="true"]/row:opacity-0'
       )}
       onClick={() => {
@@ -103,8 +101,8 @@ function DropLine() {
   return (
     <div
       className={cn(
-        'absolute inset-x-0 left-2 z-50 h-0.5 bg-brand/50',
-        dropLine === 'top' ? '-top-px' : '-bottom-px'
+        "absolute inset-x-0 left-2 z-50 h-0.5 bg-brand/50",
+        dropLine === "top" ? "-top-px" : "-bottom-px"
       )}
     />
   );

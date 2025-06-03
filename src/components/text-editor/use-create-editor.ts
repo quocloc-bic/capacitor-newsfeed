@@ -1,9 +1,6 @@
-"use client";
-
 import type { Value } from "@udecode/plate";
 
 import { withProps } from "@udecode/cn";
-import { AIPlugin } from "@udecode/plate-ai/react";
 import {
   BoldPlugin,
   CodePlugin,
@@ -20,13 +17,11 @@ import {
   CodeLinePlugin,
   CodeSyntaxPlugin,
 } from "@udecode/plate-code-block/react";
-import { CommentsPlugin } from "@udecode/plate-comments/react";
 import { DatePlugin } from "@udecode/plate-date/react";
 import { EmojiInputPlugin } from "@udecode/plate-emoji/react";
 import { ExcalidrawPlugin } from "@udecode/plate-excalidraw/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";
 import { TocPlugin } from "@udecode/plate-heading/react";
-import { HighlightPlugin } from "@udecode/plate-highlight/react";
 import { HorizontalRulePlugin } from "@udecode/plate-horizontal-rule/react";
 import { KbdPlugin } from "@udecode/plate-kbd/react";
 import { ColumnItemPlugin, ColumnPlugin } from "@udecode/plate-layout/react";
@@ -48,7 +43,6 @@ import {
   MentionPlugin,
 } from "@udecode/plate-mention/react";
 import { SlashInputPlugin } from "@udecode/plate-slash-command/react";
-import { SuggestionPlugin } from "@udecode/plate-suggestion/react";
 import {
   TableCellHeaderPlugin,
   TableCellPlugin,
@@ -63,11 +57,9 @@ import {
   usePlateEditor,
 } from "@udecode/plate/react";
 
-import { copilotPlugins } from "@/components/text-editor/plugins/copilot-plugins";
 import { editorPlugins } from "@/components/text-editor/plugins/editor-plugins";
 import { FixedToolbarPlugin } from "@/components/text-editor/plugins/fixed-toolbar-plugin";
 import { FloatingToolbarPlugin } from "@/components/text-editor/plugins/floating-toolbar-plugin";
-import { AILeaf } from "@/components/ui/ai-leaf";
 import { BlockquoteElement } from "@/components/ui/blockquote-element";
 import { CalloutElement } from "@/components/ui/callout-element";
 import { CodeBlockElement } from "@/components/ui/code-block-element";
@@ -76,13 +68,11 @@ import { CodeLineElement } from "@/components/ui/code-line-element";
 import { CodeSyntaxLeaf } from "@/components/ui/code-syntax-leaf";
 import { ColumnElement } from "@/components/ui/column-element";
 import { ColumnGroupElement } from "@/components/ui/column-group-element";
-import { CommentLeaf } from "@/components/ui/comment-leaf";
 import { DateElement } from "@/components/ui/date-element";
 import { EmojiInputElement } from "@/components/ui/emoji-input-element";
 import { EquationElement } from "@/components/ui/equation-element";
 import { ExcalidrawElement } from "@/components/ui/excalidraw-element";
 import { HeadingElement } from "@/components/ui/heading-element";
-import { HighlightLeaf } from "@/components/ui/highlight-leaf";
 import { HrElement } from "@/components/ui/hr-element";
 import { ImageElement } from "@/components/ui/image-element";
 import { InlineEquationElement } from "@/components/ui/inline-equation-element";
@@ -98,7 +88,6 @@ import { MentionInputElement } from "@/components/ui/mention-input-element";
 import { ParagraphElement } from "@/components/ui/paragraph-element";
 import { withPlaceholders } from "@/components/ui/placeholder";
 import { SlashInputElement } from "@/components/ui/slash-input-element";
-import { SuggestionLeaf } from "@/components/ui/suggestion-leaf";
 import {
   TableCellElement,
   TableCellHeaderElement,
@@ -119,7 +108,6 @@ export const viewComponents = {
   [CodeSyntaxPlugin.key]: CodeSyntaxLeaf,
   [ColumnItemPlugin.key]: ColumnElement,
   [ColumnPlugin.key]: ColumnGroupElement,
-  [CommentsPlugin.key]: CommentLeaf,
   [DatePlugin.key]: DateElement,
   [EquationPlugin.key]: EquationElement,
   [ExcalidrawPlugin.key]: ExcalidrawElement,
@@ -130,7 +118,6 @@ export const viewComponents = {
   [HEADING_KEYS.h4]: withProps(HeadingElement, { variant: "h4" }),
   [HEADING_KEYS.h5]: withProps(HeadingElement, { variant: "h5" }),
   [HEADING_KEYS.h6]: withProps(HeadingElement, { variant: "h6" }),
-  [HighlightPlugin.key]: HighlightLeaf,
   [HorizontalRulePlugin.key]: HrElement,
   [ImagePlugin.key]: ImageElement,
   [InlineEquationPlugin.key]: InlineEquationElement,
@@ -143,7 +130,6 @@ export const viewComponents = {
   [PlaceholderPlugin.key]: MediaPlaceholderElement,
   [StrikethroughPlugin.key]: withProps(PlateLeaf, { as: "s" }),
   [SubscriptPlugin.key]: withProps(PlateLeaf, { as: "sub" }),
-  [SuggestionPlugin.key]: SuggestionLeaf,
   [SuperscriptPlugin.key]: withProps(PlateLeaf, { as: "sup" }),
   [TableCellHeaderPlugin.key]: TableCellHeaderElement,
   [TableCellPlugin.key]: TableCellElement,
@@ -157,7 +143,6 @@ export const viewComponents = {
 
 export const editorComponents = {
   ...viewComponents,
-  [AIPlugin.key]: AILeaf,
   [EmojiInputPlugin.key]: EmojiInputElement,
   [MentionInputPlugin.key]: MentionInputElement,
   [SlashInputPlugin.key]: SlashInputElement,
@@ -191,28 +176,8 @@ export const useCreateEditor = (
         },
         ...override,
       },
-      plugins: [
-        ...copilotPlugins,
-        ...editorPlugins,
-        FixedToolbarPlugin,
-        FloatingToolbarPlugin,
-      ],
-      value: [
-        {
-          children: [{ text: "Playground" }],
-          type: "h1",
-        },
-        {
-          children: [
-            { text: "A rich-text editor with AI capabilities. Try the " },
-            { bold: true, text: "AI commands" },
-            { text: " or use " },
-            { kbd: true, text: "Cmd+J" },
-            { text: " to open the AI menu." },
-          ],
-          type: ParagraphPlugin.key,
-        },
-      ],
+      plugins: [...editorPlugins, FixedToolbarPlugin, FloatingToolbarPlugin],
+      value: [],
       ...options,
     },
     deps

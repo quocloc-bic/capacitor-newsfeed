@@ -1,14 +1,12 @@
-'use client';
-
-import { HorizontalRulePlugin } from '@udecode/plate-horizontal-rule/react';
+import { HorizontalRulePlugin } from "@udecode/plate-horizontal-rule/react";
 import {
   AudioPlugin,
   FilePlugin,
   ImagePlugin,
   MediaEmbedPlugin,
   VideoPlugin,
-} from '@udecode/plate-media/react';
-import { DeletePlugin, SelectOnBackspacePlugin } from '@udecode/plate-select';
+} from "@udecode/plate-media/react";
+import { DeletePlugin, SelectOnBackspacePlugin } from "@udecode/plate-select";
 
 export const deletePlugins = [
   SelectOnBackspacePlugin.configure({

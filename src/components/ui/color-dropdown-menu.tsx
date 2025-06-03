@@ -1,21 +1,19 @@
-'use client';
-
-import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
 import {
   useColorDropdownMenu,
   useColorDropdownMenuState,
-} from '@udecode/plate-font/react';
+} from "@udecode/plate-font/react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { DEFAULT_COLORS, DEFAULT_CUSTOM_COLORS } from './color-constants';
-import { ColorPicker } from './color-picker';
-import { ToolbarButton } from './toolbar';
+import { DEFAULT_COLORS, DEFAULT_CUSTOM_COLORS } from "./color-constants";
+import { ColorPicker } from "./color-picker";
+import { ToolbarButton } from "./toolbar";
 
 type ColorDropdownMenuProps = {
   nodeType: string;

@@ -1,18 +1,14 @@
-'use client';
+import type { UseEmojiPickerType } from "@udecode/plate-emoji/react";
 
-import * as React from 'react';
+import { EmojiSettings } from "@udecode/plate-emoji";
 
-import type { UseEmojiPickerType } from '@udecode/plate-emoji/react';
+import { cn } from "@/lib/utils";
 
-import { EmojiSettings } from '@udecode/plate-emoji';
-
-import { cn } from '@/lib/utils';
-
-import { EmojiPickerContent } from './emoji-picker-content';
-import { EmojiPickerNavigation } from './emoji-picker-navigation';
-import { EmojiPickerPreview } from './emoji-picker-preview';
-import { EmojiPickerSearchAndClear } from './emoji-picker-search-and-clear';
-import { EmojiPickerSearchBar } from './emoji-picker-search-bar';
+import { EmojiPickerContent } from "./emoji-picker-content";
+import { EmojiPickerNavigation } from "./emoji-picker-navigation";
+import { EmojiPickerPreview } from "./emoji-picker-preview";
+import { EmojiPickerSearchAndClear } from "./emoji-picker-search-and-clear";
+import { EmojiPickerSearchBar } from "./emoji-picker-search-bar";
 
 export function EmojiPicker({
   clearSearch,
@@ -36,8 +32,8 @@ export function EmojiPicker({
   return (
     <div
       className={cn(
-        'flex flex-col rounded-xl bg-popover text-popover-foreground',
-        'h-[23rem] w-80 border shadow-md'
+        "flex flex-col rounded-xl bg-popover text-popover-foreground",
+        "h-[23rem] w-80 border shadow-md"
       )}
     >
       <EmojiPickerNavigation

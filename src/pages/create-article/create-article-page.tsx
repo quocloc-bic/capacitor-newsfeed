@@ -14,9 +14,9 @@ import { useDevice } from "../../hooks/use-device";
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import CollapsibleView from "../../components/collapsible-view";
-import Button from "../../components/button";
 import TextEditor from "../../components/text-editor";
 import Divider from "../../components/divider";
+import { Button } from "@/components/ui/button";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
@@ -51,9 +51,7 @@ const CreateArticlePage: React.FC = () => {
               <IonMenuToggle className="flex justify-center items-center">
                 <IonIcon icon={menu} />
               </IonMenuToggle>
-              <Button fill="solid" onClick={onPost}>
-                Post
-              </Button>
+              <Button onClick={onPost}>Post</Button>
             </IonButtons>
           </IonToolbar>
         </IonHeader>
@@ -66,9 +64,7 @@ const CreateArticlePage: React.FC = () => {
                 <Divider height={1} className="my-2" />
                 <div className="flex-row justify-between items-center flex">
                   <p>Saved draft at 12:00 PM</p>
-                  <Button fill="solid" onClick={onPost}>
-                    Post
-                  </Button>
+                  <Button onClick={onPost}>Post</Button>
                 </div>
               </div>
             </div>

@@ -1,14 +1,12 @@
-'use client';
-
-import * as React from 'react';
+import * as React from "react";
 
 import {
   ListStyleType,
   someIndentList,
   toggleIndentList,
-} from '@udecode/plate-indent-list';
-import { useEditorRef, useEditorSelector } from '@udecode/plate/react';
-import { List, ListOrdered } from 'lucide-react';
+} from "@udecode/plate-indent-list";
+import { useEditorRef, useEditorSelector } from "@udecode/plate/react";
+import { List, ListOrdered } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -16,13 +14,13 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
-} from './toolbar';
+} from "./toolbar";
 
 export function NumberedIndentListToolbarButton() {
   const editor = useEditorRef();
@@ -49,7 +47,7 @@ export function NumberedIndentListToolbarButton() {
             listStyleType: ListStyleType.Decimal,
           })
         }
-        data-state={pressed ? 'on' : 'off'}
+        data-state={pressed ? "on" : "off"}
       >
         <ListOrdered className="size-4" />
       </ToolbarSplitButtonPrimary>
@@ -136,7 +134,7 @@ export function BulletedIndentListToolbarButton() {
             listStyleType: ListStyleType.Disc,
           });
         }}
-        data-state={pressed ? 'on' : 'off'}
+        data-state={pressed ? "on" : "off"}
       >
         <List className="size-4" />
       </ToolbarSplitButtonPrimary>

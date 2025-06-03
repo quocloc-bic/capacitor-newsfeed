@@ -1,20 +1,18 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import { EraserIcon } from "lucide-react";
 
-import { EraserIcon } from 'lucide-react';
-
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
-import { ToolbarMenuGroup } from '@/components/ui/toolbar';
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { ToolbarMenuGroup } from "@/components/ui/toolbar";
 
 import {
   type TColor,
   ColorDropdownMenuItems,
-} from './color-dropdown-menu-items';
-import { ColorCustom } from './colors-custom';
+} from "./color-dropdown-menu-items";
+import { ColorCustom } from "./colors-custom";
 
-type ColorPickerContentProps = React.ComponentProps<'div'> & {
+type ColorPickerContentProps = React.ComponentProps<"div"> & {
   colors: TColor[];
   customColors: TColor[];
   clearColor: () => void;
@@ -34,7 +32,7 @@ export function ColorPickerContent({
   ...props
 }: ColorPickerContentProps) {
   return (
-    <div className={cn('flex flex-col', className)} {...props}>
+    <div className={cn("flex flex-col", className)} {...props}>
       <ToolbarMenuGroup label="Custom Colors">
         <ColorCustom
           color={color}

@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import { isType } from "@udecode/plate";

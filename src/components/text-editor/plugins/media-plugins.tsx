@@ -1,6 +1,4 @@
-'use client';
-
-import { CaptionPlugin } from '@udecode/plate-caption/react';
+import { CaptionPlugin } from "@udecode/plate-caption/react";
 import {
   AudioPlugin,
   FilePlugin,
@@ -8,10 +6,10 @@ import {
   MediaEmbedPlugin,
   PlaceholderPlugin,
   VideoPlugin,
-} from '@udecode/plate-media/react';
+} from "@udecode/plate-media/react";
 
-import { ImagePreview } from '@/components/ui/image-preview';
-import { MediaUploadToast } from '@/components/ui/media-upload-toast';
+import { ImagePreview } from "@/components/ui/image-preview";
+import { MediaUploadToast } from "@/components/ui/media-upload-toast";
 
 export const mediaPlugins = [
   ImagePlugin.extend({

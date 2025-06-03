@@ -1,13 +1,11 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
-
-import { PlaceholderPlugin, UploadErrorCode } from '@udecode/plate-media/react';
-import { usePluginOption } from '@udecode/plate/react';
-import { toast } from 'sonner';
+import { PlaceholderPlugin, UploadErrorCode } from "@udecode/plate-media/react";
+import { usePluginOption } from "@udecode/plate/react";
+import { toast } from "sonner";
 
 export const useUploadErrorToast = () => {
-  const uploadError = usePluginOption(PlaceholderPlugin, 'error');
+  const uploadError = usePluginOption(PlaceholderPlugin, "error");
 
   React.useEffect(() => {
     if (!uploadError) return;
@@ -19,7 +17,7 @@ export const useUploadErrorToast = () => {
         toast.error(
           `The size of files ${data.files
             .map((f) => f.name)
-            .join(', ')} is invalid`
+            .join(", ")} is invalid`
         );
 
         break;
@@ -28,7 +26,7 @@ export const useUploadErrorToast = () => {
         toast.error(
           `The type of files ${data.files
             .map((f) => f.name)
-            .join(', ')} is invalid`
+            .join(", ")} is invalid`
         );
 
         break;
@@ -37,7 +35,7 @@ export const useUploadErrorToast = () => {
         toast.error(
           `The size of files ${data.files
             .map((f) => f.name)
-            .join(', ')} is too large than ${data.maxFileSize}`
+            .join(", ")} is too large than ${data.maxFileSize}`
         );
 
         break;
@@ -52,7 +50,7 @@ export const useUploadErrorToast = () => {
       case UploadErrorCode.TOO_MANY_FILES: {
         toast.error(
           `The maximum number of files is ${data.maxFileCount} ${
-            data.fileType ? `for ${data.fileType}` : ''
+            data.fileType ? `for ${data.fileType}` : ""
           }`
         );
 

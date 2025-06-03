@@ -1,15 +1,13 @@
-import * as React from 'react';
+import type { SlateElementProps } from "@udecode/plate";
+import type { TCaptionElement } from "@udecode/plate-caption";
+import type { TVideoElement } from "@udecode/plate-media";
 
-import type { SlateElementProps } from '@udecode/plate';
-import type { TCaptionElement } from '@udecode/plate-caption';
-import type { TVideoElement } from '@udecode/plate-media';
-
-import { NodeApi, SlateElement } from '@udecode/plate';
+import { NodeApi, SlateElement } from "@udecode/plate";
 
 export function MediaVideoElementStatic(
   props: SlateElementProps<TVideoElement & TCaptionElement & { width: number }>
 ) {
-  const { align = 'center', caption, url, width } = props.element;
+  const { align = "center", caption, url, width } = props.element;
 
   return (
     <SlateElement className="py-2.5" {...props}>

@@ -1,17 +1,15 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
-
-import { HEADING_KEYS } from '@udecode/plate-heading';
-import { ParagraphPlugin } from '@udecode/plate/react';
+import { HEADING_KEYS } from "@udecode/plate-heading";
+import { ParagraphPlugin } from "@udecode/plate/react";
 import {
   type PlaceholderProps,
   createNodeHOC,
   createNodesHOC,
   usePlaceholderState,
-} from '@udecode/plate/react';
+} from "@udecode/plate/react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export const Placeholder = (props: PlaceholderProps) => {
   const { attributes, children, placeholder } = props;
@@ -25,7 +23,7 @@ export const Placeholder = (props: PlaceholderProps) => {
         className: cn(
           attributes.className,
           enabled &&
-            'before:absolute before:cursor-text before:opacity-30 before:content-[attr(placeholder)]'
+            "before:absolute before:cursor-text before:opacity-30 before:content-[attr(placeholder)]"
         ),
         placeholder,
       },
@@ -42,7 +40,7 @@ export const withPlaceholders = (components: any) =>
     {
       key: ParagraphPlugin.key,
       hideOnBlur: true,
-      placeholder: 'Type a paragraph',
+      placeholder: "Type a paragraph",
       query: {
         maxLevel: 1,
       },
@@ -50,6 +48,6 @@ export const withPlaceholders = (components: any) =>
     {
       key: HEADING_KEYS.h1,
       hideOnBlur: false,
-      placeholder: 'Untitled',
+      placeholder: "Untitled",
     },
   ]);

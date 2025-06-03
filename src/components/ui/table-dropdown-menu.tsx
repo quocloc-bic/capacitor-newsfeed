@@ -1,11 +1,9 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
-import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-
-import { TablePlugin, useTableMergeState } from '@udecode/plate-table/react';
-import { useEditorPlugin, useEditorSelector } from '@udecode/plate/react';
+import { TablePlugin, useTableMergeState } from "@udecode/plate-table/react";
+import { useEditorPlugin, useEditorSelector } from "@udecode/plate/react";
 import {
   ArrowDown,
   ArrowLeft,
@@ -17,7 +15,7 @@ import {
   Trash2Icon,
   Ungroup,
   XIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -28,10 +26,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function TableDropdownMenu(props: DropdownMenuProps) {
   const tableSelected = useEditorSelector(
@@ -52,7 +50,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className="flex w-[180px] min-w-0 flex-col"
+        className="flex w-[180px] min-w-0 flex-col overflow-visible"
         align="start"
       >
         <DropdownMenuGroup>
@@ -246,8 +244,8 @@ export function TablePicker() {
               <div
                 key={`(${rowIndex},${columIndex})`}
                 className={cn(
-                  'col-span-1 size-3 border border-solid bg-secondary',
-                  !!value && 'border-current'
+                  "col-span-1 size-3 border border-solid bg-secondary",
+                  !!value && "border-current"
                 )}
                 onMouseMove={() => {
                   onCellMove(rowIndex, columIndex);

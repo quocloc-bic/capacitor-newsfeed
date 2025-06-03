@@ -1,11 +1,9 @@
-"use client"
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 function Calendar({
   className,
@@ -60,16 +58,40 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeft className={cn("size-4", className)} {...props} />
+        PreviousMonthButton: ({
+          className,
+          ...props
+        }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+          <button
+            type="button"
+            className={cn(
+              "size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+              className
+            )}
+            {...props}
+          >
+            <ChevronLeft className="size-4" />
+          </button>
         ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRight className={cn("size-4", className)} {...props} />
+        NextMonthButton: ({
+          className,
+          ...props
+        }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+          <button
+            type="button"
+            className={cn(
+              "size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+              className
+            )}
+            {...props}
+          >
+            <ChevronRight className="size-4" />
+          </button>
         ),
       }}
       {...props}
     />
-  )
+  );
 }
 
-export { Calendar }
+export { Calendar };

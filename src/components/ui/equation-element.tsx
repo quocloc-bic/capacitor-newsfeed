@@ -1,18 +1,16 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
+import type { TEquationElement } from "@udecode/plate-math";
+import type { PlateElementProps } from "@udecode/plate/react";
 
-import type { TEquationElement } from '@udecode/plate-math';
-import type { PlateElementProps } from '@udecode/plate/react';
+import { useEquationElement } from "@udecode/plate-math/react";
+import { PlateElement, useSelected } from "@udecode/plate/react";
+import { RadicalIcon } from "lucide-react";
 
-import { useEquationElement } from '@udecode/plate-math/react';
-import { PlateElement, useSelected } from '@udecode/plate/react';
-import { RadicalIcon } from 'lucide-react';
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
-import { Popover, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-
-import { EquationPopoverContent } from './equation-popover';
+import { EquationPopoverContent } from "./equation-popover";
 
 export function EquationElement(props: PlateElementProps<TEquationElement>) {
   const selected = useSelected();
@@ -24,12 +22,12 @@ export function EquationElement(props: PlateElementProps<TEquationElement>) {
     katexRef: katexRef,
     options: {
       displayMode: true,
-      errorColor: '#cc0000',
+      errorColor: "#cc0000",
       fleqn: false,
       leqno: false,
-      macros: { '\\f': '#1f(#2)' },
-      output: 'htmlAndMathml',
-      strict: 'warn',
+      macros: { "\\f": "#1f(#2)" },
+      output: "htmlAndMathml",
+      strict: "warn",
       throwOnError: false,
       trust: false,
     },
@@ -41,10 +39,10 @@ export function EquationElement(props: PlateElementProps<TEquationElement>) {
         <PopoverTrigger asChild>
           <div
             className={cn(
-              'group flex cursor-pointer items-center justify-center rounded-sm select-none hover:bg-primary/10 data-[selected=true]:bg-primary/10',
+              "group flex cursor-pointer items-center justify-center rounded-sm select-none hover:bg-primary/10 data-[selected=true]:bg-primary/10",
               props.element.texExpression.length === 0
-                ? 'bg-muted p-3 pr-9'
-                : 'px-2 py-1'
+                ? "bg-muted p-3 pr-9"
+                : "px-2 py-1"
             )}
             data-selected={selected}
             contentEditable={false}
