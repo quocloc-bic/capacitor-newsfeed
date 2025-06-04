@@ -14,9 +14,10 @@ import { useDevice } from "../../hooks/use-device";
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import CollapsibleView from "../../components/collapsible-view";
-import TextEditor from "../../components/text-editor";
 import Divider from "../../components/divider";
 import Button from "@/components/button";
+import { TextEditorProvider } from "../../components/text-editor/text-editor-context";
+import { EditorWithContext } from "../../components/text-editor";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
@@ -27,7 +28,7 @@ const CreateArticlePage: React.FC = () => {
   };
 
   return (
-    <>
+    <TextEditorProvider>
       <IonMenu contentId="main-content" side="end">
         <IonHeader>
           <IonToolbar>
@@ -57,11 +58,10 @@ const CreateArticlePage: React.FC = () => {
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
-          <div className="flex h-full flex-row bg-gray-50 p-5">
-            <div className="flex-1 bg-white flex flex-col">
-              <TextEditor className="flex-1 h-full" />
-
+        <IonContent className="h-full">
+          <div className="flex h-full bg-gray-50 p-5">
+            <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
+              <EditorWithContext className="flex-1 min-h-0" />
               <div className="hidden flex-col md:flex">
                 <Divider height={1} className="my-2" />
                 <div className="flex-row justify-between items-center flex">
@@ -81,7 +81,7 @@ const CreateArticlePage: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
-    </>
+    </TextEditorProvider>
   );
 };
 
