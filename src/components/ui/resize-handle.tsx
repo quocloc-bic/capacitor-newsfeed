@@ -10,7 +10,7 @@ import {
 } from "@udecode/plate-resizable";
 import { cva } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export const mediaResizeHandleVariants = cva(
   cn(

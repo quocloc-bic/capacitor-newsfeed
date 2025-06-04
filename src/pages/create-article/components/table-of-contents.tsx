@@ -1,8 +1,9 @@
-import { useTextEditorContext } from "@/components/text-editor/text-editor-context";
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import styles from "./table-of-contents.module.css";
 import { IonLabel } from "@ionic/react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
+import { textEditorValueEmitter } from "@/components/text-editor";
+import type { Value } from "@udecode/plate";
 
 type TableOfContentsProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -10,26 +11,31 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   className,
   ...props
 }) => {
-  const { jsonValue } = useTextEditorContext();
+  const [editorValue, setEditorValue] = useState<Value>([]);
 
-  const parsedValue = useMemo(() => {
-    return JSON.parse(jsonValue);
-  }, [jsonValue]);
+  useEffect(() => {
+    const unsubscribe = textEditorValueEmitter.subscribe((value) => {
+      setEditorValue(value);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const contents = useMemo(() => {
-    return parsedValue.filter(
+    return (editorValue || []).filter(
       (node: any) =>
         node.type === "h1" || node.type === "h2" || node.type === "h3"
     );
-  }, [parsedValue]);
+  }, [editorValue]);
 
   if (contents.length === 0) {
-    console.log("🚀 ~ table-of-contents.tsx:28 ~ contents:", contents);
     return null;
   }
 
   return (
-    <div className={cn("flex flex-col gap-2", className)} {...props}>
+    <div className={cn("flex flex-col gap-2 px-4 py-2", className)} {...props}>
       {contents.map((item: any) => {
         return (
           <IonLabel key={item.id} className={styles[`item-${item.type}`]}>

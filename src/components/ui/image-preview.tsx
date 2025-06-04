@@ -8,7 +8,7 @@ import { useEditorRef } from "@udecode/plate/react";
 import { cva } from "class-variance-authority";
 import { ArrowLeft, ArrowRight, Download, Minus, Plus, X } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 const toolButtonVariants = cva("rounded bg-[rgba(0,0,0,0.5)] px-1", {
   defaultVariants: {

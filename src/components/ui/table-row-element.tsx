@@ -18,7 +18,7 @@ import {
 import { GripVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
   const { element } = props;

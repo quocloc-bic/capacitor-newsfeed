@@ -2,7 +2,7 @@ import type { SlateElementProps } from "@udecode/plate";
 
 import { SlateElement } from "@udecode/plate";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function ParagraphElementStatic(props: SlateElementProps) {
   return (

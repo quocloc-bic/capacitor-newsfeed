@@ -7,7 +7,7 @@ import {
   useSelected,
 } from "@udecode/plate/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function HrElement(props: PlateElementProps) {
   const readOnly = useReadOnly();

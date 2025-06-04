@@ -58,7 +58,6 @@ import {
 } from "@udecode/plate/react";
 
 import { editorPlugins } from "@/components/text-editor/plugins/editor-plugins";
-import { FixedToolbarPlugin } from "@/components/text-editor/plugins/fixed-toolbar-plugin";
 import { FloatingToolbarPlugin } from "@/components/text-editor/plugins/floating-toolbar-plugin";
 import { BlockquoteElement } from "@/components/ui/blockquote-element";
 import { CalloutElement } from "@/components/ui/callout-element";
@@ -176,7 +175,7 @@ export const useCreateEditor = (
         },
         ...override,
       },
-      plugins: [...editorPlugins, FixedToolbarPlugin, FloatingToolbarPlugin],
+      plugins: [...editorPlugins, FloatingToolbarPlugin],
       value: [],
       ...options,
     },

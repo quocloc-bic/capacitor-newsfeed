@@ -14,7 +14,7 @@ import {
   usePluginOption,
 } from "@udecode/plate/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import { Toolbar } from "./toolbar";
 

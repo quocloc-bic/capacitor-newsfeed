@@ -3,7 +3,7 @@ import * as React from "react";
 import { useColorInput } from "@udecode/plate-font/react";
 import { useComposedRef } from "@udecode/plate/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function ColorInput({
   children,

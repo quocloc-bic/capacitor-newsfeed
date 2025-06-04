@@ -17,11 +17,9 @@ const CollapsibleView: React.FC<CollapsibleViewProps> = ({
       <IonAccordionGroup>
         <IonAccordion color="light">
           <IonItem slot="header">
-            <IonLabel>{title}</IonLabel>
+            <IonLabel className="text-lg font-bold">{title}</IonLabel>
           </IonItem>
-          <div className="ion-padding" slot="content">
-            {children}
-          </div>
+          <div slot="content">{children}</div>
         </IonAccordion>
       </IonAccordionGroup>
     </div>

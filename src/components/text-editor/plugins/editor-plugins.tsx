@@ -17,7 +17,6 @@ import { SlashPlugin } from "@udecode/plate-slash-command/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import { TrailingBlockPlugin } from "@udecode/plate-trailing-block";
 
-import { FixedToolbarPlugin } from "@/components/text-editor/plugins/fixed-toolbar-plugin";
 import { FloatingToolbarPlugin } from "@/components/text-editor/plugins/floating-toolbar-plugin";
 
 import { alignPlugin } from "./align-plugin";
@@ -99,6 +98,5 @@ export const editorPlugins = [
   JuicePlugin,
 
   // UI
-  FixedToolbarPlugin,
   FloatingToolbarPlugin,
 ];

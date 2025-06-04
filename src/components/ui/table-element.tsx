@@ -50,7 +50,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import { DEFAULT_COLORS } from "./color-constants";
 import { ColorDropdownMenuItems } from "./color-dropdown-menu-items";

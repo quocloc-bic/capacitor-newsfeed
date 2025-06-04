@@ -1,39 +1,16 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
-import type { ReactNode } from "react";
-import type { Value } from "@udecode/plate";
+type Listener<T> = (value: T) => void;
 
-interface TextEditorContextType {
-  value: Value;
-  jsonValue: string;
-  setValue: (value: Value) => void;
-}
+export class EditorEventEmitter<T> {
+  private listeners = new Set<Listener<T>>();
 
-const TextEditorContext = createContext<TextEditorContextType | undefined>(
-  undefined
-);
-
-export const TextEditorProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [value, setValue] = useState<Value>([]);
-
-  const jsonValue = useMemo(() => {
-    return JSON.stringify(value, null, 2);
-  }, [value]);
-
-  return (
-    <TextEditorContext.Provider value={{ value, jsonValue, setValue }}>
-      {children}
-    </TextEditorContext.Provider>
-  );
-};
-
-export const useTextEditorContext = () => {
-  const context = useContext(TextEditorContext);
-  if (!context) {
-    throw new Error(
-      "useTextEditorContext must be used within a TextEditorProvider"
-    );
+  subscribe(listener: Listener<T>) {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
   }
-  return context;
-};
+
+  emit(value: T) {
+    for (const listener of this.listeners) {
+      listener(value);
+    }
+  }
+}

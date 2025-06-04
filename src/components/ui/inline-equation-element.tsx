@@ -12,7 +12,7 @@ import {
 import { RadicalIcon } from "lucide-react";
 
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import { EquationPopoverContent } from "./equation-popover";
 

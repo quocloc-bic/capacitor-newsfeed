@@ -9,7 +9,7 @@ import { PlusIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 // import { ColorInput } from './color-input';
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import {
   type TColor,

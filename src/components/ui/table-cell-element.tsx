@@ -22,7 +22,7 @@ import {
 } from "@udecode/plate/react";
 import { cva } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import { blockSelectionVariants } from "./block-selection";
 import { ResizeHandle } from "./resize-handle";

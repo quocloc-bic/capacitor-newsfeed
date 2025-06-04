@@ -11,7 +11,7 @@ import {
   useSelected,
 } from "@udecode/plate/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 import { useMounted } from "@/hooks/use-mounted";
 
 export function MentionElement(

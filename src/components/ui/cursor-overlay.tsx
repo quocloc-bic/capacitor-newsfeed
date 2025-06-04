@@ -5,7 +5,7 @@ import {
   useCursorOverlay,
 } from "@udecode/plate-selection/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function Cursor({
   id,

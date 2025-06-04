@@ -24,7 +24,7 @@ import {
 import { useComposedRef, useEditorRef } from "@udecode/plate/react";
 import { cva } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 type FilterFn = (
   item: { value: string; group?: string; keywords?: string[]; label?: string },

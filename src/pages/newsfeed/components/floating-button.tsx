@@ -1,6 +1,6 @@
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 import { Button } from "@/components/ui/button";
 
 interface FloatingButtonProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 import React from "react";
 
 interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {

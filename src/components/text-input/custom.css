@@ -1,0 +1,16 @@
+ion-input.custom {
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 1;
+
+  /* --padding-bottom: 10px;
+  --padding-end: 20px;
+  --padding-start: 20px;
+  --padding-top: 10px; */
+
+  --ion-item-border-color: #0000;
+  --highlight-color: #000;
+}
+
+ion-input.custom .input-highlight.sc-ion-input-md {
+  --highlight-color: #0000;
+}

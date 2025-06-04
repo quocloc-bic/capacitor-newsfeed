@@ -7,7 +7,7 @@ import {
 import { useReadOnly } from "@udecode/plate/react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 export function TodoMarker(props: Omit<SlateRenderElementProps, "children">) {
   const state = useIndentTodoListElementState({ element: props.element });

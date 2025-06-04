@@ -9,7 +9,7 @@ import { MediaEmbedPlugin, useMediaState } from "@udecode/plate-media/react";
 import { ResizableProvider, useResizableValue } from "@udecode/plate-resizable";
 import { PlateElement, withHOC } from "@udecode/plate/react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 import { Caption, CaptionTextarea } from "./caption";
 import { MediaPopover } from "./media-popover";

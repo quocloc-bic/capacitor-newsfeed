@@ -38,7 +38,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 import { STRUCTURAL_TYPES } from "@/components/text-editor/transforms";
 
 const UNDRAGGABLE_KEYS = [

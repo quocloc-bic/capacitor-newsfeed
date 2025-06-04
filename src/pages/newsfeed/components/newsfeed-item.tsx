@@ -1,6 +1,6 @@
 import React from "react";
 import { type Article } from "../newsfeed-page.hook";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/globals";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   item: Article;

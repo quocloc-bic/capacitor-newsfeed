@@ -1,7 +1,6 @@
 import {
   IonButtons,
   IonContent,
-  IonHeader,
   IonIcon,
   IonMenu,
   IonMenuToggle,
@@ -16,8 +15,8 @@ import { useHistory } from "react-router-dom";
 import CollapsibleView from "../../components/collapsible-view";
 import Divider from "../../components/divider";
 import Button from "@/components/button";
-import { TextEditorProvider } from "../../components/text-editor/text-editor-context";
-import { EditorWithContext } from "../../components/text-editor";
+import { TextEditorWithEmitter } from "@/components/text-editor";
+import Header from "@/components/header";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
@@ -27,23 +26,31 @@ const CreateArticlePage: React.FC = () => {
     console.log("post");
   };
 
+  const onClose = () => {
+    history.goBack();
+  };
+
   return (
-    <TextEditorProvider>
+    <>
       <IonMenu contentId="main-content" side="end">
-        <IonHeader>
+        <Header>
           <IonToolbar>
             <IonTitle>{textConstants.tableOfContents}</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </Header>
         <IonContent className="ion-padding">
           <TableOfContents />
         </IonContent>
       </IonMenu>
       <IonPage id="main-content">
-        <IonHeader hidden={!isMobile}>
+        <Header hidden={!isMobile}>
           <IonToolbar>
             <IonButtons slot="start">
-              <Button onClick={() => history.goBack()}>
+              <Button
+                fill="clear"
+                color="dark"
+                onClick={() => history.goBack()}
+              >
                 <IonIcon icon={chevronBack} />
               </Button>
             </IonButtons>
@@ -57,18 +64,26 @@ const CreateArticlePage: React.FC = () => {
               </Button>
             </IonButtons>
           </IonToolbar>
-        </IonHeader>
+        </Header>
         <IonContent className="h-full">
-          <div className="flex h-full bg-gray-50 p-5">
-            <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
-              <EditorWithContext className="flex-1 min-h-0" />
-              <div className="hidden flex-col md:flex">
-                <Divider height={1} className="my-2" />
-                <div className="flex-row justify-between items-center flex">
-                  <p>{textConstants.savedDraft}</p>
-                  <Button fill="solid" onClick={onPost}>
-                    {textConstants.post}
-                  </Button>
+          <div className="flex h-full bg-gray-50 p-5 justify-center">
+            <div className="max-w-screen-md w-full">
+              <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
+                <TextEditorWithEmitter className="flex-1 min-h-0" />
+                <div className="hidden flex-col md:flex">
+                  <Divider height={1} className="my-2" />
+                  <div className="flex-row items-center flex gap-2">
+                    <p>{textConstants.savedDraft}</p>
+
+                    <div className="flex-1" />
+
+                    <Button fill="clear" color="dark" onClick={onClose}>
+                      {textConstants.close}
+                    </Button>
+                    <Button fill="solid" color="primary" onClick={onPost}>
+                      {textConstants.post}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -81,7 +96,7 @@ const CreateArticlePage: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
-    </TextEditorProvider>
+    </>
   );
 };
 
@@ -92,4 +107,5 @@ const textConstants = {
   savedDraft: "Saved draft at 12:00 PM",
   post: "Post",
   tableOfContents: "Table of Contents",
+  close: "Back",
 };
