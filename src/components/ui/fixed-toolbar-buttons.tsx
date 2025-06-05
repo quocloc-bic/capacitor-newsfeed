@@ -59,12 +59,12 @@ export function FixedToolbarButtons() {
     <div className="flex flex-wrap w-full gap-1">
       {!readOnly && (
         <>
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <UndoToolbarButton />
             <RedoToolbarButton />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <ExportToolbarButton>
               <ArrowUpToLineIcon />
             </ExportToolbarButton>
@@ -72,13 +72,13 @@ export function FixedToolbarButtons() {
             <ImportToolbarButton />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <InsertDropdownMenu />
             <TurnIntoDropdownMenu />
             <FontSizeToolbarButton />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
               <BoldIcon />
             </MarkToolbarButton>
@@ -123,7 +123,7 @@ export function FixedToolbarButtons() {
             </ColorDropdownMenu>
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <AlignDropdownMenu />
 
             <NumberedIndentListToolbarButton />
@@ -132,25 +132,25 @@ export function FixedToolbarButtons() {
             <ToggleToolbarButton />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <LinkToolbarButton />
             <TableDropdownMenu />
             <EmojiDropdownMenu />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <MediaToolbarButton nodeType={ImagePlugin.key} />
             <MediaToolbarButton nodeType={VideoPlugin.key} />
             <MediaToolbarButton nodeType={FilePlugin.key} />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <LineHeightDropdownMenu />
             <OutdentToolbarButton />
             <IndentToolbarButton />
           </ToolbarGroup>
 
-          <ToolbarGroup>
+          <ToolbarGroup className="gap-1">
             <MoreDropdownMenu />
           </ToolbarGroup>
         </>

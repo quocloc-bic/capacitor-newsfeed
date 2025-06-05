@@ -87,6 +87,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
       <Button
         fill="clear"
         color="dark"
+        noPadding
         className="w-full h-full p-0"
         disabled={loading}
         onClick={selectImage}

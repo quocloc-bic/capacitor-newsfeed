@@ -121,3 +121,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+ion-content[data-mode="desktop"] {
+  --keyboard-offset: 0 !important;
+}

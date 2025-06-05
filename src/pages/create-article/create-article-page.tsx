@@ -68,7 +68,10 @@ const CreateArticlePage: React.FC = () => {
             </IonButtons>
           </IonToolbar>
         </Header>
-        <IonContent className="h-full">
+        <IonContent
+          className="h-full"
+          data-mode={isMobile ? "mobile" : "desktop"}
+        >
           <div className="flex h-full bg-gray-50 p-5 justify-center">
             <div className="max-w-screen-md w-full">
               <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">

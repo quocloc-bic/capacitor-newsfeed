@@ -42,7 +42,7 @@ const TextEditor = ({
             onContentChanged?.(options.value);
           }}
         >
-          <EditorContainer>
+          <EditorContainer className="pr-4">
             <FixedToolbar>
               <FixedToolbarButtons />
             </FixedToolbar>

@@ -1,4 +1,4 @@
-import { IonButton } from "@ionic/react";
+import { IonButton, IonSpinner } from "@ionic/react";
 import styles from "./style.module.css";
 import { cn } from "@/utils/globals";
 
@@ -27,6 +27,7 @@ const Button = ({
         loading && "opacity-50"
       )}
     >
+      {loading && <IonSpinner name="crescent" slot="start" className="mr-2" />}
       {children}
     </IonButton>
   );
