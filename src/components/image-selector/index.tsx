@@ -37,20 +37,20 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
   className,
   ...props
 }) => {
-  const { isUploading, progress, uploadedFile, uploadFile, uploadingFile } =
+  const { isUploading, progress, displayImageUrl, downloadURL, uploadFile } =
     useUploadFile();
 
-  const loading = Boolean(isUploading && uploadingFile);
+  const loading = Boolean(isUploading);
 
   useEffect(() => {
     onLoadingChange?.(loading);
   }, [loading, onLoadingChange]);
 
   useEffect(() => {
-    if (uploadedFile) {
-      onImageSelected?.(uploadedFile.url);
+    if (downloadURL) {
+      onImageSelected?.(downloadURL);
     }
-  }, [uploadedFile, onImageSelected]);
+  }, [downloadURL, onImageSelected]);
 
   const { openFilePicker } = useFilePicker({
     readAs: "DataURL",
@@ -92,8 +92,8 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
         onClick={selectImage}
       >
         <RenderProgress progress={progress} />
-        {uploadedFile?.url ? (
-          <RenderImage url={uploadedFile.url} />
+        {displayImageUrl ? (
+          <RenderImage url={displayImageUrl} />
         ) : (
           <RenderEmptyState />
         )}

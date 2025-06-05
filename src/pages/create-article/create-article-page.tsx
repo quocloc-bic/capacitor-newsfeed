@@ -8,23 +8,21 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import TableOfContents from "./components/table-of-contents";
+import TableOfContents from "./components/table-of-contents/table-of-contents";
 import { useDevice } from "../../hooks/use-device";
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import CollapsibleView from "../../components/collapsible-view";
 import Divider from "../../components/divider";
 import Button from "@/components/button";
-import { TextEditorWithEmitter } from "@/components/text-editor";
 import Header from "@/components/header";
+import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
+import useCreateArticle from "./create-article-page.hook";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();
   const history = useHistory();
-
-  const onPost = () => {
-    console.log("post");
-  };
+  const { onPost, loading, isSubmitDisabled } = useCreateArticle();
 
   const onClose = () => {
     history.goBack();
@@ -59,7 +57,12 @@ const CreateArticlePage: React.FC = () => {
               <IonMenuToggle className="flex justify-center items-center">
                 <IonIcon icon={menu} />
               </IonMenuToggle>
-              <Button fill="solid" color="primary" onClick={onPost}>
+              <Button
+                fill="solid"
+                color="primary"
+                onClick={onPost}
+                disabled={loading || isSubmitDisabled}
+              >
                 {textConstants.post}
               </Button>
             </IonButtons>
@@ -69,7 +72,9 @@ const CreateArticlePage: React.FC = () => {
           <div className="flex h-full bg-gray-50 p-5 justify-center">
             <div className="max-w-screen-md w-full">
               <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
-                <TextEditorWithEmitter className="flex-1 min-h-0" />
+                {/* Text editor */}
+                <TextEditorWithEmitterAndStore className="flex-1 min-h-0" />
+
                 <div className="hidden flex-col md:flex">
                   <Divider height={1} className="my-2" />
                   <div className="flex-row items-center flex gap-2">
@@ -80,7 +85,12 @@ const CreateArticlePage: React.FC = () => {
                     <Button fill="clear" color="dark" onClick={onClose}>
                       {textConstants.close}
                     </Button>
-                    <Button fill="solid" color="primary" onClick={onPost}>
+                    <Button
+                      fill="solid"
+                      color="primary"
+                      onClick={onPost}
+                      disabled={loading || isSubmitDisabled}
+                    >
                       {textConstants.post}
                     </Button>
                   </div>

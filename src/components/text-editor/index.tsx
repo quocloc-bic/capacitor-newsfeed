@@ -7,14 +7,13 @@ import { Editor, EditorContainer } from "@/components/ui/editor";
 import { cn } from "@/utils/globals";
 import { useCreateEditor } from "./use-create-editor";
 import type { Value } from "@udecode/plate";
-import { EditorEventEmitter } from "./text-editor-context";
 import ImageSelector from "../image-selector";
 import { FixedToolbar } from "../ui/fixed-toolbar";
 import { FixedToolbarButtons } from "../ui/fixed-toolbar-buttons";
 import "./text-editor.css";
 import TextInput from "../text-input";
 
-interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   onTitleChanged?: (value: string) => void;
   onDescriptionChanged?: (value: string) => void;
   onContentChanged?: (value: Value) => void;
@@ -94,20 +93,3 @@ const TextEditor = ({
 };
 
 export default React.memo(TextEditor);
-
-export const textEditorValueEmitter = new EditorEventEmitter<Value>();
-
-export const TextEditorWithEmitter: React.FC<TextEditorProps> = ({
-  onContentChanged,
-  ...props
-}) => {
-  return (
-    <TextEditor
-      onContentChanged={(value) => {
-        textEditorValueEmitter.emit(value);
-        onContentChanged?.(value);
-      }}
-      {...props}
-    />
-  );
-};

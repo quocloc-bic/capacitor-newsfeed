@@ -4,11 +4,22 @@ import { cn } from "@/utils/globals";
 
 type IonButtonProps = React.ComponentProps<typeof IonButton>;
 
-type ButtonProps = IonButtonProps;
+interface ButtonProps extends IonButtonProps {
+  loading?: boolean;
+}
 
-const Button = ({ children, className, ...props }: ButtonProps) => {
+const Button = ({ children, className, loading, ...props }: ButtonProps) => {
   return (
-    <IonButton {...props} mode="ios" className={cn(styles.button, className)}>
+    <IonButton
+      {...props}
+      mode="ios"
+      className={cn(
+        styles.button,
+        className,
+        props.disabled && "opacity-50",
+        loading && "opacity-50"
+      )}
+    >
       {children}
     </IonButton>
   );
