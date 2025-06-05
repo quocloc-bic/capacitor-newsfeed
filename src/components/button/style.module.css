@@ -1,6 +1,12 @@
+.button-no-padding {
+}
+
+.button-no-padding::part(native) {
+  padding: 0 !important;
+}
+
 .button {
 }
 
 .button::part(native) {
-  padding: 0 !important;
 }

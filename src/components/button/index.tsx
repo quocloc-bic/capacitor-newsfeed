@@ -6,15 +6,22 @@ type IonButtonProps = React.ComponentProps<typeof IonButton>;
 
 interface ButtonProps extends IonButtonProps {
   loading?: boolean;
+  noPadding?: boolean;
 }
 
-const Button = ({ children, className, loading, ...props }: ButtonProps) => {
+const Button = ({
+  children,
+  className,
+  loading,
+  noPadding = false,
+  ...props
+}: ButtonProps) => {
   return (
     <IonButton
       {...props}
       mode="ios"
       className={cn(
-        styles.button,
+        noPadding ? styles["button-no-padding"] : styles["button"],
         className,
         props.disabled && "opacity-50",
         loading && "opacity-50"

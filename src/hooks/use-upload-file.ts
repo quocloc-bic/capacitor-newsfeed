@@ -13,9 +13,11 @@ export const useUploadFile = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [downloadURL, setDownloadURL] = useState<string | null>(null);
   const [displayImageUrl, setDisplayImageUrl] = useState<string | null>(null);
+  const [uploadingFile, setUploadingFile] = useState<File | null>(null);
 
   const uploadFile = (file: File, path = `uploads/${file.name}`) => {
     setIsUploading(true);
+    setUploadingFile(file);
     setError(null);
     setProgress(0);
     setDownloadURL(null);
@@ -33,6 +35,7 @@ export const useUploadFile = () => {
       (err) => {
         setError(err);
         setIsUploading(false);
+        setUploadingFile(null);
       },
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
@@ -41,6 +44,7 @@ export const useUploadFile = () => {
         setDownloadURL(url);
         setProgress(0);
         setIsUploading(false);
+        setUploadingFile(null);
       }
     );
   };
@@ -52,5 +56,6 @@ export const useUploadFile = () => {
     error,
     isUploading,
     downloadURL,
+    uploadingFile,
   };
 };
