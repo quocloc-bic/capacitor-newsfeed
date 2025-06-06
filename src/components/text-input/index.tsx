@@ -7,15 +7,30 @@ import { cn } from "@/utils/globals";
 
 type IonTextInputProps = React.ComponentProps<typeof IonInput>;
 
-type TextInputProps = IonTextInputProps;
+interface TextInputProps extends IonTextInputProps {
+  onEnter?: () => void;
+}
 
 const TextInput: React.FC<TextInputProps> = ({
   className,
+  onEnter,
   ...props
 }: TextInputProps) => {
   return (
     <div className={cn(style["container"], className)}>
-      <IonInput shape="round" class="custom" {...props} />
+      <IonInput
+        shape="round"
+        class="custom"
+        {...props}
+        onKeyDown={(e) => {
+          props.onKeyDown?.(e);
+
+          if (e.key === "Enter" && !e.shiftKey && onEnter) {
+            e.preventDefault();
+            onEnter();
+          }
+        }}
+      />
     </div>
   );
 };

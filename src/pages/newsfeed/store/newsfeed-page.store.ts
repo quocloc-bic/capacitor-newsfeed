@@ -1,10 +1,10 @@
-import type { Article } from "@/types/acticle";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import fetchNewsfeed from "./actions/fetch-newsfeed";
+import type { Article } from "@/types/acticle";
 
 interface NewsfeedState {
-  articles: Article[];
+  articleIds: string[];
   lastCreatedAt: Date | undefined;
   hasMore: boolean;
   loading: boolean;
@@ -13,8 +13,8 @@ interface NewsfeedState {
 }
 
 interface NewsfeedActions {
-  fetchNewsfeed: (lastCreatedAt?: Date) => void;
-  addArticle: (article: Article) => void;
+  fetchNewsfeed: (lastCreatedAt?: Date) => Promise<Article[]>;
+  addArticleId: (articleId: string) => void;
 }
 
 export interface NewsfeedStore {
@@ -23,7 +23,7 @@ export interface NewsfeedStore {
 }
 
 const initialState: NewsfeedState = {
-  articles: [],
+  articleIds: [],
   lastCreatedAt: undefined,
   hasMore: true,
   loading: true,
@@ -36,9 +36,9 @@ const useNewsfeedStore = create<NewsfeedStore>()(
     state: initialState,
     actions: {
       fetchNewsfeed: fetchNewsfeed(set, get),
-      addArticle: (article: Article) => {
+      addArticleId: (articleId: string) => {
         set((state) => {
-          state.state.articles.unshift(article);
+          state.state.articleIds.unshift(articleId);
         });
       },
     },

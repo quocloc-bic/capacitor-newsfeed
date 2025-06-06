@@ -1,45 +1,54 @@
-import { useIonAlert, useIonLoading } from "@ionic/react"
+import { useIonAlert, useIonLoading } from "@ionic/react";
 
 const useAlertPresenter = () => {
-    const [showIonAlert, dismissIonAlert] = useIonAlert()
-    const [showIonLoading, dismissIonLoading] = useIonLoading()
+  const [showIonAlert, dismissIonAlert] = useIonAlert();
+  const [showIonLoading, dismissIonLoading] = useIonLoading();
 
-    const dismissAll = async () => {
-        await dismissIonAlert()
-        await dismissIonLoading()
+  const dismissAll = async () => {
+    await dismissIonAlert();
+    await dismissIonLoading();
+  };
+
+  const showErrorAlert = async (error: any) => {
+    let message = "An unknown error occurred";
+    if (error instanceof Error) {
+      message = error.message;
     }
 
-    const showErrorAlert = async (message: string) => {
-        await dismissAll()
-        await showIonAlert({
-            message,
-            buttons: [{ text: "OK" }],
-        })
+    if (typeof error === "string") {
+      message = error;
     }
 
-    const showSuccessAlert = async (message: string) => {
-        await dismissAll()
-        await showIonAlert({
-            message,
-            buttons: [{ text: "OK" }],
-        })
-    }
+    await dismissAll();
+    await showIonAlert({
+      message,
+      buttons: [{ text: "OK" }],
+    });
+  };
 
-    const showLoading = async (message: string) => {
-        await dismissAll()
-        await showIonLoading({
-            message,
-        })
-    }
+  const showSuccessAlert = async (message: string) => {
+    await dismissAll();
+    await showIonAlert({
+      message,
+      buttons: [{ text: "OK" }],
+    });
+  };
 
-    return {
-        showErrorAlert,
-        showSuccessAlert,
-        dismissAlert: dismissIonAlert,
-        showLoading,
-        dismissLoading: dismissIonLoading,
-        dismissAll,
-    }
-}
+  const showLoading = async (message: string) => {
+    await dismissAll();
+    await showIonLoading({
+      message,
+    });
+  };
 
-export default useAlertPresenter
+  return {
+    showErrorAlert,
+    showSuccessAlert,
+    dismissAlert: dismissIonAlert,
+    showLoading,
+    dismissLoading: dismissIonLoading,
+    dismissAll,
+  };
+};
+
+export default useAlertPresenter;

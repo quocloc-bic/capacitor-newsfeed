@@ -10,6 +10,7 @@ import {
 import { firestore } from "./firebase-config";
 import type { CreateArticlePayload } from "@/types/create-acticle";
 import type { Article } from "@/types/acticle";
+import type { Comment } from "@/types/comment";
 
 const getArticles = async (
   lastCreatedAt?: Date,
@@ -65,6 +66,52 @@ const postArticle = async (params: CreateArticlePayload): Promise<Article> => {
   };
 };
 
-const firebaseService = { postArticle, getArticles };
+const postComment = async (articleId: string, comment: string) => {
+  const params = {
+    articleId,
+    comment,
+    createdAt: new Date(),
+  };
+
+  const ref = collection(firestore, "comments", articleId, "items");
+  const docRef = await addDoc(ref, params);
+  return { id: docRef.id, ...params };
+};
+
+const getComments = async (
+  articleId: string,
+  lastCreatedAt?: Date,
+  pageSize: number = 10
+): Promise<Comment[]> => {
+  const ref = collection(firestore, "comments", articleId, "items");
+  let q;
+
+  if (lastCreatedAt) {
+    q = query(
+      ref,
+      orderBy("createdAt", "desc"),
+      startAfter(lastCreatedAt),
+      limit(pageSize)
+    );
+  } else {
+    q = query(ref, orderBy("createdAt", "desc"), limit(pageSize));
+  }
+
+  const docSnap = await getDocs(q);
+
+  return docSnap.docs.map((doc) => ({
+    id: doc.id,
+    articleId,
+    comment: doc.data().comment as string,
+    createdAt: doc.data().createdAt.toDate(),
+  }));
+};
+
+const firebaseService = {
+  postArticle,
+  getArticles,
+  postComment,
+  getComments,
+};
 
 export default firebaseService;

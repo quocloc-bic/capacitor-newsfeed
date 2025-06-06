@@ -1,4 +1,4 @@
-import useCreateArticleStore from "@/pages/create-article/store";
+import useCreateArticleStore from "@/pages/create-article/store/create-article-page.store";
 import type { Value } from "@udecode/plate";
 import TextEditor, { type TextEditorProps } from "@/components/text-editor";
 import { EditorEventEmitter } from "@/components/text-editor/text-editor-context";

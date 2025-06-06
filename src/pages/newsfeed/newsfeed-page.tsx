@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 
 const NewsfeedPage: React.FC = () => {
-  const { articles, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
+  const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
 
   const history = useHistory();
 
@@ -46,8 +46,8 @@ const NewsfeedPage: React.FC = () => {
             />
 
             <IonList mode="ios">
-              {articles.map((item) => (
-                <NewsfeedItem key={item.id} item={item} className="mb-5" />
+              {articleIds.map((id: string) => (
+                <NewsfeedItem key={id} articleId={id} className="mb-5" />
               ))}
             </IonList>
 

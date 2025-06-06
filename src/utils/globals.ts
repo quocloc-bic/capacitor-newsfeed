@@ -9,7 +9,9 @@ export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date?: Date) => {
+  if (!date) return "";
+
   return date.toLocaleTimeString([], {
     day: "2-digit",
     month: "2-digit",

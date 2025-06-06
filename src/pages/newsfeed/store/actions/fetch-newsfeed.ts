@@ -4,7 +4,7 @@ const fetchNewsfeed =
   (set: (state: any) => void, get: () => any) =>
   async (lastCreatedAt?: Date) => {
     const {
-      state: { articles },
+      state: { articleIds },
     } = get();
 
     set((state: any) => {
@@ -19,17 +19,18 @@ const fetchNewsfeed =
 
     const { articles: newArticles, lastCreatedAt: newLastCreatedAt } = result;
 
-    let updatedArticles = [...newArticles];
-    if (lastCreatedAt) {
-      updatedArticles = [...articles, ...newArticles];
-    }
+    const updatedArticles = Array.from(
+      new Set([...articleIds, ...newArticles.map(({ id }) => id)])
+    );
 
     set((state: any) => {
-      state.state.articles = updatedArticles;
+      state.state.articleIds = updatedArticles;
       state.state.lastCreatedAt = newLastCreatedAt;
       state.state.loading = false;
       state.state.loadingMore = false;
     });
+
+    return newArticles;
   };
 
 export default fetchNewsfeed;

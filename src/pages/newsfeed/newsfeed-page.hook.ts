@@ -1,21 +1,28 @@
 import { useEffect, useCallback } from "react";
-import useNewsfeedStore from "./store";
+import useNewsfeedStore from "./store/newsfeed-page.store";
 import useAlertPresenter from "@/hooks/use-alert-presenter";
+import useArticleStore from "@/store/article/article.store";
 
 const useNewsfeedPage = () => {
   const { showErrorAlert } = useAlertPresenter();
-  const { articles, lastCreatedAt, loading, loadingMore, refreshing } =
+  const { articleIds, lastCreatedAt, loading, loadingMore, refreshing } =
     useNewsfeedStore((state) => state.state);
 
   const { fetchNewsfeed: fetchNewsfeedAction } = useNewsfeedStore(
     (state) => state.actions
   );
 
+  const { addArticle: addArticleAction } = useArticleStore(
+    (state) => state.actions
+  );
+
   const fetchNewsfeed = useCallback(async (lastCreatedAt?: Date) => {
     try {
-      await fetchNewsfeedAction(lastCreatedAt);
+      const articles = await fetchNewsfeedAction(lastCreatedAt);
+
+      addArticleAction(articles);
     } catch (error) {
-      showErrorAlert(error as string);
+      showErrorAlert(error);
     }
   }, []);
 
@@ -33,7 +40,7 @@ const useNewsfeedPage = () => {
   }, [reload]);
 
   return {
-    articles,
+    articleIds,
     loading,
     loadingMore,
     loadMore,
