@@ -12,8 +12,8 @@ import {
 } from "@ionic/react";
 
 const NewsfeedPage: React.FC = () => {
-  const { articles, loading, loadingMore, loadMore, lastCreatedAt } =
-    useNewsfeedPage();
+  const { articles, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
+
   const history = useHistory();
 
   const handleCreateArticle = () => {
@@ -23,12 +23,11 @@ const NewsfeedPage: React.FC = () => {
   if (loading) {
     return (
       <div className="flex h-screen flex-col items-center pt-safe-top">
-        <h1 className="mb-4 text-4xl">Newsfeed</h1>
-        <div className="w-full max-w-md space-y-4">
+        <div className="max-w-screen-md w-full space-y-4">
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="animate-pulse rounded-lg bg-gray-200 p-4 h-24"
+              className="animate-pulse rounded-lg bg-gray-200 p-4 h-[200px]"
             />
           ))}
         </div>
@@ -40,22 +39,26 @@ const NewsfeedPage: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="flex justify-center pt-[var(--ion-safe-area-top)]">
-          <div className="w-full px-4 md:w-[600px]">
+          <div className="max-w-screen-md w-full p-4">
             <FloatingButton
               onClick={handleCreateArticle}
-              className="md:right-[calc((100vw-600px)/2-5rem)] z-10"
+              className="md:right-[calc((100vw-768px)/2-5rem)] z-10"
             />
 
-            <IonList>
+            <IonList mode="ios">
               {articles.map((item) => (
-                <NewsfeedItem key={item.id} item={item} className="mb-4" />
+                <NewsfeedItem key={item.id} item={item} className="mb-5" />
               ))}
             </IonList>
 
-            {!loadingMore && !loading && lastCreatedAt && (
+            {lastCreatedAt && (
               <IonInfiniteScroll
-                onIonInfinite={() => {
+                onIonInfinite={(event) => {
                   loadMore();
+
+                  setTimeout(() => {
+                    event.target.complete();
+                  }, 2000);
                 }}
               >
                 <IonInfiniteScrollContent />

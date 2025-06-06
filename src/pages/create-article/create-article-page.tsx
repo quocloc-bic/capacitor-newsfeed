@@ -20,7 +20,7 @@ import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/
 import useCreateArticle from "./create-article-page.hook";
 
 const CreateArticlePage: React.FC = () => {
-  const { isMobile } = useDevice();
+  const { isMobilePlatform, isMobile } = useDevice();
   const history = useHistory();
   const { onPost, loading, isSubmitDisabled } = useCreateArticle();
 
@@ -71,7 +71,7 @@ const CreateArticlePage: React.FC = () => {
         </Header>
         <IonContent
           className="h-full"
-          data-mode={isMobile ? "mobile" : "desktop"}
+          data-mode={isMobilePlatform ? "mobile" : "desktop"}
         >
           <div className="flex h-full bg-gray-50 p-5 justify-center">
             <div className="max-w-screen-md w-full">

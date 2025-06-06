@@ -1,7 +1,7 @@
 import React from "react";
 import { cn, formatDate } from "@/utils/globals";
 import type { Article } from "@/types/acticle";
-import { IonImg, IonLabel } from "@ionic/react";
+import { IonCard, IonImg, IonLabel } from "@ionic/react";
 import "./newsfeed-item.css";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,34 +10,38 @@ interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ item, ...props }) => {
   return (
-    <div
+    <IonCard
       className={cn(
-        "rounded-lg bg-white p-4 shadow-md flex flex-col gap-2",
+        "rounded-lg bg-white shadow-md flex flex-col gap-2 border border-border",
         props.className
       )}
     >
-      <div
-        className="w-full rounded-md overflow-hidden mb-2"
-        style={{ aspectRatio: "21/9" }}
-      >
-        <IonImg
-          src={item.coverImage}
-          alt="cover"
-          className="w-full h-full object-cover aspect-[21/9]"
-        />
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="ml-auto text-xs text-gray-400">
-          {formatDate(item.createdAt)}
+      <IonImg
+        src={item.coverImage}
+        alt="cover"
+        className="w-full h-full object-cover aspect-[21/9]"
+      />
+
+      <div className="p-4">
+        <div className="flex items-center gap-2">
+          <div className="ml-auto text-xs text-gray-400">
+            {formatDate(item.createdAt)}
+          </div>
         </div>
+
+        <div className="h-2" />
+
+        <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
+          {item.title}
+        </IonLabel>
+
+        <div className="h-2" />
+
+        <IonLabel className="text-gray-700 text-sm clamp-2">
+          {item.description}
+        </IonLabel>
       </div>
-      <IonLabel className="text-gray-700 text-base clamp-2 font-bold">
-        {item.title}
-      </IonLabel>
-      <IonLabel className="text-gray-700 text-base clamp-2">
-        {item.description}
-      </IonLabel>
-    </div>
+    </IonCard>
   );
 };
 

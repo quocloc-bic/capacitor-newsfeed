@@ -13,7 +13,7 @@ import type { Article } from "@/types/acticle";
 
 const getArticles = async (
   lastCreatedAt?: Date,
-  pageSize: number = 3
+  pageSize: number = 10
 ): Promise<{
   articles: Article[];
   lastCreatedAt?: Date;
@@ -45,7 +45,7 @@ const getArticles = async (
   }));
 
   const lastVisible = docSnap.docs[docSnap.docs.length - 1];
-  const lastCreatedAtValue = lastVisible?.data().createdAt as Date;
+  const lastCreatedAtValue = lastVisible?.data().createdAt.toDate();
 
   return { articles, lastCreatedAt: lastCreatedAtValue };
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isPlatform } from "@ionic/react";
 
 export function useDevice() {
   const getIsMobile = () =>
@@ -14,5 +15,5 @@ export function useDevice() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return { isMobile };
+  return { isMobile, isMobilePlatform: isPlatform("mobile") };
 }
