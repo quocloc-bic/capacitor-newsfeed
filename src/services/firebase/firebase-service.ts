@@ -6,28 +6,26 @@ import {
   orderBy,
   query,
   startAfter,
-  QueryDocumentSnapshot,
 } from "firebase/firestore/lite";
-import type { DocumentData } from "firebase/firestore/lite";
 import { firestore } from "./firebase-config";
 import type { CreateArticlePayload } from "@/types/create-acticle";
 import type { Article } from "@/types/acticle";
 
 const getArticles = async (
-  pageSize: number = 10,
-  lastDoc?: QueryDocumentSnapshot<DocumentData>
+  lastCreatedAt?: Date,
+  pageSize: number = 3
 ): Promise<{
   articles: Article[];
-  lastDoc?: QueryDocumentSnapshot<DocumentData>;
+  lastCreatedAt?: Date;
 }> => {
   const ref = collection(firestore, "article");
   let q;
 
-  if (lastDoc) {
+  if (lastCreatedAt) {
     q = query(
       ref,
       orderBy("createdAt", "desc"),
-      startAfter(lastDoc),
+      startAfter(lastCreatedAt),
       limit(pageSize)
     );
   } else {
@@ -42,13 +40,14 @@ const getArticles = async (
     description: doc.data().description,
     content: doc.data().content,
     coverImage: doc.data().coverImage,
-    createdAt: doc.data().createdAt,
-    updatedAt: doc.data().updatedAt,
+    createdAt: doc.data().createdAt.toDate(),
+    updatedAt: doc.data().updatedAt.toDate(),
   }));
 
   const lastVisible = docSnap.docs[docSnap.docs.length - 1];
+  const lastCreatedAtValue = lastVisible?.data().createdAt as Date;
 
-  return { articles, lastDoc: lastVisible };
+  return { articles, lastCreatedAt: lastCreatedAtValue };
 };
 
 const postArticle = async (params: CreateArticlePayload): Promise<string> => {

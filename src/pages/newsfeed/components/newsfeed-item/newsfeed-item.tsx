@@ -1,6 +1,8 @@
 import React from "react";
-import { type Article } from "../newsfeed-page.hook";
-import { cn } from "@/utils/globals";
+import { cn, formatDate } from "@/utils/globals";
+import type { Article } from "@/types/acticle";
+import { IonImg, IonLabel } from "@ionic/react";
+import "./newsfeed-item.css";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   item: Article;
@@ -18,27 +20,23 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ item, ...props }) => {
         className="w-full rounded-md overflow-hidden mb-2"
         style={{ aspectRatio: "21/9" }}
       >
-        <img
-          src={item.coverUrl}
+        <IonImg
+          src={item.coverImage}
           alt="cover"
-          className="w-full h-full object-cover"
-          style={{ aspectRatio: "21/9" }}
-          loading="lazy"
+          className="w-full h-full object-cover aspect-[21/9]"
         />
       </div>
       <div className="flex items-center gap-2">
-        <div className="h-8 w-8 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">
-          {item.author.charAt(0)}
-        </div>
-        <div className="text-sm font-semibold">{item.author}</div>
         <div className="ml-auto text-xs text-gray-400">
-          {new Date(item.createdAt).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {formatDate(item.createdAt)}
         </div>
       </div>
-      <div className="text-gray-700 text-base">{item.content}</div>
+      <IonLabel className="text-gray-700 text-base clamp-2 font-bold">
+        {item.title}
+      </IonLabel>
+      <IonLabel className="text-gray-700 text-base clamp-2">
+        {item.description}
+      </IonLabel>
     </div>
   );
 };

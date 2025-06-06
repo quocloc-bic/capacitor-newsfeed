@@ -1,6 +1,6 @@
 import React from "react";
 import useNewsfeedPage from "./newsfeed-page.hook";
-import NewsfeedItem from "./components/newsfeed-item";
+import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
 import { useHistory } from "react-router-dom";
 import {
@@ -12,7 +12,8 @@ import {
 } from "@ionic/react";
 
 const NewsfeedPage: React.FC = () => {
-  const { items, loading, loadingMore, hasMore, loadMore } = useNewsfeedPage();
+  const { articles, loading, loadingMore, loadMore, lastCreatedAt } =
+    useNewsfeedPage();
   const history = useHistory();
 
   const handleCreateArticle = () => {
@@ -46,16 +47,15 @@ const NewsfeedPage: React.FC = () => {
             />
 
             <IonList>
-              {items.map((item) => (
+              {articles.map((item) => (
                 <NewsfeedItem key={item.id} item={item} className="mb-4" />
               ))}
             </IonList>
 
-            {hasMore && !loadingMore && !loading && (
+            {!loadingMore && !loading && lastCreatedAt && (
               <IonInfiniteScroll
-                onIonInfinite={(event) => {
+                onIonInfinite={() => {
                   loadMore();
-                  setTimeout(() => event.target.complete(), 500);
                 }}
               >
                 <IonInfiniteScrollContent />
