@@ -8,16 +8,16 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import TableOfContents from "./components/table-of-contents/table-of-contents";
-import { useDevice } from "../../hooks/use-device";
+import { useDevice } from "../../shared/hooks/use-device";
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
-import CollapsibleView from "../../components/collapsible-view";
-import Divider from "../../components/divider";
-import Button from "@/components/button";
-import Header from "@/components/header";
+import CollapsibleView from "@/shared/components/collapsible-view";
+import Divider from "@/shared/components/divider";
+import Button from "@/shared/components/button";
+import Header from "@/shared/components/header";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
 import useCreateArticle from "./create-article-page.hook";
-import Content from "@/components/content";
+import Content from "@/shared/components/content";
 
 const CreateArticlePage: React.FC = () => {
   const { isMobile } = useDevice();

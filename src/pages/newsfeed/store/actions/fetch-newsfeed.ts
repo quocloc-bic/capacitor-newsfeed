@@ -1,4 +1,4 @@
-import firebaseService from "@/services/firebase/firebase-service";
+import firebaseService from "@/shared/services/firebase/firebase-service";
 
 const fetchNewsfeed =
   (set: (state: any) => void, get: () => any) =>

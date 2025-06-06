@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from "react";
 import styles from "./table-of-contents.module.css";
 import { IonLabel } from "@ionic/react";
-import { cn } from "@/utils/globals";
+import { cn } from "@/shared/utils/globals";
 import type { Value } from "@udecode/plate";
 import { textEditorValueEmitter } from "../text-editor-wrapper/text-editor-wrapper";
 

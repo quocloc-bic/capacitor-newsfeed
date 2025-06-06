@@ -1,15 +1,13 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import fetchNewsfeed from "./actions/fetch-newsfeed";
-import type { Article } from "@/types/acticle";
+import type { Article } from "@/core/types/article";
 
 interface NewsfeedState {
   articleIds: string[];
   lastCreatedAt: Date | undefined;
-  hasMore: boolean;
   loading: boolean;
   loadingMore: boolean;
-  refreshing: boolean;
 }
 
 interface NewsfeedActions {
@@ -25,10 +23,8 @@ export interface NewsfeedStore {
 const initialState: NewsfeedState = {
   articleIds: [],
   lastCreatedAt: undefined,
-  hasMore: true,
   loading: true,
   loadingMore: false,
-  refreshing: false,
 };
 
 const useNewsfeedStore = create<NewsfeedStore>()(

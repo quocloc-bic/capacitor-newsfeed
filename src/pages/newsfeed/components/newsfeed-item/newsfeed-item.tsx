@@ -1,19 +1,23 @@
 import React from "react";
-import { cn, formatDate } from "@/utils/globals";
+import { cn, formatDate } from "@/shared/utils/globals";
 import { IonCard, IonImg, IonLabel, IonList, IonSpinner } from "@ionic/react";
 import "./newsfeed-item.css";
 import CommentInput from "../comment-input/comment-input";
-import useArticleStore from "@/store/article/article.store";
+import useArticleStore from "@/shared/store/article/article.store";
 import useNewsfeedItem from "./newsfeed-item.hook";
 import CommentItemWithStore from "../comment-item-wrapper/comment-item-wrapper";
-import Divider from "@/components/divider";
+import Divider from "@/shared/components/divider";
+import { useShallow } from "zustand/react/shallow";
+import articleSelectors from "@/shared/store/article/article.selector";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
 }
 
 const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
-  const article = useArticleStore((state) => state.state.articles[articleId]);
+  const article = useArticleStore(
+    useShallow(articleSelectors.getArticle(articleId))
+  );
   const { loadingComments, commentIds } = useNewsfeedItem(articleId);
 
   if (!article) return null;

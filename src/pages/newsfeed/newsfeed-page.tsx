@@ -9,7 +9,7 @@ import {
   IonList,
   IonPage,
 } from "@ionic/react";
-import Content from "@/components/content";
+import Content from "@/shared/components/content";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();

@@ -1,6 +1,6 @@
-import Button from "@/components/button";
-import TextInput from "@/components/text-input";
-import { cn } from "@/utils/globals";
+import Button from "@/shared/components/button";
+import TextInput from "@/shared/components/text-input";
+import { cn } from "@/shared/utils/globals";
 import { IonIcon, IonSpinner } from "@ionic/react";
 import { send } from "ionicons/icons";
 import useCommentInput from "./comment-input.hook";

@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import useCommentStore from "@/store/comment/comment.store";
+import useCommentStore from "@/shared/store/comment/comment.store";
+import commentSelectors from "@/shared/store/comment/comment.selector";
+import { useShallow } from "zustand/react/shallow";
 
 const useNewsfeedItem = (articleId: string) => {
   const { fetchComments: fetchCommentsAction } = useCommentStore(
     (state) => state.actions
   );
-  const { articleComments } = useCommentStore((state) => state.state);
+  const commentIds = useCommentStore(
+    useShallow(commentSelectors.getArticleComments(articleId))
+  );
 
   const [loadingComments, setLoadingComments] = useState(false);
 
@@ -18,7 +22,7 @@ const useNewsfeedItem = (articleId: string) => {
     } finally {
       setLoadingComments(false);
     }
-  }, [articleId, fetchCommentsAction]);
+  }, [articleId]);
 
   useEffect(() => {
     fetchComments();
@@ -26,7 +30,7 @@ const useNewsfeedItem = (articleId: string) => {
 
   return {
     loadingComments,
-    commentIds: articleComments[articleId] || [],
+    commentIds,
   };
 };
 

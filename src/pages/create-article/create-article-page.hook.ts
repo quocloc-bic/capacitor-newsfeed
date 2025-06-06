@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAlertPresenter from "@/hooks/use-alert-presenter";
+import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 import { useHistory } from "react-router-dom";
 import useCreateArticleStore from "./store/create-article-page.store";
 import useNewsfeedStore from "../newsfeed/store/newsfeed-page.store";

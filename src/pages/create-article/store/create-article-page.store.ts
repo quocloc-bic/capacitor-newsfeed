@@ -1,9 +1,9 @@
 import { isEqual } from "lodash";
 import { create } from "zustand";
-import type { CreateArticlePayload } from "@/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-acticle";
 import { immer } from "zustand/middleware/immer";
 import createArticle from "./actions/create-article";
-import type { Article } from "@/types/acticle";
+import type { Article } from "@/core/types/article";
 
 interface CreateArticleState {
   payload: CreateArticlePayload;

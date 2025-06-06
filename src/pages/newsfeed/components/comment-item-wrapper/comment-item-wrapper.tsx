@@ -1,5 +1,7 @@
-import useCommentStore from "@/store/comment/comment.store";
-import CommentItem from "@/components/comment-item/comment-item";
+import useCommentStore from "@/shared/store/comment/comment.store";
+import CommentItem from "@/shared/components/comment-item/comment-item";
+import commentSelectors from "@/shared/store/comment/comment.selector";
+import { useShallow } from "zustand/react/shallow";
 
 interface CommentItemWithStoreProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,7 +12,9 @@ const CommentItemWithStore: React.FC<CommentItemWithStoreProps> = ({
   commentId,
   ...props
 }) => {
-  const comment = useCommentStore((state) => state.state.comments?.[commentId]);
+  const comment = useCommentStore(
+    useShallow(commentSelectors.getComment(commentId))
+  );
 
   if (!comment) return null;
 

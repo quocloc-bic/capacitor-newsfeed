@@ -1,5 +1,5 @@
-import useAlertPresenter from "@/hooks/use-alert-presenter";
-import useCommentStore from "@/store/comment/comment.store";
+import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
+import useCommentStore from "@/shared/store/comment/comment.store";
 import { useState } from "react";
 
 interface CommentInputProps {
