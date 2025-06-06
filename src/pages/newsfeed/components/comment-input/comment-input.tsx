@@ -39,9 +39,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ articleId, ...props }) => {
         }}
       >
         {loading ? (
-          <IonSpinner name="crescent" slot="icon-only" />
+          <IonSpinner name="crescent" slot="icon-only" className="size-4" />
         ) : (
-          <IonIcon icon={send} slot="icon-only" />
+          <IonIcon icon={send} slot="icon-only" size="sm" />
         )}
       </Button>
     </div>

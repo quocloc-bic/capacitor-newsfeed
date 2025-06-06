@@ -1,6 +1,5 @@
 import {
   IonButtons,
-  IonContent,
   IonIcon,
   IonMenu,
   IonMenuToggle,
@@ -18,9 +17,10 @@ import Button from "@/components/button";
 import Header from "@/components/header";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
 import useCreateArticle from "./create-article-page.hook";
+import Content from "@/components/content";
 
 const CreateArticlePage: React.FC = () => {
-  const { isMobilePlatform, isMobile } = useDevice();
+  const { isMobile } = useDevice();
   const history = useHistory();
   const { onPost, loading, isSubmitDisabled } = useCreateArticle();
 
@@ -36,9 +36,9 @@ const CreateArticlePage: React.FC = () => {
             <IonTitle>{textConstants.tableOfContents}</IonTitle>
           </IonToolbar>
         </Header>
-        <IonContent className="ion-padding">
+        <Content className="ion-padding">
           <TableOfContents />
-        </IonContent>
+        </Content>
       </IonMenu>
       <IonPage id="main-content">
         <Header hidden={!isMobile}>
@@ -69,10 +69,7 @@ const CreateArticlePage: React.FC = () => {
             </IonButtons>
           </IonToolbar>
         </Header>
-        <IonContent
-          className="h-full"
-          data-mode={isMobilePlatform ? "mobile" : "desktop"}
-        >
+        <Content className="h-full">
           <div className="flex h-full bg-gray-50 p-5 justify-center">
             <div className="max-w-screen-md w-full">
               <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
@@ -109,7 +106,7 @@ const CreateArticlePage: React.FC = () => {
               </CollapsibleView>
             </div>
           </div>
-        </IonContent>
+        </Content>
       </IonPage>
     </>
   );

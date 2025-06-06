@@ -4,12 +4,12 @@ import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
 import { useHistory } from "react-router-dom";
 import {
-  IonContent,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonList,
   IonPage,
 } from "@ionic/react";
+import Content from "@/components/content";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
@@ -37,7 +37,7 @@ const NewsfeedPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
+      <Content>
         <div className="flex justify-center pt-[var(--ion-safe-area-top)]">
           <div className="max-w-screen-md w-full p-4">
             <FloatingButton
@@ -45,9 +45,9 @@ const NewsfeedPage: React.FC = () => {
               className="md:right-[calc((100vw-768px)/2-5rem)] z-10"
             />
 
-            <IonList mode="ios">
+            <IonList mode="ios" className="space-y-6">
               {articleIds.map((id: string) => (
-                <NewsfeedItem key={id} articleId={id} className="mb-5" />
+                <NewsfeedItem key={id} articleId={id} />
               ))}
             </IonList>
 
@@ -66,7 +66,7 @@ const NewsfeedPage: React.FC = () => {
             )}
           </div>
         </div>
-      </IonContent>
+      </Content>
     </IonPage>
   );
 };

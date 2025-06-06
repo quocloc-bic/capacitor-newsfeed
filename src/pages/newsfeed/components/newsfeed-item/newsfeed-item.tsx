@@ -6,6 +6,7 @@ import CommentInput from "../comment-input/comment-input";
 import useArticleStore from "@/store/article/article.store";
 import useNewsfeedItem from "./newsfeed-item.hook";
 import CommentItemWithStore from "../comment-item-wrapper/comment-item-wrapper";
+import Divider from "@/components/divider";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
@@ -48,32 +49,30 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
               {formatDate(article?.createdAt)}
             </IonLabel>
           </div>
+
+          <Divider className="my-4" />
+
+          <CommentInput articleId={articleId} />
+
+          {loadingComments && (
+            <div className="flex items-center justify-center my-4">
+              <IonSpinner name="crescent" />
+            </div>
+          )}
+
+          {commentIds.length > 0 && (
+            <>
+              <Divider className="my-4" />
+
+              <IonList mode="ios" className="space-y-4">
+                {commentIds.map((commentId) => (
+                  <CommentItemWithStore key={commentId} commentId={commentId} />
+                ))}
+              </IonList>
+            </>
+          )}
         </div>
       </IonCard>
-
-      <div className="p-2" />
-
-      <CommentInput articleId={articleId} />
-
-      <div className="p-2" />
-
-      {loadingComments && (
-        <div className="flex items-center justify-center">
-          <IonSpinner name="crescent" />
-        </div>
-      )}
-
-      {commentIds.length > 0 && (
-        <IonList mode="ios">
-          {commentIds.map((commentId) => (
-            <CommentItemWithStore
-              key={commentId}
-              commentId={commentId}
-              className="mb-4"
-            />
-          ))}
-        </IonList>
-      )}
     </div>
   );
 };
