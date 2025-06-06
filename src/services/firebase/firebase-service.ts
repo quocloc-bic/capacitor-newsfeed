@@ -50,7 +50,7 @@ const getArticles = async (
   return { articles, lastCreatedAt: lastCreatedAtValue };
 };
 
-const postArticle = async (params: CreateArticlePayload): Promise<string> => {
+const postArticle = async (params: CreateArticlePayload): Promise<Article> => {
   const updatedParams = {
     ...params,
     createdAt: new Date(),
@@ -59,7 +59,10 @@ const postArticle = async (params: CreateArticlePayload): Promise<string> => {
 
   const ref = collection(firestore, "article");
   const docRef = await addDoc(ref, updatedParams);
-  return docRef.id;
+  return {
+    id: docRef.id,
+    ...updatedParams,
+  };
 };
 
 const firebaseService = { postArticle, getArticles };

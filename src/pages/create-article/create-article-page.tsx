@@ -61,7 +61,8 @@ const CreateArticlePage: React.FC = () => {
                 fill="solid"
                 color="primary"
                 onClick={onPost}
-                disabled={loading || isSubmitDisabled}
+                loading={loading}
+                disabled={isSubmitDisabled}
               >
                 {textConstants.post}
               </Button>
@@ -92,7 +93,8 @@ const CreateArticlePage: React.FC = () => {
                       fill="solid"
                       color="primary"
                       onClick={onPost}
-                      disabled={loading || isSubmitDisabled}
+                      loading={loading}
+                      disabled={isSubmitDisabled}
                     >
                       {textConstants.post}
                     </Button>

@@ -14,6 +14,7 @@ interface NewsfeedState {
 
 interface NewsfeedActions {
   fetchNewsfeed: (lastCreatedAt?: Date) => void;
+  addArticle: (article: Article) => void;
 }
 
 export interface NewsfeedStore {
@@ -35,6 +36,11 @@ const useNewsfeedStore = create<NewsfeedStore>()(
     state: initialState,
     actions: {
       fetchNewsfeed: fetchNewsfeed(set, get),
+      addArticle: (article: Article) => {
+        set((state) => {
+          state.state.articles.unshift(article);
+        });
+      },
     },
   }))
 );

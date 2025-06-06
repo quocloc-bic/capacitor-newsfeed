@@ -3,6 +3,7 @@ import { create } from "zustand";
 import type { CreateArticlePayload } from "@/types/create-acticle";
 import { immer } from "zustand/middleware/immer";
 import createArticle from "./actions/create-article";
+import type { Article } from "@/types/acticle";
 
 interface CreateArticleState {
   payload: CreateArticlePayload;
@@ -11,7 +12,7 @@ interface CreateArticleState {
 
 interface CreateArticleActions {
   setPayload: (payload: Partial<CreateArticlePayload>) => void;
-  triggerCreateArticle: () => Promise<string>;
+  triggerCreateArticle: () => Promise<Article>;
   clearPayload: () => void;
 }
 

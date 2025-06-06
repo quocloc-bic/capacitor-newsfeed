@@ -20,6 +20,7 @@ const Button = ({
     <IonButton
       {...props}
       mode="ios"
+      disabled={loading || props.disabled}
       className={cn(
         noPadding ? styles["button-no-padding"] : styles["button"],
         className,
