@@ -14,6 +14,8 @@ import "./text-editor.css";
 import TextInput from "../text-input";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
+  readOnly?: boolean;
+  value?: Value;
   onTitleChanged?: (value: string) => void;
   onDescriptionChanged?: (value: string) => void;
   onContentChanged?: (value: Value) => void;
@@ -22,13 +24,18 @@ export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TextEditor = ({
   className,
+  readOnly,
+  value,
   onContentChanged,
   onTitleChanged,
   onDescriptionChanged,
   onCoverImageChanged,
   ...props
 }: TextEditorProps) => {
-  const editor = useCreateEditor();
+  const editor = useCreateEditor({
+    readOnly,
+    value,
+  });
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");

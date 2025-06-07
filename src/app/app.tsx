@@ -22,6 +22,7 @@ import { Route } from "react-router-dom";
 import SplashPage from "@/pages/splash/splash-page";
 import NewsfeedPage from "@/pages/newsfeed/newsfeed-page";
 import CreateArticlePage from "@/pages/create-article/create-article-page";
+import ArticleDetailPage from "@/pages/article-detail/article-detail-page";
 
 setupIonicReact();
 
@@ -32,6 +33,7 @@ const App: React.FC = () => (
         <Route path="/" exact component={SplashPage} />
         <Route path="/newsfeed" exact component={NewsfeedPage} />
         <Route path="/create-article" exact component={CreateArticlePage} />
+        <Route path="/article" exact component={ArticleDetailPage} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

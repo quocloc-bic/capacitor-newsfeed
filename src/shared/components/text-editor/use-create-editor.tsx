@@ -153,12 +153,14 @@ export const useCreateEditor = (
     override,
     placeholders,
     readOnly,
+    value,
     ...options
   }: {
     components?: Record<string, any>;
     placeholders?: boolean;
     plugins?: any[];
     readOnly?: boolean;
+    value?: Value;
   } & Omit<CreatePlateEditorOptions, "plugins"> = {},
   deps: any[] = []
 ) => {
@@ -176,7 +178,7 @@ export const useCreateEditor = (
         ...override,
       },
       plugins: [...editorPlugins, FloatingToolbarPlugin],
-      value: [],
+      value: value || [],
       ...options,
     },
     deps

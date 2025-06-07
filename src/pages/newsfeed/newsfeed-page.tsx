@@ -47,7 +47,7 @@ const NewsfeedPage: React.FC = () => {
 
             <IonList mode="ios" className="space-y-6">
               {articleIds.map((id: string) => (
-                <NewsfeedItem key={id} articleId={id} />
+                <NewsfeedItem articleId={id} />
               ))}
             </IonList>
 

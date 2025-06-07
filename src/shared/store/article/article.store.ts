@@ -1,6 +1,7 @@
 import type { Article } from "@/core/types/article";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import getArticle from "./actions/getArticle";
 
 interface ArticleState {
   articles: {
@@ -10,6 +11,7 @@ interface ArticleState {
 
 interface ArticleActions {
   addArticle: (article: Article | Article[]) => void;
+  getArticle: (articleId: string) => Promise<Article | undefined>;
 }
 
 export interface ArticleStore {
@@ -36,6 +38,7 @@ const useArticleStore = create<ArticleStore>()(
           }
         });
       },
+      getArticle: getArticle(set),
     },
   }))
 );

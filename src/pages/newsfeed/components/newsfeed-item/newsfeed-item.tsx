@@ -1,6 +1,13 @@
 import React from "react";
 import { cn, formatDate } from "@/shared/utils/globals";
-import { IonCard, IonImg, IonLabel, IonList, IonSpinner } from "@ionic/react";
+import {
+  IonCard,
+  IonImg,
+  IonLabel,
+  IonList,
+  IonRouterLink,
+  IonSpinner,
+} from "@ionic/react";
 import "./newsfeed-item.css";
 import CommentInput from "../comment-input/comment-input";
 import useArticleStore from "@/shared/store/article/article.store";
@@ -29,11 +36,16 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
           "rounded-lg bg-white shadow-md flex flex-col gap-2 border border-border"
         )}
       >
-        <IonImg
-          src={article?.coverImage}
-          alt="cover"
-          className="w-full h-full object-cover aspect-[21/9]"
-        />
+        <IonRouterLink
+          routerLink={`/article?id=${articleId}`}
+          routerDirection="forward"
+        >
+          <IonImg
+            src={article?.coverImage}
+            alt="cover"
+            className="w-full h-full object-cover aspect-[21/9]"
+          />
+        </IonRouterLink>
 
         <div className="p-4">
           <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">

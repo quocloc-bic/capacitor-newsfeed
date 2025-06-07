@@ -1,6 +1,8 @@
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -49,6 +51,24 @@ const getArticles = async (
   const lastCreatedAtValue = lastVisible?.data().createdAt.toDate();
 
   return { articles, lastCreatedAt: lastCreatedAtValue };
+};
+
+const getArticle = async (articleId: string): Promise<Article | undefined> => {
+  const ref = doc(firestore, "article", articleId);
+  const docSnap = await getDoc(ref);
+  if (!docSnap.exists()) {
+    return undefined;
+  }
+
+  return {
+    id: docSnap.id,
+    title: docSnap.data().title,
+    description: docSnap.data().description,
+    content: docSnap.data().content,
+    coverImage: docSnap.data().coverImage,
+    createdAt: docSnap.data().createdAt.toDate(),
+    updatedAt: docSnap.data().updatedAt.toDate(),
+  };
 };
 
 const postArticle = async (params: CreateArticlePayload): Promise<Article> => {
@@ -112,6 +132,7 @@ const getComments = async (
 const firebaseService = {
   postArticle,
   getArticles,
+  getArticle,
   postComment,
   getComments,
 };
