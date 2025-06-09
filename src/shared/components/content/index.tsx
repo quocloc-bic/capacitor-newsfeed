@@ -4,11 +4,11 @@ import { IonContent } from "@ionic/react";
 type ContentProps = React.ComponentProps<typeof IonContent>;
 
 const Content = (props: ContentProps) => {
-  const { isMobilePlatform } = useDevice();
+  const { isMobilePlatform, isMobile } = useDevice();
 
   return (
     <IonContent
-      data-mode={isMobilePlatform ? "mobile" : "desktop"}
+      data-mode={isMobilePlatform && isMobile ? "mobile" : "desktop"}
       {...props}
     />
   );

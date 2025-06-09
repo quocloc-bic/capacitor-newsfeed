@@ -1,10 +1,14 @@
 import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 export function useQueryParams<T extends Record<string, string>>() {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const initialParams = useRef<T | null>(null);
 
-  const params = Object.fromEntries(searchParams.entries()) as T;
+  if (initialParams.current === null) {
+    const searchParams = new URLSearchParams(location.search);
+    initialParams.current = Object.fromEntries(searchParams.entries()) as T;
+  }
 
-  return params;
+  return initialParams.current;
 }

@@ -6,7 +6,9 @@ import { useShallow } from "zustand/react/shallow";
 
 const useArticleDetailPage = (articleId: string) => {
   const [loading, setLoading] = useState(true);
-  const article = useArticleStore(articleSelectors.getArticle(articleId));
+  const article = useArticleStore(
+    useShallow(articleSelectors.getArticle(articleId))
+  );
   const { getArticle } = useArticleStore(useShallow((state) => state.actions));
 
   const fetchArticle = useCallback(async (articleId: string) => {

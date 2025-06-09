@@ -25,6 +25,7 @@ type ArticleDetailPageQueryParams = {
 const ArticleDetailPage: React.FC = () => {
   const { id } = useQueryParams<ArticleDetailPageQueryParams>();
   const { article, loading } = useArticleDetailPage(id);
+
   const { isMobile } = useDevice();
   const history = useHistory();
 
@@ -42,10 +43,12 @@ const ArticleDetailPage: React.FC = () => {
       </Header>
 
       <Content>
+        {!loading && !article && <PageNotFound />}
+
         <div
           className={cn(
             "flex flex-1 bg-gray-5 justify-center p-10",
-            loading && "bg-white"
+            loading && !article && "bg-white"
           )}
         >
           <div className="max-w-screen-md w-full">
@@ -53,9 +56,7 @@ const ArticleDetailPage: React.FC = () => {
               <ArticleDetailPageSkeleton />
             ) : article ? (
               <ArticleDetailContent article={article} />
-            ) : (
-              <PageNotFound />
-            )}
+            ) : null}
           </div>
         </div>
       </Content>
