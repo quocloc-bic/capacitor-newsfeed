@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useNewsfeedPage from "./newsfeed-page.hook";
 import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
@@ -20,13 +20,6 @@ const NewsfeedPage: React.FC = () => {
     history.push("/create-article");
   };
 
-  useEffect(() => {
-    console.log(
-      "🚀 ~ newsfeed-page.tsx:38 ~ NewsfeedPage ~ articleIds:",
-      articleIds
-    );
-  }, [articleIds]);
-
   if (loading) {
     return (
       <div className="flex h-screen flex-col items-center pt-safe-top">
@@ -43,7 +36,7 @@ const NewsfeedPage: React.FC = () => {
   }
 
   return (
-    <IonPage>
+    <IonPage className="bg-background">
       <Content>
         <div className="flex justify-center pt-[var(--ion-safe-area-top)]">
           <div className="max-w-screen-md w-full p-4">

@@ -1,16 +1,21 @@
-import Header from "@/shared/components/header";
-import { IonButtons, IonIcon, IonTitle, IonToolbar } from "@ionic/react";
-import { IonPage } from "@ionic/react";
-import { useQueryParams } from "@/shared/hooks/use-query-params";
-import useArticleDetailPage from "./article-detail-page.hook";
+import Button from "@/shared/components/button";
 import Content from "@/shared/components/content";
-import ArticleDetailContent from "./components/article-detail-content";
+import Header from "@/shared/components/header";
 import PageNotFound from "@/shared/components/page-not-found";
 import { useDevice } from "@/shared/hooks/use-device";
-import ArticleDetailPageSkeleton from "./components/article-detail-skeleton";
-import Button from "@/shared/components/button";
+import { useQueryParams } from "@/shared/hooks/use-query-params";
+import {
+  IonButtons,
+  IonIcon,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 import { chevronBack } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
+import useArticleDetailPage from "./article-detail-page.hook";
+import ArticleDetailContent from "./components/article-detail-content";
+import ArticleDetailPageSkeleton from "./components/article-detail-skeleton";
 
 type ArticleDetailPageQueryParams = {
   id: string;
@@ -35,8 +40,8 @@ const ArticleDetailPage: React.FC = () => {
         </IonToolbar>
       </Header>
 
-      <Content className="h-full">
-        <div className="flex h-full bg-gray-50 justify-center">
+      <Content>
+        <div className="flex flex-1 bg-gray-5 justify-center p-10">
           <div className="max-w-screen-md w-full">
             {loading && !article ? (
               <ArticleDetailPageSkeleton />

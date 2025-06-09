@@ -1,6 +1,7 @@
 import type { Comment } from "@/core/types/comment";
 import { cn, formatDate } from "@/shared/utils/globals";
-import { IonLabel } from "@ionic/react";
+import { IonIcon, IonLabel } from "@ionic/react";
+import { personCircle } from "ionicons/icons";
 
 interface CommentItemProps extends React.HTMLAttributes<HTMLDivElement> {
   comment: Comment;
@@ -8,17 +9,23 @@ interface CommentItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment, ...props }) => {
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-2 p-2 bg-gray-100 rounded-lg",
-        props.className
-      )}
-    >
-      <IonLabel className="text-sm text-gray-700">{comment.comment}</IonLabel>
+    <div className="flex items-start gap-2">
+      <IonIcon icon={personCircle} size="large" />
 
-      <IonLabel className="text-xs text-gray-500 self-end">
-        {formatDate(comment.createdAt)}
-      </IonLabel>
+      <div
+        className={cn(
+          "flex flex-col gap-2 p-4 bg-[#f8f8fb] rounded-lg flex-1",
+          props.className
+        )}
+      >
+        <IonLabel className="text-base font-normal text-neutral-60 break-word">
+          {comment.comment}
+        </IonLabel>
+
+        <IonLabel className="text-xs font-medium text-neutral-40 text-right">
+          {formatDate(comment.createdAt)}
+        </IonLabel>
+      </div>
     </div>
   );
 };
