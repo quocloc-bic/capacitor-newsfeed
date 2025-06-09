@@ -15,10 +15,13 @@ const PlateContentViewer: React.FC<PlateContentViewerProps> = ({
   className,
   ...props
 }) => {
-  const editor = useCreateEditor({
-    readOnly: true,
-    value,
-  });
+  const editor = useCreateEditor(
+    {
+      readOnly: true,
+      value,
+    },
+    [value]
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>

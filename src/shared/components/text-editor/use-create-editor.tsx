@@ -164,6 +164,8 @@ export const useCreateEditor = (
   } & Omit<CreatePlateEditorOptions, "plugins"> = {},
   deps: any[] = []
 ) => {
+  console.log("🚀 ~ use-create-editor.tsx:168 ~ value:", value);
+
   return usePlateEditor<Value, (typeof editorPlugins)[number]>(
     {
       override: {

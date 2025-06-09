@@ -4,6 +4,7 @@ import type { CreateArticlePayload } from "@/core/types/create-acticle";
 import { immer } from "zustand/middleware/immer";
 import createArticle from "./actions/create-article";
 import type { Article } from "@/core/types/article";
+import updateArticle from "./actions/update-article";
 
 interface CreateArticleState {
   payload: CreateArticlePayload;
@@ -13,6 +14,7 @@ interface CreateArticleState {
 interface CreateArticleActions {
   setPayload: (payload: Partial<CreateArticlePayload>) => void;
   triggerCreateArticle: () => Promise<Article>;
+  triggerUpdateArticle: (articleId: string) => Promise<Article>;
   clearPayload: () => void;
 }
 
@@ -55,6 +57,7 @@ const useCreateArticleStore = create<CreateArticleStore>()(
         });
       },
       triggerCreateArticle: createArticle(get),
+      triggerUpdateArticle: updateArticle(get),
       clearPayload: () => {
         set((state) => {
           state.state.payload = initialState.payload;

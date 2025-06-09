@@ -18,15 +18,30 @@ import Header from "@/shared/components/header";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
 import useCreateArticle from "./create-article-page.hook";
 import Content from "@/shared/components/content";
+import { useQueryParams } from "@/shared/hooks/use-query-params";
+import { useEffect } from "react";
+import useCreateArticleStore from "./store/create-article-page.store";
+
+type CreateArticlePageQueryParams = {
+  id: string;
+};
 
 const CreateArticlePage: React.FC = () => {
+  const { id } = useQueryParams<CreateArticlePageQueryParams>();
   const { isMobile } = useDevice();
   const history = useHistory();
-  const { onPost, loading, isSubmitDisabled } = useCreateArticle();
+  const { onPost, loading, isSubmitDisabled, article } = useCreateArticle(id);
+  const { setPayload } = useCreateArticleStore((state) => state.actions);
 
   const onClose = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    if (article) {
+      setPayload(article);
+    }
+  }, [article]);
 
   return (
     <>
@@ -69,12 +84,16 @@ const CreateArticlePage: React.FC = () => {
             </IonButtons>
           </IonToolbar>
         </Header>
+
         <Content className="h-full">
           <div className="flex h-full bg-gray-50 p-5 justify-center">
             <div className="max-w-screen-md w-full">
               <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
                 {/* Text editor */}
-                <TextEditorWithEmitterAndStore className="flex-1 min-h-0" />
+                <TextEditorWithEmitterAndStore
+                  className="flex-1 min-h-0"
+                  articleId={id}
+                />
 
                 <div className="hidden flex-col md:flex">
                   <Divider height={1} className="my-2" />
@@ -93,7 +112,7 @@ const CreateArticlePage: React.FC = () => {
                       loading={loading}
                       disabled={isSubmitDisabled}
                     >
-                      {textConstants.post}
+                      {id ? textConstants.save : textConstants.post}
                     </Button>
                   </div>
                 </div>
@@ -118,6 +137,7 @@ const textConstants = {
   title: "Create Article",
   savedDraft: "Saved draft at 12:00 PM",
   post: "Post",
+  save: "Save",
   tableOfContents: "Table of Contents",
   close: "Back",
 };

@@ -16,6 +16,7 @@ import CommentItemWithStore from "../comment-item-wrapper/comment-item-wrapper";
 import Divider from "@/shared/components/divider";
 import { useShallow } from "zustand/react/shallow";
 import articleSelectors from "@/shared/store/article/article.selector";
+import { AppRoutes, appRoutesFactory } from "@/app/app";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
@@ -37,7 +38,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
         )}
       >
         <IonRouterLink
-          routerLink={`/article?id=${articleId}`}
+          routerLink={appRoutesFactory(articleId)[AppRoutes.ArticleDetail]}
           routerDirection="forward"
         >
           <IonImg

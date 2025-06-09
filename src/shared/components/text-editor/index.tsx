@@ -12,10 +12,10 @@ import { FixedToolbar } from "../ui/fixed-toolbar";
 import { FixedToolbarButtons } from "../ui/fixed-toolbar-buttons";
 import "./text-editor.css";
 import TextInput from "../text-input";
+import type { Article } from "@/core/types/article";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  value?: Value;
+  article?: Article;
   onTitleChanged?: (value: string) => void;
   onDescriptionChanged?: (value: string) => void;
   onContentChanged?: (value: Value) => void;
@@ -24,8 +24,7 @@ export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TextEditor = ({
   className,
-  readOnly,
-  value,
+  article,
   onContentChanged,
   onTitleChanged,
   onDescriptionChanged,
@@ -33,12 +32,13 @@ const TextEditor = ({
   ...props
 }: TextEditorProps) => {
   const editor = useCreateEditor({
-    readOnly,
-    value,
+    value: article?.content ? JSON.parse(article.content) : undefined,
   });
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [title, setTitle] = useState<string>(article?.title || "");
+  const [description, setDescription] = useState<string>(
+    article?.description || ""
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -59,6 +59,7 @@ const TextEditor = ({
 
               <ImageSelector
                 className="w-full aspect-[21/9]"
+                imageUrl={article?.coverImage || ""}
                 onImageSelected={(image) => {
                   onCoverImageChanged?.(image);
                 }}

@@ -1,3 +1,4 @@
+import { AppRoutes } from "@/app/app";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -6,7 +7,7 @@ const useSplashPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      history.push("/newsfeed");
+      history.push(AppRoutes.Newsfeed);
     }, 1000);
   }, [history]);
 

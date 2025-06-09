@@ -34,8 +34,9 @@ const useNewsfeedStore = create<NewsfeedStore>()(
       fetchNewsfeed: fetchNewsfeed(set, get),
       addArticleId: (articleId: string) => {
         set((state) => {
-          // state.state.articleIds = [articleId, ...state.state.articleIds];
-          state.state.articleIds.unshift(articleId);
+          state.state.articleIds = Array.from(
+            new Set([articleId, ...state.state.articleIds])
+          );
         });
       },
     },

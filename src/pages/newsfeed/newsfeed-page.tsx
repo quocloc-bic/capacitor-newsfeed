@@ -10,6 +10,7 @@ import {
   IonPage,
 } from "@ionic/react";
 import Content from "@/shared/components/content";
+import { AppRoutes } from "@/app/app";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
@@ -17,7 +18,7 @@ const NewsfeedPage: React.FC = () => {
   const history = useHistory();
 
   const handleCreateArticle = () => {
-    history.push("/create-article");
+    history.push(AppRoutes.CreateArticle);
   };
 
   if (loading) {
@@ -42,7 +43,7 @@ const NewsfeedPage: React.FC = () => {
           <div className="max-w-screen-md w-full p-4">
             <FloatingButton
               onClick={handleCreateArticle}
-              className="md:right-[calc((100vw-768px)/2-5rem)] z-10"
+              className="[@media(min-width:900px)]:right-[calc((100vw-768px)/2-5rem)] z-10"
             />
 
             <IonList mode="ios" className="space-y-6">

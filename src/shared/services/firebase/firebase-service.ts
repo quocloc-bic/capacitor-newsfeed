@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   startAfter,
+  updateDoc,
 } from "firebase/firestore/lite";
 import { firestore } from "./firebase-config";
 import type { CreateArticlePayload } from "@/core/types/create-acticle";
@@ -86,6 +87,25 @@ const postArticle = async (params: CreateArticlePayload): Promise<Article> => {
   };
 };
 
+const updateArticle = async (
+  articleId: string,
+  params: CreateArticlePayload
+): Promise<Article> => {
+  const ref = doc(firestore, "article", articleId);
+  const updatedParams = {
+    ...params,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  await updateDoc(ref, updatedParams);
+
+  return {
+    id: articleId,
+    ...updatedParams,
+  };
+};
+
 const postComment = async (articleId: string, comment: string) => {
   const params = {
     articleId,
@@ -131,6 +151,7 @@ const getComments = async (
 
 const firebaseService = {
   postArticle,
+  updateArticle,
   getArticles,
   getArticle,
   postComment,

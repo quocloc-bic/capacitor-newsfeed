@@ -26,14 +26,42 @@ import ArticleDetailPage from "@/pages/article-detail/article-detail-page";
 
 setupIonicReact();
 
+export enum AppRoutes {
+  Splash = "/",
+  Newsfeed = "/newsfeed",
+  CreateArticle = "/create-article",
+  ArticleDetail = "/article",
+  EditArticle = "/edit-article",
+}
+
+export const appRoutesFactory = (id: string) => {
+  return {
+    [AppRoutes.ArticleDetail]: `/article?id=${id}`,
+    [AppRoutes.EditArticle]: `/edit-article?id=${id}`,
+  };
+};
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route path="/" exact component={SplashPage} />
-        <Route path="/newsfeed" exact component={NewsfeedPage} />
-        <Route path="/create-article" exact component={CreateArticlePage} />
-        <Route path="/article" exact component={ArticleDetailPage} />
+        <Route path={AppRoutes.Splash} exact component={SplashPage} />
+        <Route path={AppRoutes.Newsfeed} exact component={NewsfeedPage} />
+        <Route
+          path={AppRoutes.CreateArticle}
+          exact
+          component={CreateArticlePage}
+        />
+        <Route
+          path={AppRoutes.ArticleDetail}
+          exact
+          component={ArticleDetailPage}
+        />
+        <Route
+          path={AppRoutes.EditArticle}
+          exact
+          component={CreateArticlePage}
+        />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

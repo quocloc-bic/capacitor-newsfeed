@@ -1,11 +1,16 @@
+import { AppRoutes } from "@/app/app";
+import { appRoutesFactory } from "@/app/app";
 import type { Article } from "@/core/types/article";
 import CommentInput from "@/pages/newsfeed/components/comment-input/comment-input";
 import CommentItemWithStore from "@/pages/newsfeed/components/comment-item-wrapper/comment-item-wrapper";
 import useNewsfeedItem from "@/pages/newsfeed/components/newsfeed-item/newsfeed-item.hook";
+import Button from "@/shared/components/button";
 import Divider from "@/shared/components/divider";
 import PlateContentViewer from "@/shared/components/plate-content-viewer";
 import { cn } from "@/shared/utils/globals";
-import { IonCard, IonImg, IonList, IonSpinner } from "@ionic/react";
+import { IonCard, IonIcon, IonImg, IonList, IonSpinner } from "@ionic/react";
+import { createOutline } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
 
 interface ArticleDetailContentProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,7 +22,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
   className,
 }) => {
   const { loadingComments, commentIds } = useNewsfeedItem(article?.id || "");
-
+  const history = useHistory();
   const content = article?.content ? JSON.parse(article.content) : [];
 
   if (!article) {
@@ -37,6 +42,22 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
           alt={article?.title}
           className="aspect-[21/9] w-full object-cover"
         />
+
+        <Button
+          fill="clear"
+          color="dark"
+          className="absolute top-0 right-4 text-white h-4"
+          noPadding
+          onClick={() => {
+            if (!article?.id) {
+              return;
+            }
+
+            history.push(appRoutesFactory(article?.id)[AppRoutes.EditArticle]);
+          }}
+        >
+          <IonIcon icon={createOutline} size="large" />
+        </Button>
       </div>
       <div className="flex flex-col gap-4 px-11">
         <h1 className="text-4xl font-semibold text-neutral-60">

@@ -7,6 +7,7 @@ import { useFilePicker } from "use-file-picker";
 import { useUploadFile } from "@/shared/hooks/use-upload-file";
 
 interface ImageSelectorProps extends React.HTMLAttributes<HTMLDivElement> {
+  imageUrl?: string;
   onImageSelected?: (image: string) => void;
   onLoadingChange?: (loading: boolean) => void;
 }
@@ -32,6 +33,7 @@ const RenderProgress = ({ progress }: { progress: number }) =>
   ) : null;
 
 const ImageSelector: React.FC<ImageSelectorProps> = ({
+  imageUrl,
   onImageSelected,
   onLoadingChange,
   className,
@@ -93,8 +95,8 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
         onClick={selectImage}
       >
         <RenderProgress progress={progress} />
-        {displayImageUrl ? (
-          <RenderImage url={displayImageUrl} />
+        {displayImageUrl || imageUrl ? (
+          <RenderImage url={displayImageUrl || imageUrl || ""} />
         ) : (
           <RenderEmptyState />
         )}

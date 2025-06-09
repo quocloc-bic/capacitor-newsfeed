@@ -4,6 +4,7 @@ import Header from "@/shared/components/header";
 import PageNotFound from "@/shared/components/page-not-found";
 import { useDevice } from "@/shared/hooks/use-device";
 import { useQueryParams } from "@/shared/hooks/use-query-params";
+import { cn } from "@/shared/utils/globals";
 import {
   IonButtons,
   IonIcon,
@@ -41,7 +42,12 @@ const ArticleDetailPage: React.FC = () => {
       </Header>
 
       <Content>
-        <div className="flex flex-1 bg-gray-5 justify-center p-10">
+        <div
+          className={cn(
+            "flex flex-1 bg-gray-5 justify-center p-10",
+            loading && "bg-white"
+          )}
+        >
           <div className="max-w-screen-md w-full">
             {loading && !article ? (
               <ArticleDetailPageSkeleton />
