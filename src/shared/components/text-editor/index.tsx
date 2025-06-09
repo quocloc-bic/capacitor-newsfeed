@@ -50,48 +50,50 @@ const TextEditor = ({
           }}
         >
           <EditorContainer className="pr-4">
-            <FixedToolbar>
-              <FixedToolbarButtons />
-            </FixedToolbar>
+            <div className="">
+              <FixedToolbar>
+                <FixedToolbarButtons />
+              </FixedToolbar>
 
-            <div className="h-4" />
+              <div className="h-4" />
 
-            <ImageSelector
-              className="w-full aspect-[21/9]"
-              onImageSelected={(image) => {
-                onCoverImageChanged?.(image);
-              }}
-            />
+              <ImageSelector
+                className="w-full aspect-[21/9]"
+                onImageSelected={(image) => {
+                  onCoverImageChanged?.(image);
+                }}
+              />
 
-            <div className="h-4" />
+              <div className="h-4" />
 
-            <TextInput
-              placeholder="Title....*"
-              className="w-full font-bold text-2xl p-0"
-              maxlength={64}
-              value={title}
-              onIonInput={(e: any) => {
-                setTitle(e.detail.value ?? "");
-                onTitleChanged?.(e.detail.value ?? "");
-              }}
-            />
+              <TextInput
+                placeholder="Title....*"
+                className="w-full font-bold text-2xl p-0"
+                maxlength={64}
+                value={title}
+                onIonInput={(e: any) => {
+                  setTitle(e.detail.value ?? "");
+                  onTitleChanged?.(e.detail.value ?? "");
+                }}
+              />
 
-            <div className="h-4" />
+              <div className="h-4" />
 
-            <TextInput
-              placeholder="Write max 255 words long description..."
-              className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
-              maxlength={255}
-              value={description}
-              onIonInput={(e: any) => {
-                setDescription(e.detail.value ?? "");
-                onDescriptionChanged?.(e.detail.value ?? "");
-              }}
-            />
+              <TextInput
+                placeholder="Write max 255 words long description..."
+                className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
+                maxlength={255}
+                value={description}
+                onIonInput={(e: any) => {
+                  setDescription(e.detail.value ?? "");
+                  onDescriptionChanged?.(e.detail.value ?? "");
+                }}
+              />
 
-            <div className="h-4" />
+              <div className="h-4" />
 
-            <Editor placeholder="Type your amazing content here...." />
+              <Editor placeholder="Type your amazing content here...." />
+            </div>
           </EditorContainer>
         </Plate>
       </div>

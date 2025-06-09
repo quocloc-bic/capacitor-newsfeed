@@ -2,7 +2,6 @@ import React from "react";
 
 import { IonInput } from "@ionic/react";
 import "./custom.css";
-import style from "./style.module.css";
 import { cn } from "@/shared/utils/globals";
 
 type IonTextInputProps = React.ComponentProps<typeof IonInput>;
@@ -17,7 +16,7 @@ const TextInput: React.FC<TextInputProps> = ({
   ...props
 }: TextInputProps) => {
   return (
-    <div className={cn(style["container"], className)}>
+    <div className={cn(className)}>
       <IonInput
         shape="round"
         class="custom"

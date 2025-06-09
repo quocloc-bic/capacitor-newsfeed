@@ -22,7 +22,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ articleId, ...props }) => {
       )}
     >
       <TextInput
-        placeholder="Add a comment"
+        placeholder={textConstants.placeholder}
         className="w-full"
         value={comment}
         onIonInput={(e) => {
@@ -49,3 +49,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ articleId, ...props }) => {
 };
 
 export default CommentInput;
+
+const textConstants = {
+  placeholder: "Write your comment...",
+};

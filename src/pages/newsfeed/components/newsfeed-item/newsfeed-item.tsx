@@ -27,6 +27,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
   );
   const { loadingComments, commentIds } = useNewsfeedItem(articleId);
 
+  console.log("🚀 ~ newsfeed-item.tsx:26 ~ articleId:", articleId, article);
   if (!article) return null;
 
   return (

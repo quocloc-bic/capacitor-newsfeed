@@ -3,6 +3,7 @@ import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 import { useHistory } from "react-router-dom";
 import useCreateArticleStore from "./store/create-article-page.store";
 import useNewsfeedStore from "../newsfeed/store/newsfeed-page.store";
+import useArticleStore from "@/shared/store/article/article.store";
 
 const useCreateArticle = () => {
   const { showErrorAlert, showSuccessAlert } = useAlertPresenter();
@@ -10,6 +11,7 @@ const useCreateArticle = () => {
   const history = useHistory();
 
   const { addArticleId } = useNewsfeedStore((state) => state.actions);
+  const { addArticle } = useArticleStore((state) => state.actions);
 
   const isValidPayload = useCreateArticleStore(
     (state) => state.state.isValidPayload
@@ -25,6 +27,7 @@ const useCreateArticle = () => {
 
       const article = await triggerCreateArticle();
       addArticleId(article.id);
+      addArticle(article);
 
       showSuccessAlert("Article created successfully");
       history.goBack();

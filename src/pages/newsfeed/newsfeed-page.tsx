@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useNewsfeedPage from "./newsfeed-page.hook";
 import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
@@ -19,6 +19,13 @@ const NewsfeedPage: React.FC = () => {
   const handleCreateArticle = () => {
     history.push("/create-article");
   };
+
+  useEffect(() => {
+    console.log(
+      "🚀 ~ newsfeed-page.tsx:38 ~ NewsfeedPage ~ articleIds:",
+      articleIds
+    );
+  }, [articleIds]);
 
   if (loading) {
     return (
@@ -47,7 +54,7 @@ const NewsfeedPage: React.FC = () => {
 
             <IonList mode="ios" className="space-y-6">
               {articleIds.map((id: string) => (
-                <NewsfeedItem articleId={id} />
+                <NewsfeedItem articleId={id} key={id} />
               ))}
             </IonList>
 
