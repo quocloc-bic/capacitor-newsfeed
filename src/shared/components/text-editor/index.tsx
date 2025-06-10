@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Plate } from "@udecode/plate/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -22,84 +22,141 @@ export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   onCoverImageChanged?: (value: string) => void;
 }
 
-const TextEditor = ({
-  className,
-  article,
-  onContentChanged,
-  onTitleChanged,
-  onDescriptionChanged,
-  onCoverImageChanged,
-  ...props
-}: TextEditorProps) => {
-  const editor = useCreateEditor({
-    value: article?.content ? JSON.parse(article.content) : undefined,
-  });
+const TitleInput = React.memo(
+  ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
+    <TextInput
+      placeholder={textConstants.title}
+      className="w-full font-bold text-2xl p-0"
+      maxlength={64}
+      value={value}
+      onIonInput={(e: any) => {
+        onChange(e.detail.value ?? "");
+      }}
+    />
+  )
+);
 
-  const [title, setTitle] = useState<string>(article?.title || "");
-  const [description, setDescription] = useState<string>(
-    article?.description || ""
-  );
+const DescriptionInput = React.memo(
+  ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
+    <TextInput
+      placeholder={textConstants.description}
+      className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
+      maxlength={255}
+      value={value}
+      onIonInput={(e: any) => {
+        onChange(e.detail.value ?? "");
+      }}
+    />
+  )
+);
 
-  return (
-    <DndProvider backend={HTML5Backend}>
-      <div className={cn("editor-container", "bg-white", className)} {...props}>
-        <Plate
-          editor={editor}
-          onChange={(options) => {
-            onContentChanged?.(options.value);
-          }}
+const TextEditor = React.memo(
+  ({
+    className,
+    article,
+    onContentChanged,
+    onTitleChanged,
+    onDescriptionChanged,
+    onCoverImageChanged,
+    ...props
+  }: TextEditorProps) => {
+    const editor = useCreateEditor(
+      {
+        value: article?.content ? JSON.parse(article.content) : undefined,
+      },
+      [article]
+    );
+
+    const [title, setTitle] = useState<string>(article?.title || "");
+    const [description, setDescription] = useState<string>(
+      article?.description || ""
+    );
+
+    useEffect(() => {
+      if (article) {
+        setTitle(article.title || "");
+        setDescription(article.description || "");
+      }
+    }, [article]);
+
+    const handleTitleChange = useCallback(
+      (value: string) => {
+        setTitle(value);
+        onTitleChanged?.(value);
+      },
+      [onTitleChanged]
+    );
+
+    const handleDescriptionChange = useCallback(
+      (value: string) => {
+        setDescription(value);
+        onDescriptionChanged?.(value);
+      },
+      [onDescriptionChanged]
+    );
+
+    const handleCoverImageChange = useCallback(
+      (image: string) => {
+        onCoverImageChanged?.(image);
+      },
+      [onCoverImageChanged]
+    );
+
+    const handleContentChange = useCallback(
+      (options: { value: Value }) => {
+        onContentChanged?.(options.value);
+      },
+      [onContentChanged]
+    );
+
+    return (
+      <DndProvider backend={HTML5Backend}>
+        <div
+          className={cn("editor-container", "bg-white", className)}
+          {...props}
         >
-          <EditorContainer className="pr-4">
-            <div className="">
-              <FixedToolbar>
-                <FixedToolbarButtons />
-              </FixedToolbar>
+          <Plate editor={editor} onChange={handleContentChange}>
+            <EditorContainer className="pr-4">
+              <div>
+                <FixedToolbar>
+                  <FixedToolbarButtons />
+                </FixedToolbar>
 
-              <div className="h-4" />
+                <div className="h-4" />
 
-              <ImageSelector
-                className="w-full aspect-[21/9]"
-                imageUrl={article?.coverImage || ""}
-                onImageSelected={(image) => {
-                  onCoverImageChanged?.(image);
-                }}
-              />
+                <ImageSelector
+                  className="w-full aspect-[21/9]"
+                  imageUrl={article?.coverImage || ""}
+                  onImageSelected={handleCoverImageChange}
+                />
 
-              <div className="h-4" />
+                <div className="h-4" />
 
-              <TextInput
-                placeholder="Title....*"
-                className="w-full font-bold text-2xl p-0"
-                maxlength={64}
-                value={title}
-                onIonInput={(e: any) => {
-                  setTitle(e.detail.value ?? "");
-                  onTitleChanged?.(e.detail.value ?? "");
-                }}
-              />
+                <TitleInput value={title} onChange={handleTitleChange} />
 
-              <div className="h-4" />
+                <div className="h-4" />
 
-              <TextInput
-                placeholder="Write max 255 words long description..."
-                className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
-                maxlength={255}
-                value={description}
-                onIonInput={(e: any) => {
-                  setDescription(e.detail.value ?? "");
-                  onDescriptionChanged?.(e.detail.value ?? "");
-                }}
-              />
+                <DescriptionInput
+                  value={description}
+                  onChange={handleDescriptionChange}
+                />
 
-              <div className="h-4" />
+                <div className="h-4" />
 
-              <Editor placeholder="Type your amazing content here...." />
-            </div>
-          </EditorContainer>
-        </Plate>
-      </div>
-    </DndProvider>
-  );
+                <Editor placeholder={textConstants.content} />
+              </div>
+            </EditorContainer>
+          </Plate>
+        </div>
+      </DndProvider>
+    );
+  }
+);
+
+export default TextEditor;
+
+const textConstants = {
+  title: "Title....*",
+  description: "Write max 255 words long description...",
+  content: "Type your amazing content here....",
 };
-
-export default React.memo(TextEditor);

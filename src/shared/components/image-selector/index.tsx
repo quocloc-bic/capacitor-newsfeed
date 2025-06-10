@@ -21,7 +21,7 @@ const RenderEmptyState = () => (
 );
 
 const RenderImage = ({ url }: { url: string }) => (
-  <IonImg src={url} alt="cover" className="w-full h-full object-cover" />
+  <IonImg src={url} className="w-full h-full object-cover" />
 );
 
 const RenderProgress = ({ progress }: { progress: number }) =>

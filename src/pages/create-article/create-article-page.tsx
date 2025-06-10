@@ -30,7 +30,8 @@ const CreateArticlePage: React.FC = () => {
   const { id } = useQueryParams<CreateArticlePageQueryParams>();
   const { isMobile } = useDevice();
   const history = useHistory();
-  const { onPost, loading, isSubmitDisabled, article } = useCreateArticle(id);
+  const { onPost, submitLoading, isSubmitDisabled, article } =
+    useCreateArticle(id);
   const { setPayload } = useCreateArticleStore((state) => state.actions);
 
   const onClose = () => {
@@ -76,7 +77,7 @@ const CreateArticlePage: React.FC = () => {
                 fill="solid"
                 color="primary"
                 onClick={onPost}
-                loading={loading}
+                loading={submitLoading}
                 disabled={isSubmitDisabled}
               >
                 {textConstants.post}
@@ -109,7 +110,7 @@ const CreateArticlePage: React.FC = () => {
                       fill="solid"
                       color="primary"
                       onClick={onPost}
-                      loading={loading}
+                      loading={submitLoading}
                       disabled={isSubmitDisabled}
                     >
                       {id ? textConstants.save : textConstants.post}

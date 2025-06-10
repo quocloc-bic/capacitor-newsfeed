@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 import { useHistory } from "react-router-dom";
 import useCreateArticleStore from "./store/create-article-page.store";
@@ -9,11 +9,12 @@ import { useShallow } from "zustand/react/shallow";
 
 const useCreateArticle = (articleId?: string) => {
   const { showErrorAlert, showSuccessAlert } = useAlertPresenter();
-  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const history = useHistory();
 
   const { addArticleId } = useNewsfeedStore((state) => state.actions);
-  const { addArticle } = useArticleStore((state) => state.actions);
+  const { addArticle, getArticle } = useArticleStore((state) => state.actions);
   const article = useArticleStore(
     useShallow(articleSelectors.getArticle(articleId || ""))
   );
@@ -29,9 +30,23 @@ const useCreateArticle = (articleId?: string) => {
     (state) => state.actions.triggerUpdateArticle
   );
 
+  const fetchArticle = useCallback(async () => {
+    if (!articleId) {
+      return;
+    }
+
+    setDataLoading(true);
+    await getArticle(articleId);
+    setDataLoading(false);
+  }, [articleId]);
+
+  useEffect(() => {
+    fetchArticle();
+  }, [articleId]);
+
   const onPost = async () => {
     try {
-      setLoading(true);
+      setSubmitLoading(true);
 
       const article = articleId
         ? await triggerUpdateArticle(articleId)
@@ -49,13 +64,14 @@ const useCreateArticle = (articleId?: string) => {
     } catch (error) {
       showErrorAlert(error as string);
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
   return {
     onPost,
-    loading,
+    dataLoading,
+    submitLoading,
     isSubmitDisabled: !isValidPayload,
     article,
   };
