@@ -11,6 +11,8 @@ import {
 } from "@ionic/react";
 import Content from "@/shared/components/content";
 import { AppRoutes } from "@/core/app-routes";
+import NewsfeedItemSkeleton from "./components/newsfeed-item-skeleton";
+import NewsfeedNoContent from "./components/newsfeed-no-content";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
@@ -23,15 +25,20 @@ const NewsfeedPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex h-screen flex-col items-center pt-safe-top">
-        <div className="max-w-screen-md w-full space-y-4">
+      <div className="flex h-screen flex-col items-center pt-safe-top p-4">
+        <div className="max-w-screen-md w-full space-y-6">
           {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="animate-pulse rounded-lg bg-gray-200 p-4 h-[200px]"
-            />
+            <NewsfeedItemSkeleton key={i} />
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (articleIds.length === 0) {
+    return (
+      <div className="flex h-screen flex-col justify-center items-center pt-safe-top p-4">
+        <NewsfeedNoContent />
       </div>
     );
   }
@@ -46,7 +53,7 @@ const NewsfeedPage: React.FC = () => {
               className="[@media(min-width:900px)]:right-[calc((100vw-768px)/2-5rem)] z-10"
             />
 
-            <IonList mode="ios" className="space-y-6">
+            <IonList mode="ios" className="space-y-6 !pb-4">
               {articleIds.map((id: string) => (
                 <NewsfeedItem articleId={id} key={id} />
               ))}
@@ -54,6 +61,7 @@ const NewsfeedPage: React.FC = () => {
 
             {lastCreatedAt && (
               <IonInfiniteScroll
+                className="mt-2"
                 onIonInfinite={(event) => {
                   loadMore();
 

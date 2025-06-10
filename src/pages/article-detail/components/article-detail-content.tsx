@@ -1,13 +1,11 @@
 import { AppRoutes, appRoutesFactory } from "@/core/app-routes";
 import type { Article } from "@/core/types/article";
-import CommentInput from "@/pages/newsfeed/components/comment-input/comment-input";
-import CommentItemWithStore from "@/pages/newsfeed/components/comment-item-wrapper/comment-item-wrapper";
 import useNewsfeedItem from "@/pages/newsfeed/components/newsfeed-item/newsfeed-item.hook";
 import Button from "@/shared/components/button";
-import Divider from "@/shared/components/divider";
+import CommentList from "@/shared/components/comment-list";
 import PlateContentViewer from "@/shared/components/plate-content-viewer";
 import { cn } from "@/shared/utils/globals";
-import { IonCard, IonIcon, IonImg, IonList, IonSpinner } from "@ionic/react";
+import { IonCard, IonIcon, IonImg } from "@ionic/react";
 import { createOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 
@@ -67,27 +65,11 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
         </p>
         <PlateContentViewer value={content} />
 
-        <Divider className="my-4" />
-
-        <CommentInput articleId={article?.id} />
-
-        {loadingComments && (
-          <div className="flex items-center justify-center my-4">
-            <IonSpinner name="crescent" />
-          </div>
-        )}
-
-        {commentIds.length > 0 && (
-          <>
-            <Divider className="my-4" />
-
-            <IonList mode="ios" className="space-y-4">
-              {commentIds.map((commentId) => (
-                <CommentItemWithStore key={commentId} commentId={commentId} />
-              ))}
-            </IonList>
-          </>
-        )}
+        <CommentList
+          commentIds={commentIds}
+          articleId={article?.id}
+          loadingComments={loadingComments}
+        />
       </div>
     </IonCard>
   );

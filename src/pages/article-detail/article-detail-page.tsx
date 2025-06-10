@@ -47,7 +47,7 @@ const ArticleDetailPage: React.FC = () => {
 
         <div
           className={cn(
-            "flex flex-1 bg-gray-5 justify-center p-10",
+            "flex flex-1 bg-gray-5 justify-center p-10 min-h-screen",
             loading && !article && "bg-white"
           )}
         >

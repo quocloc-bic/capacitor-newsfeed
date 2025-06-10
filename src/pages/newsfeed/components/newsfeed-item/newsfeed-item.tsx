@@ -1,22 +1,13 @@
-import React from "react";
-import { cn, formatDate } from "@/shared/utils/globals";
-import {
-  IonCard,
-  IonImg,
-  IonLabel,
-  IonList,
-  IonRouterLink,
-  IonSpinner,
-} from "@ionic/react";
-import "./newsfeed-item.css";
-import CommentInput from "../comment-input/comment-input";
-import useArticleStore from "@/shared/store/article/article.store";
-import useNewsfeedItem from "./newsfeed-item.hook";
-import CommentItemWithStore from "../comment-item-wrapper/comment-item-wrapper";
-import Divider from "@/shared/components/divider";
-import { useShallow } from "zustand/react/shallow";
-import articleSelectors from "@/shared/store/article/article.selector";
 import { AppRoutes, appRoutesFactory } from "@/core/app-routes";
+import CommentList from "@/shared/components/comment-list";
+import articleSelectors from "@/shared/store/article/article.selector";
+import useArticleStore from "@/shared/store/article/article.store";
+import { cn, formatDate } from "@/shared/utils/globals";
+import { IonCard, IonImg, IonLabel, IonRouterLink } from "@ionic/react";
+import React from "react";
+import { useShallow } from "zustand/react/shallow";
+import "./newsfeed-item.css";
+import useNewsfeedItem from "./newsfeed-item.hook";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
@@ -67,27 +58,11 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
             </IonLabel>
           </div>
 
-          <Divider className="my-4" />
-
-          <CommentInput articleId={articleId} />
-
-          {loadingComments && (
-            <div className="flex items-center justify-center my-4">
-              <IonSpinner name="crescent" />
-            </div>
-          )}
-
-          {commentIds.length > 0 && (
-            <>
-              <Divider className="my-4" />
-
-              <IonList mode="ios" className="space-y-4">
-                {commentIds.map((commentId) => (
-                  <CommentItemWithStore key={commentId} commentId={commentId} />
-                ))}
-              </IonList>
-            </>
-          )}
+          <CommentList
+            commentIds={commentIds}
+            articleId={articleId}
+            loadingComments={loadingComments}
+          />
         </div>
       </IonCard>
     </div>
