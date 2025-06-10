@@ -4,7 +4,6 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   StorageError,
-  updateMetadata,
 } from "firebase/storage";
 import { storage } from "@/shared/services/firebase/firebase-config";
 
@@ -25,9 +24,6 @@ export const useUploadFile = () => {
     setDisplayImageUrl(URL.createObjectURL(file));
 
     const storageRef = ref(storage, path);
-    updateMetadata(storageRef, {
-      cacheControl: "public, max-age=31536000",
-    });
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(

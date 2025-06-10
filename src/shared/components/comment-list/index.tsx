@@ -22,7 +22,9 @@ const CommentList: React.FC<CommentListProps> = ({
 
       <CommentInput articleId={articleId} />
 
-      <Divider className="my-4" />
+      {(commentIds.length > 0 || loadingComments) && (
+        <Divider className="my-4" />
+      )}
 
       {loadingComments && <CommentItemSkeleton className="my-4" />}
 

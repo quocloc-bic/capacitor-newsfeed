@@ -17,10 +17,11 @@ const NewsfeedNoContent: React.FC = () => {
       <div className="text-6xl mb-4 text-primary">
         <IonIcon icon={newspaperOutline} />
       </div>
-      <div className="text-xl font-bold text-gray-700 mb-2">No news yet!</div>
+      <div className="text-xl font-bold text-gray-700 mb-2">
+        {textConstants.noNews}
+      </div>
       <div className="text-gray-500 text-center max-w-xs mb-4">
-        There's nothing here right now. Be the first to create an article or
-        check back later for updates.
+        {textConstants.noNewsDescription}
       </div>
       <Button
         color="primary"
@@ -28,10 +29,17 @@ const NewsfeedNoContent: React.FC = () => {
         className="flex items-center gap-2"
       >
         <IonIcon icon={addCircleOutline} slot="start" className="mr-2" />
-        Create Article
+        {textConstants.createArticle}
       </Button>
     </div>
   );
 };
 
 export default NewsfeedNoContent;
+
+const textConstants = {
+  noNews: "No news yet!",
+  noNewsDescription:
+    "There's nothing here right now. Be the first to create an article or check back later for updates.",
+  createArticle: "Create Article",
+};

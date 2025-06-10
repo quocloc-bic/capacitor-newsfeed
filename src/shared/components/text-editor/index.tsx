@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useCallback } from "react";
 import { Plate } from "@udecode/plate/react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import type { CreateArticlePayload } from "@/core/types/create-acticle";
 import { Editor, EditorContainer } from "@/shared/components/ui/editor";
 import { cn } from "@/shared/utils/globals";
-import { useCreateEditor } from "./use-create-editor";
 import type { Value } from "@udecode/plate";
 import ImageSelector from "../image-selector";
+import TextInput from "../text-input";
 import { FixedToolbar } from "../ui/fixed-toolbar";
 import { FixedToolbarButtons } from "../ui/fixed-toolbar-buttons";
 import "./text-editor.css";
-import TextInput from "../text-input";
-import type { Article } from "@/core/types/article";
+import { useCreateEditor } from "./use-create-editor";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
-  article?: Article;
+  article?: CreateArticlePayload;
   onTitleChanged?: (value: string) => void;
   onDescriptionChanged?: (value: string) => void;
   onContentChanged?: (value: Value) => void;
