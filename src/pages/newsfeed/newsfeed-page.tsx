@@ -10,7 +10,7 @@ import {
   IonPage,
 } from "@ionic/react";
 import Content from "@/shared/components/content";
-import { AppRoutes } from "@/app/app";
+import { AppRoutes } from "@/core/app-routes";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();

@@ -1,5 +1,4 @@
-import { AppRoutes } from "@/app/app";
-import { appRoutesFactory } from "@/app/app";
+import { AppRoutes, appRoutesFactory } from "@/core/app-routes";
 import type { Article } from "@/core/types/article";
 import CommentInput from "@/pages/newsfeed/components/comment-input/comment-input";
 import CommentItemWithStore from "@/pages/newsfeed/components/comment-item-wrapper/comment-item-wrapper";

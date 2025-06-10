@@ -18,34 +18,21 @@ import "./app.style.css";
 
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route } from "react-router-dom";
-import SplashPage from "@/pages/splash/splash-page";
+import { Route, Redirect } from "react-router-dom";
 import NewsfeedPage from "@/pages/newsfeed/newsfeed-page";
 import CreateArticlePage from "@/pages/create-article/create-article-page";
 import ArticleDetailPage from "@/pages/article-detail/article-detail-page";
+import { AppRoutes } from "@/core/app-routes";
 
 setupIonicReact();
-
-export enum AppRoutes {
-  Splash = "/",
-  Newsfeed = "/newsfeed",
-  CreateArticle = "/create-article",
-  ArticleDetail = "/article",
-  EditArticle = "/edit-article",
-}
-
-export const appRoutesFactory = (id: string) => {
-  return {
-    [AppRoutes.ArticleDetail]: `/article?id=${id}`,
-    [AppRoutes.EditArticle]: `/edit-article?id=${id}`,
-  };
-};
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route path={AppRoutes.Splash} exact component={SplashPage} />
+        <Route path={AppRoutes.Root} exact>
+          <Redirect to={AppRoutes.Newsfeed} />
+        </Route>
         <Route path={AppRoutes.Newsfeed} exact component={NewsfeedPage} />
         <Route
           path={AppRoutes.CreateArticle}
