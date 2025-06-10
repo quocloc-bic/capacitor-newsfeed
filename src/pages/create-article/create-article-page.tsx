@@ -1,3 +1,9 @@
+import Button from "@/shared/components/button";
+import CollapsibleView from "@/shared/components/collapsible-view";
+import Content from "@/shared/components/content";
+import Divider from "@/shared/components/divider";
+import Header from "@/shared/components/header";
+import { useQueryParams } from "@/shared/hooks/use-query-params";
 import {
   IonButtons,
   IonIcon,
@@ -7,20 +13,12 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import TableOfContents from "./components/table-of-contents/table-of-contents";
-import { useDevice } from "../../shared/hooks/use-device";
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
-import CollapsibleView from "@/shared/components/collapsible-view";
-import Divider from "@/shared/components/divider";
-import Button from "@/shared/components/button";
-import Header from "@/shared/components/header";
+import { useDevice } from "../../shared/hooks/use-device";
+import TableOfContents from "./components/table-of-contents/table-of-contents";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
 import useCreateArticle from "./create-article-page.hook";
-import Content from "@/shared/components/content";
-import { useQueryParams } from "@/shared/hooks/use-query-params";
-import { useEffect } from "react";
-import useCreateArticleStore from "./store/create-article-page.store";
 
 type CreateArticlePageQueryParams = {
   id: string;
@@ -30,19 +28,11 @@ const CreateArticlePage: React.FC = () => {
   const { id } = useQueryParams<CreateArticlePageQueryParams>();
   const { isMobile } = useDevice();
   const history = useHistory();
-  const { onPost, submitLoading, isSubmitDisabled, article } =
-    useCreateArticle(id);
-  const { setPayload } = useCreateArticleStore((state) => state.actions);
+  const { onPost, submitLoading, isSubmitDisabled } = useCreateArticle(id);
 
   const onClose = () => {
     history.goBack();
   };
-
-  useEffect(() => {
-    if (article) {
-      setPayload(article);
-    }
-  }, [article]);
 
   return (
     <>
@@ -99,8 +89,6 @@ const CreateArticlePage: React.FC = () => {
                 <div className="hidden flex-col md:flex">
                   <Divider height={1} className="my-2" />
                   <div className="flex-row items-center flex gap-2">
-                    <p>{textConstants.savedDraft}</p>
-
                     <div className="flex-1" />
 
                     <Button fill="clear" color="dark" onClick={onClose}>
@@ -136,7 +124,6 @@ export default CreateArticlePage;
 
 const textConstants = {
   title: "Create Article",
-  savedDraft: "Saved draft at 12:00 PM",
   post: "Post",
   save: "Save",
   tableOfContents: "Table of Contents",

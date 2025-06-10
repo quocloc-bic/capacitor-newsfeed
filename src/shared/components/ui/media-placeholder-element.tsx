@@ -58,13 +58,8 @@ export const MediaPlaceholderElement = withHOC(
 
     const { api } = useEditorPlugin(PlaceholderPlugin);
 
-    const {
-      isUploading,
-      progress,
-      uploadFile,
-      uploadingFile,
-      displayImageUrl,
-    } = useUploadFile();
+    const { isUploading, progress, uploadFile, uploadingFile, downloadURL } =
+      useUploadFile();
 
     const loading = isUploading && uploadingFile;
 
@@ -102,7 +97,7 @@ export const MediaPlaceholderElement = withHOC(
     );
 
     React.useEffect(() => {
-      if (!displayImageUrl) return;
+      if (!downloadURL) return;
 
       const path = editor.api.findPath(element);
 
@@ -117,7 +112,7 @@ export const MediaPlaceholderElement = withHOC(
           name: element.mediaType === FilePlugin.key ? uploadingFile?.name : "",
           placeholderId: element.id as string,
           type: element.mediaType!,
-          url: displayImageUrl,
+          url: downloadURL,
         };
 
         editor.tf.insertNodes(node, { at: path });
@@ -126,7 +121,7 @@ export const MediaPlaceholderElement = withHOC(
       });
 
       api.placeholder.removeUploadingFile(element.id as string);
-    }, [displayImageUrl, uploadingFile, element.id]);
+    }, [downloadURL, uploadingFile, element.id]);
 
     // React dev mode will call React.useEffect twice
     const isReplaced = React.useRef(false);

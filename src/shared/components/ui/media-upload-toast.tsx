@@ -2,9 +2,10 @@ import * as React from "react";
 
 import { PlaceholderPlugin, UploadErrorCode } from "@udecode/plate-media/react";
 import { usePluginOption } from "@udecode/plate/react";
-import { toast } from "sonner";
+import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 
 export const useUploadErrorToast = () => {
+  const { showToast } = useAlertPresenter();
   const uploadError = usePluginOption(PlaceholderPlugin, "error");
 
   React.useEffect(() => {
@@ -14,44 +15,49 @@ export const useUploadErrorToast = () => {
 
     switch (code) {
       case UploadErrorCode.INVALID_FILE_SIZE: {
-        toast.error(
+        showToast(
           `The size of files ${data.files
             .map((f) => f.name)
-            .join(", ")} is invalid`
+            .join(", ")} is invalid`,
+          "error"
         );
 
         break;
       }
       case UploadErrorCode.INVALID_FILE_TYPE: {
-        toast.error(
+        showToast(
           `The type of files ${data.files
             .map((f) => f.name)
-            .join(", ")} is invalid`
+            .join(", ")} is invalid`,
+          "error"
         );
 
         break;
       }
       case UploadErrorCode.TOO_LARGE: {
-        toast.error(
+        showToast(
           `The size of files ${data.files
             .map((f) => f.name)
-            .join(", ")} is too large than ${data.maxFileSize}`
+            .join(", ")} is too large than ${data.maxFileSize}`,
+          "error"
         );
 
         break;
       }
       case UploadErrorCode.TOO_LESS_FILES: {
-        toast.error(
-          `The mini um number of files is ${data.minFileCount} for ${data.fileType}`
+        showToast(
+          `The mini um number of files is ${data.minFileCount} for ${data.fileType}`,
+          "error"
         );
 
         break;
       }
       case UploadErrorCode.TOO_MANY_FILES: {
-        toast.error(
+        showToast(
           `The maximum number of files is ${data.maxFileCount} ${
             data.fileType ? `for ${data.fileType}` : ""
-          }`
+          }`,
+          "error"
         );
 
         break;

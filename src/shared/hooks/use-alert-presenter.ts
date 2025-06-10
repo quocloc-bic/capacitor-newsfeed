@@ -1,12 +1,14 @@
-import { useIonAlert, useIonLoading } from "@ionic/react";
+import { useIonAlert, useIonLoading, useIonToast } from "@ionic/react";
 
 const useAlertPresenter = () => {
   const [showIonAlert, dismissIonAlert] = useIonAlert();
+  const [showIonToast, dismissIonToast] = useIonToast();
   const [showIonLoading, dismissIonLoading] = useIonLoading();
 
   const dismissAll = async () => {
     await dismissIonAlert();
     await dismissIonLoading();
+    await dismissIonToast();
   };
 
   const showErrorAlert = async (error: any) => {
@@ -41,6 +43,21 @@ const useAlertPresenter = () => {
     });
   };
 
+  const showToast = async (
+    message: string,
+    type: "info" | "success" | "warning" | "error" = "info"
+  ) => {
+    await dismissAll();
+    await showIonToast({
+      message,
+      color: type,
+    });
+
+    setTimeout(() => {
+      dismissIonToast();
+    }, 2000);
+  };
+
   return {
     showErrorAlert,
     showSuccessAlert,
@@ -48,6 +65,8 @@ const useAlertPresenter = () => {
     showLoading,
     dismissLoading: dismissIonLoading,
     dismissAll,
+    showToast,
+    dismissToast: dismissIonToast,
   };
 };
 

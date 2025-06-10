@@ -101,7 +101,6 @@
     "react-virtuoso": "^4.12.8",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
-    "sonner": "^2.0.4",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8",
     "use-file-picker": "^2.1.4",

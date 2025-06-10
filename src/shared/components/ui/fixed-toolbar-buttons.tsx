@@ -10,7 +10,7 @@ import {
   FontColorPlugin,
 } from "@udecode/plate-font/react";
 import {
-  FilePlugin,
+  AudioPlugin,
   ImagePlugin,
   VideoPlugin,
 } from "@udecode/plate-media/react";
@@ -141,7 +141,7 @@ export function FixedToolbarButtons() {
           <ToolbarGroup className="gap-1">
             <MediaToolbarButton nodeType={ImagePlugin.key} />
             <MediaToolbarButton nodeType={VideoPlugin.key} />
-            <MediaToolbarButton nodeType={FilePlugin.key} />
+            <MediaToolbarButton nodeType={AudioPlugin.key} />
           </ToolbarGroup>
 
           <ToolbarGroup className="gap-1">

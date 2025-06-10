@@ -32,7 +32,23 @@ export const mediaPlugins = [
     },
   }),
   PlaceholderPlugin.configure({
-    options: { disableEmptyPlaceholder: true },
+    options: {
+      disableEmptyPlaceholder: true,
+      uploadConfig: {
+        image: {
+          maxFileSize: "8MB",
+          maxFileCount: 3,
+          minFileCount: 1,
+          mediaType: ImagePlugin.key,
+        },
+        video: {
+          maxFileSize: "128MB",
+          maxFileCount: 1,
+          minFileCount: 1,
+          mediaType: VideoPlugin.key,
+        },
+      },
+    },
     render: { afterEditable: MediaUploadToast },
   }),
 ] as const;
