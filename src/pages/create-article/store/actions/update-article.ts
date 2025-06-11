@@ -5,7 +5,7 @@ import { repositories } from "@/shared/repositories";
 
 const updateArticle =
   (get: StoreGetFunction<CreateArticleStore>) =>
-  async (articleId: string): Promise<Article> => {
+  async (articleId: string): Promise<Partial<Article>> => {
     try {
       const {
         state: { payload },

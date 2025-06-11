@@ -14,7 +14,7 @@ interface CreateArticleState {
 interface CreateArticleActions {
   setPayload: (payload: Partial<CreateArticlePayload>) => void;
   triggerCreateArticle: () => Promise<Article>;
-  triggerUpdateArticle: (articleId: string) => Promise<Article>;
+  triggerUpdateArticle: (articleId: string) => Promise<Partial<Article>>;
   clearPayload: () => void;
 }
 

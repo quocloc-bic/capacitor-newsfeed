@@ -59,8 +59,10 @@ const useCreateArticle = (articleId?: string) => {
         ? await triggerUpdateArticle(articleId)
         : await triggerCreateArticle();
 
-      addArticleId(article.id);
-      addArticle(article);
+      if (article.id) {
+        addArticleId(article.id);
+        addArticle(article);
+      }
 
       showSuccessAlert(
         articleId

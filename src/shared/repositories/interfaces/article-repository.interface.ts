@@ -17,7 +17,7 @@ export interface ArticleRepository {
   updateArticle(
     articleId: string,
     payload: CreateArticlePayload
-  ): Promise<Article>;
+  ): Promise<Partial<Article>>;
 
   deleteArticle(articleId: string): Promise<void>;
 }

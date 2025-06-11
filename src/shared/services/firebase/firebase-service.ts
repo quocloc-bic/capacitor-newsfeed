@@ -91,11 +91,10 @@ const postArticle = async (params: CreateArticlePayload): Promise<Article> => {
 const updateArticle = async (
   articleId: string,
   params: CreateArticlePayload
-): Promise<Article> => {
+): Promise<Partial<Article>> => {
   const ref = doc(firestore, "article", articleId);
   const updatedParams = {
     ...params,
-    createdAt: new Date(),
     updatedAt: new Date(),
   };
 

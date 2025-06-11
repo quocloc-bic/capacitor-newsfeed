@@ -11,7 +11,7 @@ interface ArticleState {
 }
 
 interface ArticleActions {
-  addArticle: (article: Article | Article[]) => void;
+  addArticle: (article: Article | Article[] | Partial<Article>) => void;
   getArticle: (articleId: string) => Promise<Article | undefined>;
   deleteArticle: (articleId: string) => Promise<void>;
 }
@@ -29,14 +29,20 @@ const useArticleStore = create<ArticleStore>()(
   immer((set) => ({
     state: initialState,
     actions: {
-      addArticle: (article: Article | Article[]) => {
+      addArticle: (article: Article | Article[] | Partial<Article>) => {
         set((state) => {
           if (Array.isArray(article)) {
             article.forEach((a) => {
               state.state.articles[a.id] = a;
             });
-          } else {
-            state.state.articles[article.id] = article;
+          } else if (typeof article === "object" && article !== null) {
+            const articleId = article.id;
+            if (articleId) {
+              state.state.articles[articleId] = {
+                ...state.state.articles[articleId],
+                ...article,
+              };
+            }
           }
         });
       },
