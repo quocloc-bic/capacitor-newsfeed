@@ -5,6 +5,7 @@ import type { OptionsMenuOption } from "@/shared/components/options-menu/options
 import { create, trash } from "ionicons/icons";
 import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 import useArticleStore from "@/shared/store/article/article.store";
+import useNewsfeedStore from "@/pages/newsfeed/store/newsfeed-page.store";
 
 interface UseArticleMenuProps {
   article: Article | null;
@@ -24,6 +25,7 @@ export const useArticleMenu = ({
   const history = useHistory();
   const { showConfirmationAlert, showToast } = useAlertPresenter();
   const { deleteArticle } = useArticleStore((state) => state.actions);
+  const { removeArticleId } = useNewsfeedStore((state) => state.actions);
 
   const handleEdit = () => {
     if (!article?.id) {
@@ -45,6 +47,8 @@ export const useArticleMenu = ({
       textConstants.deleteArticleConfirmationButton,
       async () => {
         await deleteArticle(article.id);
+        removeArticleId(article.id);
+
         if (onDidDelete) {
           onDidDelete(article.id);
         }

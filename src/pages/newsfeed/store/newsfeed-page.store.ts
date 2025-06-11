@@ -13,6 +13,7 @@ interface NewsfeedState {
 interface NewsfeedActions {
   fetchNewsfeed: (lastCreatedAt?: Date) => Promise<Article[]>;
   addArticleId: (articleId: string) => void;
+  removeArticleId: (articleId: string) => void;
 }
 
 export interface NewsfeedStore {
@@ -36,6 +37,13 @@ const useNewsfeedStore = create<NewsfeedStore>()(
         set((state) => {
           state.state.articleIds = Array.from(
             new Set([articleId, ...state.state.articleIds])
+          );
+        });
+      },
+      removeArticleId: (articleId: string) => {
+        set((state) => {
+          state.state.articleIds = state.state.articleIds.filter(
+            (id) => id !== articleId
           );
         });
       },
