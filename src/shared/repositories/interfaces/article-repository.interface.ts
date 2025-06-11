@@ -1,5 +1,5 @@
 import type { Article } from "@/core/types/article";
-import type { CreateArticlePayload } from "@/core/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-article";
 
 export interface ArticleRepository {
   getArticles(

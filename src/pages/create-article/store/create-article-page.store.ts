@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { create } from "zustand";
-import type { CreateArticlePayload } from "@/core/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-article";
 import { immer } from "zustand/middleware/immer";
 import createArticle from "./actions/create-article";
 import type { Article } from "@/core/types/article";

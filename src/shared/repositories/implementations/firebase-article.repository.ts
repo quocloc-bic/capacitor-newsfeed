@@ -1,5 +1,5 @@
 import type { Article } from "@/core/types/article";
-import type { CreateArticlePayload } from "@/core/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-article";
 import type { ArticleRepository } from "../interfaces/article-repository.interface";
 import firebaseService from "@/shared/services/firebase/firebase-service";
 
@@ -40,7 +40,7 @@ export class FirebaseArticleRepository implements ArticleRepository {
   async updateArticle(
     articleId: string,
     payload: CreateArticlePayload
-  ): Promise<Article> {
+  ): Promise<Partial<Article>> {
     try {
       return await firebaseService.updateArticle(articleId, payload);
     } catch (error) {

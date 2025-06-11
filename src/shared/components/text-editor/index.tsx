@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import type { CreateArticlePayload } from "@/core/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-article";
 import { Editor, EditorContainer } from "@/shared/components/ui/editor";
 import { cn } from "@/shared/utils/globals";
 import type { Value } from "@udecode/plate";

@@ -12,7 +12,7 @@ import {
   updateDoc,
 } from "firebase/firestore/lite";
 import { firestore } from "./firebase-config";
-import type { CreateArticlePayload } from "@/core/types/create-acticle";
+import type { CreateArticlePayload } from "@/core/types/create-article";
 import type { Article } from "@/core/types/article";
 import type { Comment } from "@/core/types/comment";
 
