@@ -18,7 +18,6 @@ import {
   ImageIcon,
   LinkIcon,
 } from "lucide-react";
-import { toast } from "sonner";
 import { useFilePicker } from "use-file-picker";
 
 import {
@@ -45,6 +44,7 @@ import {
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
 } from "./toolbar";
+import useAlertPresenter from "@/shared/hooks/use-alert-presenter";
 
 const MEDIA_CONFIG: Record<
   string,
@@ -175,11 +175,12 @@ function MediaUrlDialogContent({
   nodeType: string;
   setOpen: (value: boolean) => void;
 }) {
+  const { showToast } = useAlertPresenter();
   const editor = useEditorRef();
   const [url, setUrl] = React.useState("");
 
   const embedMedia = React.useCallback(() => {
-    if (!isUrl(url)) return toast.error("Invalid URL");
+    if (!isUrl(url)) return showToast("Invalid URL", "error");
 
     setOpen(false);
     editor.tf.insertNodes({
