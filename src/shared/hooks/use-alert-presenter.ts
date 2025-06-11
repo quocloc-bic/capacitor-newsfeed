@@ -29,7 +29,7 @@ const useAlertPresenter = () => {
     });
   };
 
-  const showErrorAlert = async (error: any) => {
+  const showErrorAlert = async (error: Error | string | unknown) => {
     let message = "An unknown error occurred";
     if (error instanceof Error) {
       message = error.message;

@@ -1,11 +1,13 @@
 import { repositories } from "@/shared/repositories";
+import type { ArticleStore } from "../article.store";
+import type { StoreSetFunction } from "../../types/store.types";
 
 const deleteArticle =
-  (set: (state: any) => void) => async (articleId: string) => {
+  (set: StoreSetFunction<ArticleStore>) => async (articleId: string) => {
     try {
       await repositories.article.deleteArticle(articleId);
 
-      set((state: any) => {
+      set((state) => {
         delete state.state.articles[articleId];
       });
     } catch (error) {

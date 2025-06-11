@@ -1,9 +1,10 @@
 import type { Article } from "@/core/types/article";
 import type { CreateArticleStore } from "../create-article-page.store";
+import type { StoreGetFunction } from "@/shared/store/types/store.types";
 import { repositories } from "@/shared/repositories";
 
 const updateArticle =
-  (get: () => CreateArticleStore) =>
+  (get: StoreGetFunction<CreateArticleStore>) =>
   async (articleId: string): Promise<Article> => {
     try {
       const {

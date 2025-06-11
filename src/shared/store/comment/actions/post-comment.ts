@@ -1,7 +1,12 @@
 import { repositories } from "@/shared/repositories";
+import type { CommentStore } from "../comment.store";
+import type {
+  StoreSetFunction,
+  StoreGetFunction,
+} from "../../types/store.types";
 
 const postComment =
-  (set: (state: any) => void, get: () => any) =>
+  (set: StoreSetFunction<CommentStore>, get: StoreGetFunction<CommentStore>) =>
   async (articleId: string, comment: string) => {
     try {
       const {
@@ -17,7 +22,7 @@ const postComment =
         (articleComments && articleComments[articleId]) || [];
       const newArticleComments = [newComment.id, ...currentArticleComments];
 
-      set((state: any) => {
+      set((state) => {
         state.state.articleComments[articleId] = newArticleComments;
         state.state.comments[newComment.id] = newComment;
       });

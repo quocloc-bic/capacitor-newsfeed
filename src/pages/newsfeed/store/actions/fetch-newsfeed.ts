@@ -1,14 +1,22 @@
 import { repositories } from "@/shared/repositories";
+import type { NewsfeedStore } from "../newsfeed-page.store";
+import type {
+  StoreSetFunction,
+  StoreGetFunction,
+} from "@/shared/store/types/store.types";
 
 const fetchNewsfeed =
-  (set: (state: any) => void, get: () => any) =>
+  (
+    set: StoreSetFunction<NewsfeedStore>,
+    get: StoreGetFunction<NewsfeedStore>
+  ) =>
   async (lastCreatedAt?: Date) => {
     try {
       const {
         state: { articleIds },
       } = get();
 
-      set((state: any) => {
+      set((state) => {
         if (lastCreatedAt) {
           state.state.loadingMore = true;
         } else {
@@ -24,7 +32,7 @@ const fetchNewsfeed =
         new Set([...articleIds, ...newArticles.map(({ id }) => id)])
       );
 
-      set((state: any) => {
+      set((state) => {
         state.state.articleIds = updatedArticles;
         state.state.lastCreatedAt = newLastCreatedAt;
         state.state.loading = false;
@@ -34,7 +42,7 @@ const fetchNewsfeed =
       return newArticles;
     } catch (error) {
       console.error("Failed to fetch newsfeed:", error);
-      set((state: any) => {
+      set((state) => {
         state.state.loading = false;
         state.state.loadingMore = false;
       });

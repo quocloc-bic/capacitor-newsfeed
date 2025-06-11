@@ -1,9 +1,10 @@
 import type { Article } from "@/core/types/article";
 import type { CreateArticleStore } from "../create-article-page.store";
+import type { StoreGetFunction } from "@/shared/store/types/store.types";
 import { repositories } from "@/shared/repositories";
 
 const createArticle =
-  (get: () => CreateArticleStore) => async (): Promise<Article> => {
+  (get: StoreGetFunction<CreateArticleStore>) => async (): Promise<Article> => {
     try {
       const {
         state: { payload },

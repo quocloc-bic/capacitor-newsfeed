@@ -1,7 +1,9 @@
 import { repositories } from "@/shared/repositories";
+import type { CommentStore } from "../comment.store";
+import type { StoreSetFunction } from "../../types/store.types";
 
 const fetchComments =
-  (set: (state: any) => void) =>
+  (set: StoreSetFunction<CommentStore>) =>
   async (articleId: string, lastCreatedAt?: Date, pageSize?: number) => {
     try {
       const fetchedComments = await repositories.comment.getComments(
@@ -10,7 +12,7 @@ const fetchComments =
         pageSize
       );
 
-      set((state: any) => {
+      set((state) => {
         fetchedComments.forEach((c) => {
           state.state.comments[c.id] = c;
         });
