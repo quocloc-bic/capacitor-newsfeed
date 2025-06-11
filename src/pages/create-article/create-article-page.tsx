@@ -77,7 +77,7 @@ const CreateArticlePage: React.FC = () => {
         </Header>
 
         <Content className="h-full">
-          <div className="flex h-full bg-gray-50 p-5 justify-center">
+          <div className="flex h-full bg-gray-50 md:p-5 justify-center">
             <div className="max-w-screen-md w-full">
               <div className="flex-1 bg-white flex flex-col rounded-lg h-full min-h-0 box-border p-4">
                 {/* Text editor */}

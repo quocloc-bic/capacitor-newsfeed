@@ -4,6 +4,7 @@ import useNewsfeedItem from "@/pages/newsfeed/components/newsfeed-item/newsfeed-
 import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 import CommentList from "@/shared/components/comment-list";
 import PlateContentViewer from "@/shared/components/plate-content-viewer";
+import { useDevice } from "@/shared/hooks/use-device";
 import { cn } from "@/shared/utils/globals";
 import { IonCard, IonImg } from "@ionic/react";
 import { useHistory } from "react-router-dom";
@@ -17,6 +18,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
   article,
   className,
 }) => {
+  const { isMobile } = useDevice();
   const { loadingComments, commentIds } = useNewsfeedItem(article?.id || "");
   const history = useHistory();
   const content = article?.content ? JSON.parse(article.content) : [];
@@ -32,7 +34,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
   return (
     <IonCard
       className={cn(
-        "flex flex-col h-full bg-white pb-10 rounded-lg",
+        "flex flex-col h-full bg-white pb-10 rounded-none md:rounded-lg",
         className
       )}
     >
@@ -44,13 +46,15 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
         />
       </div>
 
-      <div className="flex flex-col gap-4 px-11">
+      <div className="flex flex-col gap-4 md:px-11 px-5">
         <div className="flex items-baseline gap-2">
           <h1 className="text-4xl font-semibold text-neutral-60 flex-1">
             {article?.title}
           </h1>
 
-          <ArticleMenuButton article={article} onDidDelete={onDidDelete} />
+          {!isMobile && (
+            <ArticleMenuButton article={article} onDidDelete={onDidDelete} />
+          )}
         </div>
         <p className="text-sm border-y border-neutral-5 bg-neutral-1 p-4 font-medium text-neutral-40">
           {article?.description}

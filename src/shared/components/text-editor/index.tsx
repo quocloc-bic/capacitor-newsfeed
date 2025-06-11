@@ -13,6 +13,7 @@ import { FixedToolbar } from "../ui/fixed-toolbar";
 import { FixedToolbarButtons } from "../ui/fixed-toolbar-buttons";
 import "./text-editor.css";
 import { useCreateEditor } from "./use-create-editor";
+import { useDevice } from "@/shared/hooks/use-device";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   article?: CreateArticlePayload;
@@ -60,6 +61,7 @@ const TextEditor = React.memo(
     onCoverImageChanged,
     ...props
   }: TextEditorProps) => {
+    const { isMobile } = useDevice();
     const editor = useCreateEditor(
       {
         value: article?.content ? JSON.parse(article.content) : undefined,
@@ -116,35 +118,66 @@ const TextEditor = React.memo(
           {...props}
         >
           <Plate editor={editor} onChange={handleContentChange}>
-            <EditorContainer className="pr-4">
-              <div>
-                <FixedToolbar>
-                  <FixedToolbarButtons />
-                </FixedToolbar>
+            <EditorContainer className="md:pr-4">
+              {isMobile ? (
+                <div>
+                  <ImageSelector
+                    className="w-full aspect-[21/9]"
+                    imageUrl={article?.coverImage || ""}
+                    onImageSelected={handleCoverImageChange}
+                  />
 
-                <div className="h-4" />
+                  <div className="h-4" />
 
-                <ImageSelector
-                  className="w-full aspect-[21/9]"
-                  imageUrl={article?.coverImage || ""}
-                  onImageSelected={handleCoverImageChange}
-                />
+                  <TitleInput value={title} onChange={handleTitleChange} />
 
-                <div className="h-4" />
+                  <div className="h-4" />
 
-                <TitleInput value={title} onChange={handleTitleChange} />
+                  <DescriptionInput
+                    value={description}
+                    onChange={handleDescriptionChange}
+                  />
 
-                <div className="h-4" />
+                  <div className="h-4" />
 
-                <DescriptionInput
-                  value={description}
-                  onChange={handleDescriptionChange}
-                />
+                  <FixedToolbar>
+                    <FixedToolbarButtons />
+                  </FixedToolbar>
 
-                <div className="h-4" />
+                  <div className="h-4" />
 
-                <Editor placeholder={textConstants.content} />
-              </div>
+                  <Editor placeholder={textConstants.content} />
+                </div>
+              ) : (
+                <div>
+                  <FixedToolbar>
+                    <FixedToolbarButtons />
+                  </FixedToolbar>
+
+                  <div className="h-4" />
+
+                  <ImageSelector
+                    className="w-full aspect-[21/9]"
+                    imageUrl={article?.coverImage || ""}
+                    onImageSelected={handleCoverImageChange}
+                  />
+
+                  <div className="h-4" />
+
+                  <TitleInput value={title} onChange={handleTitleChange} />
+
+                  <div className="h-4" />
+
+                  <DescriptionInput
+                    value={description}
+                    onChange={handleDescriptionChange}
+                  />
+
+                  <div className="h-4" />
+
+                  <Editor placeholder={textConstants.content} />
+                </div>
+              )}
             </EditorContainer>
           </Plate>
         </div>

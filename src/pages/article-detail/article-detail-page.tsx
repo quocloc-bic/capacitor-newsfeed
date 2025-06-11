@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import useArticleDetailPage from "./article-detail-page.hook";
 import ArticleDetailContent from "./components/article-detail-content";
 import ArticleDetailPageSkeleton from "./components/article-detail-skeleton";
+import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 
 type ArticleDetailPageQueryParams = {
   id: string;
@@ -30,7 +31,7 @@ const ArticleDetailPage: React.FC = () => {
   const history = useHistory();
 
   return (
-    <IonPage>
+    <IonPage className="bg-gray-5">
       <Header hidden={!isMobile}>
         <IonToolbar>
           <IonButtons slot="start">
@@ -39,6 +40,11 @@ const ArticleDetailPage: React.FC = () => {
             </Button>
           </IonButtons>
           <IonTitle>{textConstants.title}</IonTitle>
+          {isMobile && (
+            <IonButtons slot="end">
+              <ArticleMenuButton article={article} />
+            </IonButtons>
+          )}
         </IonToolbar>
       </Header>
 
@@ -47,7 +53,7 @@ const ArticleDetailPage: React.FC = () => {
 
         <div
           className={cn(
-            "flex flex-1 bg-gray-5 justify-center p-10 min-h-screen",
+            "flex flex-1 bg-gray-5 justify-center md:p-10 min-h-screen",
             loading && !article && "bg-white"
           )}
         >

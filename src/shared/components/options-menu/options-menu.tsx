@@ -10,6 +10,8 @@ import {
 import { ellipsisHorizontal } from "ionicons/icons";
 import Button from "@/shared/components/button";
 import "./options-menu.style.css";
+import { useDevice } from "@/shared/hooks/use-device";
+import BottomSheet from "../ui/bottom-sheet";
 
 export interface OptionsMenuOption {
   id: string;
@@ -26,6 +28,29 @@ interface OptionsMenuProps {
   disabled?: boolean;
 }
 
+const OptionsMenuContent: React.FC<{
+  options: OptionsMenuOption[];
+  handleOptionClick: (option: OptionsMenuOption) => void;
+}> = ({ options, handleOptionClick }) => {
+  return (
+    <IonContent>
+      <IonList>
+        {options.map((option) => (
+          <IonItem
+            className="menu-item"
+            key={option.id}
+            button
+            onClick={() => handleOptionClick(option)}
+          >
+            <IonIcon icon={option.icon} slot="start" />
+            <IonLabel>{option.label}</IonLabel>
+          </IonItem>
+        ))}
+      </IonList>
+    </IonContent>
+  );
+};
+
 const OptionsMenu: React.FC<OptionsMenuProps> = ({
   options,
   triggerIcon = ellipsisHorizontal,
@@ -33,6 +58,8 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({
   buttonClassName = "p-0",
   disabled = false,
 }) => {
+  const { isMobile } = useDevice();
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const popoverRef = useRef<HTMLIonPopoverElement>(null);
   const triggerId = `options-menu-trigger-${Math.random().toString(36).substr(2, 9)}`;
@@ -41,6 +68,8 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({
     option.onClick();
     setIsPopoverOpen(false);
   };
+
+  const Popup = isMobile ? BottomSheet : IonPopover;
 
   return (
     <div className={className}>
@@ -55,29 +84,18 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({
         <IonIcon icon={triggerIcon} size="small" slot="icon-only" />
       </Button>
 
-      <IonPopover
+      <Popup
         ref={popoverRef}
         trigger={triggerId}
         isOpen={isPopoverOpen}
         onDidDismiss={() => setIsPopoverOpen(false)}
         showBackdrop={true}
       >
-        <IonContent>
-          <IonList>
-            {options.map((option) => (
-              <IonItem
-                className="menu-item"
-                key={option.id}
-                button
-                onClick={() => handleOptionClick(option)}
-              >
-                <IonIcon icon={option.icon} slot="start" />
-                <IonLabel>{option.label}</IonLabel>
-              </IonItem>
-            ))}
-          </IonList>
-        </IonContent>
-      </IonPopover>
+        <OptionsMenuContent
+          options={options}
+          handleOptionClick={handleOptionClick}
+        />
+      </Popup>
     </div>
   );
 };

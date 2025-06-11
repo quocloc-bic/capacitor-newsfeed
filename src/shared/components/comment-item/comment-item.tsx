@@ -22,6 +22,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, ...props }) => {
           {comment.comment}
         </IonLabel>
 
+        <div className="h-1" />
+
         <IonLabel className="text-xs font-medium text-neutral-40 text-right">
           {formatDate(comment.createdAt)}
         </IonLabel>

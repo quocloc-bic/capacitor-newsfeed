@@ -51,110 +51,177 @@ import { TableDropdownMenu } from "./table-dropdown-menu";
 import { ToggleToolbarButton } from "./toggle-toolbar-button";
 import { ToolbarGroup } from "./toolbar";
 import { TurnIntoDropdownMenu } from "./turn-into-dropdown-menu";
+import { cn } from "@/shared/utils/globals";
+import { useDevice } from "@/shared/hooks/use-device";
 
-export function FixedToolbarButtons() {
+const MinimalToolbarButtons = () => {
+  return (
+    <>
+      <ToolbarGroup className="gap-1">
+        <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
+          <BoldIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton nodeType={ItalicPlugin.key} tooltip="Italic (⌘+I)">
+          <ItalicIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton
+          nodeType={UnderlinePlugin.key}
+          tooltip="Underline (⌘+U)"
+        >
+          <UnderlineIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton
+          nodeType={StrikethroughPlugin.key}
+          tooltip="Strikethrough (⌘+⇧+M)"
+        >
+          <StrikethroughIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton nodeType={CodePlugin.key} tooltip="Code (⌘+E)">
+          <Code2Icon />
+        </MarkToolbarButton>
+
+        <ColorDropdownMenu nodeType={FontColorPlugin.key} tooltip="Text color">
+          <BaselineIcon />
+        </ColorDropdownMenu>
+
+        <ColorDropdownMenu
+          nodeType={FontBackgroundColorPlugin.key}
+          tooltip="Background color"
+        >
+          <PaintBucketIcon />
+        </ColorDropdownMenu>
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <InsertDropdownMenu />
+        <TurnIntoDropdownMenu />
+        <FontSizeToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <MediaToolbarButton nodeType={ImagePlugin.key} />
+        <MediaToolbarButton nodeType={VideoPlugin.key} />
+        <MediaToolbarButton nodeType={AudioPlugin.key} />
+      </ToolbarGroup>
+    </>
+  );
+};
+
+const FullToolbarButtons = () => {
+  return (
+    <>
+      <ToolbarGroup className="gap-1">
+        <UndoToolbarButton />
+        <RedoToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <ExportToolbarButton>
+          <ArrowUpToLineIcon />
+        </ExportToolbarButton>
+
+        <ImportToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <InsertDropdownMenu />
+        <TurnIntoDropdownMenu />
+        <FontSizeToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
+          <BoldIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton nodeType={ItalicPlugin.key} tooltip="Italic (⌘+I)">
+          <ItalicIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton
+          nodeType={UnderlinePlugin.key}
+          tooltip="Underline (⌘+U)"
+        >
+          <UnderlineIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton
+          nodeType={StrikethroughPlugin.key}
+          tooltip="Strikethrough (⌘+⇧+M)"
+        >
+          <StrikethroughIcon />
+        </MarkToolbarButton>
+
+        <MarkToolbarButton nodeType={CodePlugin.key} tooltip="Code (⌘+E)">
+          <Code2Icon />
+        </MarkToolbarButton>
+
+        <ColorDropdownMenu nodeType={FontColorPlugin.key} tooltip="Text color">
+          <BaselineIcon />
+        </ColorDropdownMenu>
+
+        <ColorDropdownMenu
+          nodeType={FontBackgroundColorPlugin.key}
+          tooltip="Background color"
+        >
+          <PaintBucketIcon />
+        </ColorDropdownMenu>
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <AlignDropdownMenu />
+
+        <NumberedIndentListToolbarButton />
+        <BulletedIndentListToolbarButton />
+        <IndentTodoToolbarButton />
+        <ToggleToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <LinkToolbarButton />
+        <TableDropdownMenu />
+        <EmojiDropdownMenu />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <MediaToolbarButton nodeType={ImagePlugin.key} />
+        <MediaToolbarButton nodeType={VideoPlugin.key} />
+        <MediaToolbarButton nodeType={AudioPlugin.key} />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <LineHeightDropdownMenu />
+        <OutdentToolbarButton />
+        <IndentToolbarButton />
+      </ToolbarGroup>
+
+      <ToolbarGroup className="gap-1">
+        <MoreDropdownMenu />
+      </ToolbarGroup>
+    </>
+  );
+};
+
+type FixedToolbarButtonsProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function FixedToolbarButtons({
+  className,
+  ...props
+}: FixedToolbarButtonsProps) {
+  const { isMobile } = useDevice();
   const readOnly = useEditorReadOnly();
 
   return (
-    <div className="flex flex-wrap w-full gap-1">
-      {!readOnly && (
-        <>
-          <ToolbarGroup className="gap-1">
-            <UndoToolbarButton />
-            <RedoToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <ExportToolbarButton>
-              <ArrowUpToLineIcon />
-            </ExportToolbarButton>
-
-            <ImportToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <InsertDropdownMenu />
-            <TurnIntoDropdownMenu />
-            <FontSizeToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
-              <BoldIcon />
-            </MarkToolbarButton>
-
-            <MarkToolbarButton
-              nodeType={ItalicPlugin.key}
-              tooltip="Italic (⌘+I)"
-            >
-              <ItalicIcon />
-            </MarkToolbarButton>
-
-            <MarkToolbarButton
-              nodeType={UnderlinePlugin.key}
-              tooltip="Underline (⌘+U)"
-            >
-              <UnderlineIcon />
-            </MarkToolbarButton>
-
-            <MarkToolbarButton
-              nodeType={StrikethroughPlugin.key}
-              tooltip="Strikethrough (⌘+⇧+M)"
-            >
-              <StrikethroughIcon />
-            </MarkToolbarButton>
-
-            <MarkToolbarButton nodeType={CodePlugin.key} tooltip="Code (⌘+E)">
-              <Code2Icon />
-            </MarkToolbarButton>
-
-            <ColorDropdownMenu
-              nodeType={FontColorPlugin.key}
-              tooltip="Text color"
-            >
-              <BaselineIcon />
-            </ColorDropdownMenu>
-
-            <ColorDropdownMenu
-              nodeType={FontBackgroundColorPlugin.key}
-              tooltip="Background color"
-            >
-              <PaintBucketIcon />
-            </ColorDropdownMenu>
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <AlignDropdownMenu />
-
-            <NumberedIndentListToolbarButton />
-            <BulletedIndentListToolbarButton />
-            <IndentTodoToolbarButton />
-            <ToggleToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <LinkToolbarButton />
-            <TableDropdownMenu />
-            <EmojiDropdownMenu />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <MediaToolbarButton nodeType={ImagePlugin.key} />
-            <MediaToolbarButton nodeType={VideoPlugin.key} />
-            <MediaToolbarButton nodeType={AudioPlugin.key} />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <LineHeightDropdownMenu />
-            <OutdentToolbarButton />
-            <IndentToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup className="gap-1">
-            <MoreDropdownMenu />
-          </ToolbarGroup>
-        </>
-      )}
+    <div
+      className={cn("flex flex-wrap w-full gap-1 overflow-y-auto", className)}
+      {...props}
+    >
+      {!readOnly &&
+        (isMobile ? <MinimalToolbarButtons /> : <FullToolbarButtons />)}
     </div>
   );
 }
