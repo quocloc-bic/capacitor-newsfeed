@@ -16,7 +16,7 @@ import {
 import { chevronBack, menu } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { useDevice } from "../../shared/hooks/use-device";
-import TableOfContents from "./components/table-of-contents/table-of-contents";
+import { TableOfContentsWithEmitter } from "./components/table-of-contents/table-of-contents";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
 import useCreateArticle from "./create-article-page.hook";
 
@@ -43,7 +43,7 @@ const CreateArticlePage: React.FC = () => {
           </IonToolbar>
         </Header>
         <Content className="ion-padding">
-          <TableOfContents />
+          <TableOfContentsWithEmitter />
         </Content>
       </IonMenu>
       <IonPage id="main-content">
@@ -110,7 +110,7 @@ const CreateArticlePage: React.FC = () => {
 
             <div className="w-[250px] ml-5 hidden md:block">
               <CollapsibleView title={textConstants.tableOfContents}>
-                <TableOfContents />
+                <TableOfContentsWithEmitter />
               </CollapsibleView>
             </div>
           </div>

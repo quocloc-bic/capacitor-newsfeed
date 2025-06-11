@@ -1,13 +1,11 @@
-import { AppRoutes, appRoutesFactory } from "@/core/app-routes";
+import { AppRoutes } from "@/core/app-routes";
 import type { Article } from "@/core/types/article";
 import useNewsfeedItem from "@/pages/newsfeed/components/newsfeed-item/newsfeed-item.hook";
-import Button from "@/shared/components/button";
+import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 import CommentList from "@/shared/components/comment-list";
 import PlateContentViewer from "@/shared/components/plate-content-viewer";
-import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 import { cn } from "@/shared/utils/globals";
-import { IonCard, IonIcon, IonImg } from "@ionic/react";
-import { createOutline } from "ionicons/icons";
+import { IonCard, IonImg } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 
 interface ArticleDetailContentProps
@@ -44,25 +42,10 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
           alt={article?.title}
           className="aspect-[21/9] w-full object-cover"
         />
-
-        <Button
-          fill="clear"
-          color="dark"
-          className="absolute top-0 right-4 text-white h-4"
-          noPadding
-          onClick={() => {
-            if (!article?.id) {
-              return;
-            }
-
-            history.push(appRoutesFactory(article?.id)[AppRoutes.EditArticle]);
-          }}
-        >
-          <IonIcon icon={createOutline} size="large" />
-        </Button>
       </div>
+
       <div className="flex flex-col gap-4 px-11">
-        <div className="flex items-center gap-2">
+        <div className="flex items-baseline gap-2">
           <h1 className="text-4xl font-semibold text-neutral-60 flex-1">
             {article?.title}
           </h1>
