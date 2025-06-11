@@ -1,20 +1,28 @@
 import type { Article } from "@/core/types/article";
 import type { CreateArticleStore } from "../create-article-page.store";
-import firebaseService from "@/shared/services/firebase/firebase-service";
+import { repositories } from "@/shared/repositories";
 
 const updateArticle =
   (get: () => CreateArticleStore) =>
   async (articleId: string): Promise<Article> => {
-    const {
-      state: { payload },
-      actions: { clearPayload },
-    } = get();
+    try {
+      const {
+        state: { payload },
+        actions: { clearPayload },
+      } = get();
 
-    const article = await firebaseService.updateArticle(articleId, payload);
+      const article = await repositories.article.updateArticle(
+        articleId,
+        payload
+      );
 
-    clearPayload();
+      clearPayload();
 
-    return article;
+      return article;
+    } catch (error) {
+      console.error("Failed to update article:", error);
+      throw error;
+    }
   };
 
 export default updateArticle;

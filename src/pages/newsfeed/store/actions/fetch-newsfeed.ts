@@ -1,36 +1,45 @@
-import firebaseService from "@/shared/services/firebase/firebase-service";
+import { repositories } from "@/shared/repositories";
 
 const fetchNewsfeed =
   (set: (state: any) => void, get: () => any) =>
   async (lastCreatedAt?: Date) => {
-    const {
-      state: { articleIds },
-    } = get();
+    try {
+      const {
+        state: { articleIds },
+      } = get();
 
-    set((state: any) => {
-      if (lastCreatedAt) {
-        state.state.loadingMore = true;
-      } else {
-        state.state.loading = true;
-      }
-    });
+      set((state: any) => {
+        if (lastCreatedAt) {
+          state.state.loadingMore = true;
+        } else {
+          state.state.loading = true;
+        }
+      });
 
-    const result = await firebaseService.getArticles(lastCreatedAt);
+      const result = await repositories.article.getArticles(lastCreatedAt);
 
-    const { articles: newArticles, lastCreatedAt: newLastCreatedAt } = result;
+      const { articles: newArticles, lastCreatedAt: newLastCreatedAt } = result;
 
-    const updatedArticles = Array.from(
-      new Set([...articleIds, ...newArticles.map(({ id }) => id)])
-    );
+      const updatedArticles = Array.from(
+        new Set([...articleIds, ...newArticles.map(({ id }) => id)])
+      );
 
-    set((state: any) => {
-      state.state.articleIds = updatedArticles;
-      state.state.lastCreatedAt = newLastCreatedAt;
-      state.state.loading = false;
-      state.state.loadingMore = false;
-    });
+      set((state: any) => {
+        state.state.articleIds = updatedArticles;
+        state.state.lastCreatedAt = newLastCreatedAt;
+        state.state.loading = false;
+        state.state.loadingMore = false;
+      });
 
-    return newArticles;
+      return newArticles;
+    } catch (error) {
+      console.error("Failed to fetch newsfeed:", error);
+      set((state: any) => {
+        state.state.loading = false;
+        state.state.loadingMore = false;
+      });
+      throw error;
+    }
   };
 
 export default fetchNewsfeed;

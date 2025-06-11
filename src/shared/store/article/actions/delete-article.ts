@@ -1,12 +1,17 @@
-import firebaseService from "@/shared/services/firebase/firebase-service";
+import { repositories } from "@/shared/repositories";
 
 const deleteArticle =
   (set: (state: any) => void) => async (articleId: string) => {
-    await firebaseService.deleteArticle(articleId);
+    try {
+      await repositories.article.deleteArticle(articleId);
 
-    set((state: any) => {
-      delete state.state.articles[articleId];
-    });
+      set((state: any) => {
+        delete state.state.articles[articleId];
+      });
+    } catch (error) {
+      console.error("Failed to delete article:", error);
+      throw error;
+    }
   };
 
 export default deleteArticle;

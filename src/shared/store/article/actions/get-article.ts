@@ -1,15 +1,20 @@
-import firebaseService from "@/shared/services/firebase/firebase-service";
+import { repositories } from "@/shared/repositories";
 
 const getArticle = (set: (state: any) => void) => async (articleId: string) => {
-  const article = await firebaseService.getArticle(articleId);
+  try {
+    const article = await repositories.article.getArticle(articleId);
 
-  if (article) {
-    set((state: any) => {
-      state.state.articles[articleId] = article;
-    });
+    if (article) {
+      set((state: any) => {
+        state.state.articles[articleId] = article;
+      });
+    }
+
+    return article;
+  } catch (error) {
+    console.error("Failed to get article:", error);
+    throw error;
   }
-
-  return article;
 };
 
 export default getArticle;
