@@ -8,6 +8,7 @@ import React from "react";
 import { useShallow } from "zustand/react/shallow";
 import "./newsfeed-item.css";
 import useNewsfeedItem from "./newsfeed-item.hook";
+import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
@@ -40,9 +41,13 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
         </IonRouterLink>
 
         <div className="p-4">
-          <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
-            {article?.title}
-          </IonLabel>
+          <div className="flex items-center justify-between">
+            <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
+              {article?.title}
+            </IonLabel>
+
+            <ArticleMenuButton article={article} />
+          </div>
 
           <div className="h-2" />
 

@@ -4,6 +4,7 @@ import useNewsfeedItem from "@/pages/newsfeed/components/newsfeed-item/newsfeed-
 import Button from "@/shared/components/button";
 import CommentList from "@/shared/components/comment-list";
 import PlateContentViewer from "@/shared/components/plate-content-viewer";
+import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 import { cn } from "@/shared/utils/globals";
 import { IonCard, IonIcon, IonImg } from "@ionic/react";
 import { createOutline } from "ionicons/icons";
@@ -21,6 +22,10 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
   const { loadingComments, commentIds } = useNewsfeedItem(article?.id || "");
   const history = useHistory();
   const content = article?.content ? JSON.parse(article.content) : [];
+
+  const onDidDelete = () => {
+    history.replace(AppRoutes.Newsfeed);
+  };
 
   if (!article) {
     return null;
@@ -57,9 +62,13 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({
         </Button>
       </div>
       <div className="flex flex-col gap-4 px-11">
-        <h1 className="text-4xl font-semibold text-neutral-60">
-          {article?.title}
-        </h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-4xl font-semibold text-neutral-60 flex-1">
+            {article?.title}
+          </h1>
+
+          <ArticleMenuButton article={article} onDidDelete={onDidDelete} />
+        </div>
         <p className="text-sm border-y border-neutral-5 bg-neutral-1 p-4 font-medium text-neutral-40">
           {article?.description}
         </p>

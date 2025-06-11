@@ -11,6 +11,24 @@ const useAlertPresenter = () => {
     await dismissIonToast();
   };
 
+  const showConfirmationAlert = async (
+    message: string,
+    confirmButtonTitle: string,
+    onConfirm: () => void
+  ) => {
+    await dismissAll();
+    await showIonAlert({
+      message,
+      buttons: [
+        {
+          text: confirmButtonTitle,
+          handler: onConfirm,
+        },
+        { text: "Cancel", role: "cancel" },
+      ],
+    });
+  };
+
   const showErrorAlert = async (error: any) => {
     let message = "An unknown error occurred";
     if (error instanceof Error) {
@@ -67,6 +85,7 @@ const useAlertPresenter = () => {
     dismissAll,
     showToast,
     dismissToast: dismissIonToast,
+    showConfirmationAlert,
   };
 };
 

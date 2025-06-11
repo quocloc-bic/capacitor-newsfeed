@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -106,6 +107,11 @@ const updateArticle = async (
   };
 };
 
+const deleteArticle = async (articleId: string) => {
+  const ref = doc(firestore, "article", articleId);
+  await deleteDoc(ref);
+};
+
 const postComment = async (articleId: string, comment: string) => {
   const params = {
     articleId,
@@ -156,6 +162,7 @@ const firebaseService = {
   getArticle,
   postComment,
   getComments,
+  deleteArticle,
 };
 
 export default firebaseService;

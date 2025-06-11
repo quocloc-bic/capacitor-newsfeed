@@ -1,7 +1,8 @@
 import type { Article } from "@/core/types/article";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import getArticle from "./actions/getArticle";
+import getArticle from "./actions/get-article";
+import deleteArticle from "./actions/delete-article";
 
 interface ArticleState {
   articles: {
@@ -12,6 +13,7 @@ interface ArticleState {
 interface ArticleActions {
   addArticle: (article: Article | Article[]) => void;
   getArticle: (articleId: string) => Promise<Article | undefined>;
+  deleteArticle: (articleId: string) => Promise<void>;
 }
 
 export interface ArticleStore {
@@ -39,6 +41,7 @@ const useArticleStore = create<ArticleStore>()(
         });
       },
       getArticle: getArticle(set),
+      deleteArticle: deleteArticle(set),
     },
   }))
 );
