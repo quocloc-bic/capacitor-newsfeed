@@ -5,6 +5,7 @@ import useArticleStore from "@/shared/store/article/article.store";
 
 const useNewsfeedPage = () => {
   const { showErrorAlert } = useAlertPresenter();
+
   const { articleIds, lastCreatedAt, loading, loadingMore } = useNewsfeedStore(
     (state) => state.state
   );

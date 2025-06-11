@@ -4,7 +4,7 @@ import articleSelectors from "@/shared/store/article/article.selector";
 import useArticleStore from "@/shared/store/article/article.store";
 import { cn, formatDate } from "@/shared/utils/globals";
 import { IonCard, IonImg, IonLabel, IonRouterLink } from "@ionic/react";
-import React from "react";
+import React, { useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
 import "./newsfeed-item.css";
 import useNewsfeedItem from "./newsfeed-item.hook";
@@ -20,6 +20,11 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
   );
   const { loadingComments, commentIds } = useNewsfeedItem(articleId);
 
+  const articleDetailLink = useMemo(
+    () => appRoutesFactory(articleId)[AppRoutes.ArticleDetail],
+    [articleId]
+  );
+
   if (!article) return null;
 
   return (
@@ -29,10 +34,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
           "rounded-lg bg-white shadow-md flex flex-col gap-2 border border-border"
         )}
       >
-        <IonRouterLink
-          routerLink={appRoutesFactory(articleId)[AppRoutes.ArticleDetail]}
-          routerDirection="forward"
-        >
+        <IonRouterLink routerLink={articleDetailLink} routerDirection="forward">
           <IonImg
             src={article?.coverImage}
             alt="cover"
@@ -74,4 +76,4 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
   );
 };
 
-export default NewsfeedItem;
+export default React.memo(NewsfeedItem);

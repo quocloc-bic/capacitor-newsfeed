@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useNewsfeedPage from "./newsfeed-page.hook";
 import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
@@ -19,9 +19,20 @@ const NewsfeedPage: React.FC = () => {
 
   const history = useHistory();
 
-  const handleCreateArticle = () => {
+  const handleCreateArticle = useCallback(() => {
     history.push(AppRoutes.CreateArticle);
-  };
+  }, [history]);
+
+  const handleInfiniteScroll = useCallback(
+    (event: CustomEvent) => {
+      loadMore();
+
+      setTimeout(() => {
+        (event.target as any).complete();
+      }, 2000);
+    },
+    [loadMore]
+  );
 
   if (loading) {
     return (
@@ -62,13 +73,7 @@ const NewsfeedPage: React.FC = () => {
             {lastCreatedAt && (
               <IonInfiniteScroll
                 className="mt-2"
-                onIonInfinite={(event) => {
-                  loadMore();
-
-                  setTimeout(() => {
-                    event.target.complete();
-                  }, 2000);
-                }}
+                onIonInfinite={handleInfiniteScroll}
               >
                 <IonInfiniteScrollContent />
               </IonInfiniteScroll>
@@ -80,4 +85,4 @@ const NewsfeedPage: React.FC = () => {
   );
 };
 
-export default NewsfeedPage;
+export default React.memo(NewsfeedPage);

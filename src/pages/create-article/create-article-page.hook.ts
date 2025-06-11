@@ -13,8 +13,15 @@ const useCreateArticle = (articleId?: string) => {
   const [dataLoading, setDataLoading] = useState(false);
   const history = useHistory();
 
-  const { addArticleId } = useNewsfeedStore((state) => state.actions);
-  const { addArticle, getArticle } = useArticleStore((state) => state.actions);
+  const addArticleId = useNewsfeedStore(
+    useCallback((state) => state.actions.addArticleId, [])
+  );
+  const addArticle = useArticleStore(
+    useCallback((state) => state.actions.addArticle, [])
+  );
+  const getArticle = useArticleStore(
+    useCallback((state) => state.actions.getArticle, [])
+  );
   const article = useArticleStore(
     useShallow(articleSelectors.getArticle(articleId || ""))
   );
@@ -24,10 +31,10 @@ const useCreateArticle = (articleId?: string) => {
   );
 
   const triggerCreateArticle = useCreateArticleStore(
-    (state) => state.actions.triggerCreateArticle
+    useCallback((state) => state.actions.triggerCreateArticle, [])
   );
   const triggerUpdateArticle = useCreateArticleStore(
-    (state) => state.actions.triggerUpdateArticle
+    useCallback((state) => state.actions.triggerUpdateArticle, [])
   );
 
   const fetchArticle = useCallback(async () => {
@@ -38,11 +45,11 @@ const useCreateArticle = (articleId?: string) => {
     setDataLoading(true);
     await getArticle(articleId);
     setDataLoading(false);
-  }, [articleId]);
+  }, [articleId, getArticle]);
 
   useEffect(() => {
     fetchArticle();
-  }, [articleId]);
+  }, [fetchArticle]);
 
   const onPost = async () => {
     try {

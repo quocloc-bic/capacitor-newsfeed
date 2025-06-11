@@ -24,7 +24,7 @@ const useNewsfeedItem = (articleId: string) => {
     } finally {
       setLoadingComments(false);
     }
-  }, [articleId]);
+  }, [articleId, fetchCommentsAction]);
 
   useEffect(() => {
     fetchComments();
