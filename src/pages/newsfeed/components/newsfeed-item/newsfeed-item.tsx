@@ -1,14 +1,14 @@
 import { AppRoutes, appRoutesFactory } from "@/core/app-routes";
+import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 import CommentList from "@/shared/components/comment-list";
 import articleSelectors from "@/shared/store/article/article.selector";
 import useArticleStore from "@/shared/store/article/article.store";
 import { cn, formatDate } from "@/shared/utils/globals";
 import { IonCard, IonImg, IonLabel, IonRouterLink } from "@ionic/react";
-import React, { useMemo } from "react";
+import React from "react";
 import { useShallow } from "zustand/react/shallow";
 import "./newsfeed-item.css";
 import useNewsfeedItem from "./newsfeed-item.hook";
-import ArticleMenuButton from "@/shared/components/article-menu-button/article-menu-button";
 
 interface NewsfeedItemProps extends React.HTMLAttributes<HTMLDivElement> {
   articleId: string;
@@ -20,10 +20,8 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
   );
   const { loadingComments, commentIds } = useNewsfeedItem(articleId);
 
-  const articleDetailLink = useMemo(
-    () => appRoutesFactory(articleId)[AppRoutes.ArticleDetail],
-    [articleId]
-  );
+  const articleDetailLink =
+    appRoutesFactory(articleId)[AppRoutes.ArticleDetail];
 
   if (!article) return null;
 

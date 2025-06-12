@@ -63,15 +63,5 @@ export const TableOfContentsWithEmitter: React.FC<
     };
   }, []);
 
-  const contents = useMemo(() => {
-    return (editorValue || []).filter(
-      (node) => node.type === "h1" || node.type === "h2" || node.type === "h3"
-    );
-  }, [editorValue]);
-
-  if (contents.length === 0) {
-    return null;
-  }
-
   return <TableOfContents value={editorValue} {...props} />;
 };
