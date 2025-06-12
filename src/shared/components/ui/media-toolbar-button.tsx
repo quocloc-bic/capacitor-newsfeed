@@ -94,6 +94,7 @@ export function MediaToolbarButton({
   const { openFilePicker } = useFilePicker({
     accept: currentConfig.accept,
     multiple: true,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onFilesSelected: (data: any) => {
       if (data.plainFiles) {
         editor.getTransforms(PlaceholderPlugin).insert.media(data.plainFiles);

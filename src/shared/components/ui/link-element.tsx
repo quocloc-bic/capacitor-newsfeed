@@ -14,6 +14,7 @@ export function LinkElement(props: PlateElementProps<TLinkElement>) {
       className="font-medium text-primary underline decoration-primary underline-offset-4"
       attributes={{
         ...props.attributes,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...(linkProps as any),
       }}
     >

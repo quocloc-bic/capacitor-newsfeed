@@ -23,6 +23,7 @@ export function ImageElementStatic(
               "w-full max-w-full cursor-default object-cover px-0",
               "rounded-sm"
             )}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             alt={(props.attributes as any).alt}
             src={url}
           />

@@ -58,7 +58,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
     readAs: "DataURL",
     accept: "image/*",
     multiple: false,
-    onFilesSelected: (data: any) => {
+    onFilesSelected: (data) => {
       if (!data.plainFiles) return;
       const firstFile = data.plainFiles[0];
       if (firstFile) {

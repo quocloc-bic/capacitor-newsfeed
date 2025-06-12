@@ -8,6 +8,7 @@ import {
   IonInfiniteScrollContent,
   IonList,
   IonPage,
+  type InfiniteScrollCustomEvent,
 } from "@ionic/react";
 import Content from "@/shared/components/content";
 import { AppRoutes } from "@/core/app-routes";
@@ -24,11 +25,11 @@ const NewsfeedPage: React.FC = () => {
   }, [history]);
 
   const handleInfiniteScroll = useCallback(
-    (event: CustomEvent) => {
+    (event: InfiniteScrollCustomEvent) => {
       loadMore();
 
       setTimeout(() => {
-        (event.target as any).complete();
+        event.target.complete();
       }, 2000);
     },
     [loadMore]

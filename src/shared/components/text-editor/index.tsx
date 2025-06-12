@@ -30,7 +30,7 @@ const TitleInput = React.memo(
       className="w-full font-bold text-2xl p-0"
       maxlength={64}
       value={value}
-      onIonInput={(e: any) => {
+      onIonInput={(e) => {
         onChange(e.detail.value ?? "");
       }}
     />
@@ -44,7 +44,7 @@ const DescriptionInput = React.memo(
       className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
       maxlength={255}
       value={value}
-      onIonInput={(e: any) => {
+      onIonInput={(e) => {
         onChange(e.detail.value ?? "");
       }}
     />

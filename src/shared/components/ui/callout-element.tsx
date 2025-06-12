@@ -29,6 +29,7 @@ export function CalloutElement({
     <PlateElement
       className={cn("my-1 flex rounded-sm bg-muted p-4 pl-3", className)}
       style={{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         backgroundColor: props.element.backgroundColor as any,
       }}
       attributes={{
@@ -50,6 +51,7 @@ export function CalloutElement({
               }}
               contentEditable={false}
             >
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {(props.element.icon as any) || "💡"}
             </Button>
           }

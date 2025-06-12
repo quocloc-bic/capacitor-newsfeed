@@ -44,6 +44,7 @@ export function ImportToolbarButton(props: DropdownMenuProps) {
   const { openFilePicker: openMdFilePicker } = useFilePicker({
     accept: [".md", ".mdx"],
     multiple: false,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onFilesSelected: async (data: any) => {
       const plainFiles = data?.plainFiles;
 
@@ -60,6 +61,7 @@ export function ImportToolbarButton(props: DropdownMenuProps) {
   const { openFilePicker: openHtmlFilePicker } = useFilePicker({
     accept: ["text/html"],
     multiple: false,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onFilesSelected: async (data: any) => {
       const plainFiles = data?.plainFiles;
 

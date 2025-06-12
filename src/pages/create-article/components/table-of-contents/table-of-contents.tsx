@@ -2,12 +2,12 @@ import React, { useMemo, useEffect, useState } from "react";
 import styles from "./table-of-contents.module.css";
 import { IonLabel } from "@ionic/react";
 import { cn } from "@/shared/utils/globals";
-import type { Value } from "@udecode/plate";
+import type { Element, Value } from "@udecode/plate";
 import { textEditorValueEmitter } from "../text-editor-wrapper/text-editor-wrapper";
 
 interface TableOfContentsProps extends React.HTMLAttributes<HTMLDivElement> {
   value: Value;
-  onDidSelect?: (id: string) => void;
+  onDidSelect?: (item: Element) => void;
 }
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({
@@ -18,8 +18,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
 }) => {
   const contents = useMemo(() => {
     return (value || []).filter(
-      (node: any) =>
-        node.type === "h1" || node.type === "h2" || node.type === "h3"
+      (node) => node.type === "h1" || node.type === "h2" || node.type === "h3"
     );
   }, [value]);
 
@@ -29,14 +28,18 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
 
   return (
     <div className={cn("flex flex-col gap-2 px-4 py-2", className)} {...props}>
-      {contents.map((item: any) => {
+      {contents.map((item: Element) => {
+        const text: string | undefined = item.children[0].text as
+          | string
+          | undefined;
+
         return (
           <IonLabel
-            key={item.id}
+            key={text}
             className={styles[`item-${item.type}`]}
-            onClick={() => onDidSelect?.(item.id)}
+            onClick={() => onDidSelect?.(item)}
           >
-            {item.children[0].text}
+            {text}
           </IonLabel>
         );
       })}
@@ -62,8 +65,7 @@ export const TableOfContentsWithEmitter: React.FC<
 
   const contents = useMemo(() => {
     return (editorValue || []).filter(
-      (node: any) =>
-        node.type === "h1" || node.type === "h2" || node.type === "h3"
+      (node) => node.type === "h1" || node.type === "h2" || node.type === "h3"
     );
   }, [editorValue]);
 

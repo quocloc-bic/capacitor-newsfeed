@@ -17,7 +17,7 @@ export function ExcalidrawElement(
     <PlateElement {...props}>
       <div contentEditable={false}>
         <div className="mx-auto aspect-video h-[600px] w-[min(100%,600px)] overflow-hidden rounded-sm border">
-          {Excalidraw && <Excalidraw {...(excalidrawProps as any)} />}
+          {Excalidraw && <Excalidraw {...excalidrawProps} />}
         </div>
       </div>
       {children}

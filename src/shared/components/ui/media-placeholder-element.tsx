@@ -72,6 +72,7 @@ export const MediaPlaceholderElement = withHOC(
     const { openFilePicker } = useFilePicker({
       accept: currentContent.accept,
       multiple: true,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onFilesSelected: (data: any) => {
         if (!data.plainFiles) return;
 

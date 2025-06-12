@@ -49,6 +49,7 @@ export const ImageElement = withHOC(
                   focused && selected && "ring-2 ring-ring ring-offset-2",
                   isDragging && "opacity-50"
                 )}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 alt={(props.attributes as any).alt}
               />
               <ResizeHandle
