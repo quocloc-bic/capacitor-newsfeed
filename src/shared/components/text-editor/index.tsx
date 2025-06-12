@@ -2,7 +2,6 @@ import { Plate } from "@udecode/plate/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
 import type { CreateArticlePayload } from "@/core/types/create-article";
 import { Editor, EditorContainer } from "@/shared/components/ui/editor";
 import { useDevice } from "@/shared/hooks/use-device";
@@ -16,7 +15,7 @@ import "./text-editor.css";
 import { useCreateEditor } from "./use-create-editor";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
-  article?: CreateArticlePayload;
+  payload?: CreateArticlePayload;
   onTitleChanged?: (value: string) => void;
   onDescriptionChanged?: (value: string) => void;
   onContentChanged?: (value: Value) => void;
@@ -32,13 +31,9 @@ const TitleInput = React.memo(
       debounce={100}
       maxlength={64}
       value={value}
-      onIonInput={(e) => {
-        onChange(e.detail.value ?? "");
-      }}
+      onIonInput={(e) => onChange(e.detail.value ?? "")}
       onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-        }
+        if (e.key === "Enter") e.preventDefault();
       }}
     />
   )
@@ -53,13 +48,9 @@ const DescriptionInput = React.memo(
       maxlength={255}
       debounce={100}
       value={value}
-      onIonInput={(e) => {
-        onChange(e.detail.value ?? "");
-      }}
+      onIonInput={(e) => onChange(e.detail.value ?? "")}
       onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-        }
+        if (e.key === "Enter") e.preventDefault();
       }}
     />
   )
@@ -68,7 +59,7 @@ const DescriptionInput = React.memo(
 const TextEditor = React.memo(
   ({
     className,
-    article,
+    payload,
     onContentChanged,
     onTitleChanged,
     onDescriptionChanged,
@@ -78,52 +69,76 @@ const TextEditor = React.memo(
     const { isMobile } = useDevice();
     const editor = useCreateEditor(
       {
-        value: article?.content ? JSON.parse(article.content) : undefined,
+        value: payload?.content ? JSON.parse(payload.content) : undefined,
       },
-      [article]
+      [payload]
     );
-
-    const [title, setTitle] = useState<string>(article?.title || "");
+    const [title, setTitle] = useState<string>(payload?.title || "");
     const [description, setDescription] = useState<string>(
-      article?.description || ""
+      payload?.description || ""
+    );
+    const [coverImage, setCoverImage] = useState<string>(
+      payload?.coverImage || ""
     );
 
     useEffect(() => {
-      if (article) {
-        setTitle(article.title || "");
-        setDescription(article.description || "");
+      if (payload) {
+        setTitle(payload.title || "");
+        setDescription(payload.description || "");
+        setCoverImage(payload.coverImage || "");
       }
-    }, [article]);
+    }, [payload]);
 
-    const handleTitleChange = useCallback(
-      (value: string) => {
-        setTitle(value);
-        onTitleChanged?.(value);
-      },
-      [onTitleChanged]
-    );
+    const handleTitleChange = (value: string) => {
+      setTitle(value);
+      onTitleChanged?.(value);
+    };
+    const handleDescriptionChange = (value: string) => {
+      setDescription(value);
+      onDescriptionChanged?.(value);
+    };
+    const handleCoverImageChange = (image: string) => {
+      setCoverImage(image);
+      onCoverImageChanged?.(image);
+    };
+    const handleContentChange = (options: { value: Value }) => {
+      onContentChanged?.(options.value);
+    };
 
-    const handleDescriptionChange = useCallback(
-      (value: string) => {
-        setDescription(value);
-        onDescriptionChanged?.(value);
-      },
-      [onDescriptionChanged]
-    );
+    const renderImageSelector = useCallback(() => {
+      return (
+        <ImageSelector
+          className="w-full aspect-[21/9]"
+          imageUrl={coverImage}
+          onImageSelected={handleCoverImageChange}
+        />
+      );
+    }, [coverImage, handleCoverImageChange]);
 
-    const handleCoverImageChange = useCallback(
-      (image: string) => {
-        onCoverImageChanged?.(image);
-      },
-      [onCoverImageChanged]
-    );
+    const renderTitleInput = useCallback(() => {
+      return <TitleInput value={title} onChange={handleTitleChange} />;
+    }, [title, handleTitleChange]);
 
-    const handleContentChange = useCallback(
-      (options: { value: Value }) => {
-        onContentChanged?.(options.value);
-      },
-      [onContentChanged]
-    );
+    const renderDescriptionInput = useCallback(() => {
+      return (
+        <DescriptionInput
+          value={description}
+          onChange={handleDescriptionChange}
+        />
+      );
+    }, [description, handleDescriptionChange]);
+
+    const renderFixedToolbar = useCallback(() => {
+      return (
+        <FixedToolbar>
+          <FixedToolbarButtons />
+        </FixedToolbar>
+      );
+    }, []);
+
+    const renderEditor = useCallback(() => {
+      return <Editor placeholder={textConstants.content} />;
+    }, []);
 
     return (
       <DndProvider backend={HTML5Backend}>
@@ -134,63 +149,29 @@ const TextEditor = React.memo(
           <Plate editor={editor} onChange={handleContentChange}>
             <EditorContainer className="md:pr-4">
               {isMobile ? (
-                <div>
-                  <ImageSelector
-                    className="w-full aspect-[21/9]"
-                    imageUrl={article?.coverImage || ""}
-                    onImageSelected={handleCoverImageChange}
-                  />
-
+                <>
+                  {renderImageSelector()}
                   <div className="h-4" />
-
-                  <TitleInput value={title} onChange={handleTitleChange} />
-
+                  {renderTitleInput()}
                   <div className="h-4" />
-
-                  <DescriptionInput
-                    value={description}
-                    onChange={handleDescriptionChange}
-                  />
-
+                  {renderDescriptionInput()}
                   <div className="h-4" />
-
-                  <FixedToolbar>
-                    <FixedToolbarButtons />
-                  </FixedToolbar>
-
+                  {renderFixedToolbar()}
                   <div className="h-4" />
-
-                  <Editor placeholder={textConstants.content} />
-                </div>
+                  {renderEditor()}
+                </>
               ) : (
-                <div>
-                  <FixedToolbar>
-                    <FixedToolbarButtons />
-                  </FixedToolbar>
-
+                <>
+                  {renderFixedToolbar()}
                   <div className="h-4" />
-
-                  <ImageSelector
-                    className="w-full aspect-[21/9]"
-                    imageUrl={article?.coverImage || ""}
-                    onImageSelected={handleCoverImageChange}
-                  />
-
+                  {renderImageSelector()}
                   <div className="h-4" />
-
-                  <TitleInput value={title} onChange={handleTitleChange} />
-
+                  {renderTitleInput()}
                   <div className="h-4" />
-
-                  <DescriptionInput
-                    value={description}
-                    onChange={handleDescriptionChange}
-                  />
-
+                  {renderDescriptionInput()}
                   <div className="h-4" />
-
-                  <Editor placeholder={textConstants.content} />
-                </div>
+                  {renderEditor()}
+                </>
               )}
             </EditorContainer>
           </Plate>

@@ -42,7 +42,7 @@ export const TextEditorWithEmitterAndStore: React.FC<
 
   return (
     <TextEditorWithEmitter
-      article={article}
+      payload={article}
       onContentChanged={(value) => {
         setPayload({ content: JSON.stringify(value) });
       }}
