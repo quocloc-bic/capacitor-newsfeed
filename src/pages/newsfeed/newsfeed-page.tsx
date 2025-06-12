@@ -8,15 +8,20 @@ import {
   IonInfiniteScrollContent,
   IonList,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   type InfiniteScrollCustomEvent,
+  type RefresherEventDetail,
 } from "@ionic/react";
 import Content from "@/shared/components/content";
 import { AppRoutes } from "@/core/app-routes";
 import NewsfeedItemSkeleton from "./components/newsfeed-item-skeleton";
 import NewsfeedNoContent from "./components/newsfeed-no-content";
+import { delay } from "@/shared/utils/globals";
 
 const NewsfeedPage: React.FC = () => {
-  const { articleIds, loading, loadMore, lastCreatedAt } = useNewsfeedPage();
+  const { articleIds, loading, loadMore, lastCreatedAt, reload } =
+    useNewsfeedPage();
 
   const history = useHistory();
 
@@ -34,6 +39,12 @@ const NewsfeedPage: React.FC = () => {
     },
     [loadMore]
   );
+
+  async function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+    await delay(1000);
+    await reload();
+    event.detail.complete();
+  }
 
   if (loading) {
     return (
@@ -64,6 +75,10 @@ const NewsfeedPage: React.FC = () => {
               onClick={handleCreateArticle}
               className="[@media(min-width:900px)]:right-[calc((100vw-768px)/2-5rem)] z-10"
             />
+
+            <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+              <IonRefresherContent></IonRefresherContent>
+            </IonRefresher>
 
             <IonList mode="ios" className="space-y-6 !pb-4">
               {articleIds.map((id: string) => (

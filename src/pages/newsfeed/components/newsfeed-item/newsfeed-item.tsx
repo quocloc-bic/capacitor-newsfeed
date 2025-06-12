@@ -29,7 +29,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
     <div className={cn(props.className)}>
       <IonCard
         className={cn(
-          "rounded-lg bg-white shadow-md flex flex-col gap-2 border border-border"
+          "rounded-lg bg-white shadow-md flex flex-col border border-border"
         )}
       >
         <IonRouterLink routerLink={articleDetailLink} routerDirection="forward">
@@ -39,7 +39,9 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
             className="w-full h-full object-cover aspect-[21/9]"
           />
 
-          <div className="p-4">
+          <div className="h-2" />
+
+          <div className="px-4">
             <div className="flex items-center justify-between">
               <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
                 {article?.title}
@@ -64,7 +66,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
           </div>
         </IonRouterLink>
 
-        <div className="p-4">
+        <div className="px-4 pb-4">
           <CommentList
             commentIds={commentIds}
             articleId={articleId}
