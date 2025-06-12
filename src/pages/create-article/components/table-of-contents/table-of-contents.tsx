@@ -1,9 +1,9 @@
-import React, { useMemo, useEffect, useState } from "react";
-import styles from "./table-of-contents.module.css";
-import { IonLabel } from "@ionic/react";
 import { cn } from "@/shared/utils/globals";
+import { IonLabel } from "@ionic/react";
 import type { Element, Value } from "@udecode/plate";
+import React, { useEffect, useMemo, useState } from "react";
 import { textEditorValueEmitter } from "../text-editor-wrapper/text-editor-wrapper";
+import styles from "./table-of-contents.module.css";
 
 interface TableOfContentsProps extends React.HTMLAttributes<HTMLDivElement> {
   value: Value;

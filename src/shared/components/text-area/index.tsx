@@ -15,7 +15,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 }: TextAreaProps) => {
   return (
     <div className={clsx(style["container"], className)}>
-      <IonTextarea shape="round" class="custom" {...props} />
+      <IonTextarea class="custom" {...props} />
     </div>
   );
 };

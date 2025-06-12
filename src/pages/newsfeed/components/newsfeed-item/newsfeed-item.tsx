@@ -38,31 +38,33 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({ articleId, ...props }) => {
             alt="cover"
             className="w-full h-full object-cover aspect-[21/9]"
           />
+
+          <div className="p-4">
+            <div className="flex items-center justify-between">
+              <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
+                {article?.title}
+              </IonLabel>
+
+              <ArticleMenuButton article={article} />
+            </div>
+
+            <div className="h-2" />
+
+            <IonLabel className="text-gray-700 text-sm clamp-2">
+              {article?.description}
+            </IonLabel>
+
+            <div className="h-2" />
+
+            <div className="flex items-center gap-2">
+              <IonLabel className="ml-auto text-xs text-gray-400">
+                {formatDate(article?.createdAt)}
+              </IonLabel>
+            </div>
+          </div>
         </IonRouterLink>
 
         <div className="p-4">
-          <div className="flex items-center justify-between">
-            <IonLabel className="text-gray-700 text-lg clamp-2 font-bold">
-              {article?.title}
-            </IonLabel>
-
-            <ArticleMenuButton article={article} />
-          </div>
-
-          <div className="h-2" />
-
-          <IonLabel className="text-gray-700 text-sm clamp-2">
-            {article?.description}
-          </IonLabel>
-
-          <div className="h-2" />
-
-          <div className="flex items-center gap-2">
-            <IonLabel className="ml-auto text-xs text-gray-400">
-              {formatDate(article?.createdAt)}
-            </IonLabel>
-          </div>
-
           <CommentList
             commentIds={commentIds}
             articleId={articleId}

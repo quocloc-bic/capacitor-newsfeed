@@ -14,6 +14,7 @@ A modern mobile news feed application built with React and Capacitor.
 - **Tailwind CSS** - Utility-first CSS framework
 - **Firebase Firestore** - NoSQL document database
 - **Firebase Storage** - Cloud storage for user-generated content
+- **Capacitor Storage** - Local storage for draft content
 
 ## Installation
 

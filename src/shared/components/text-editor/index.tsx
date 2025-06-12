@@ -1,12 +1,12 @@
-import { Plate } from "@udecode/plate/react";
-import React, { useCallback, useEffect, useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import type { CreateArticlePayload } from "@/core/types/create-article";
 import { Editor, EditorContainer } from "@/shared/components/ui/editor";
 import { useDevice } from "@/shared/hooks/use-device";
 import { cn } from "@/shared/utils/globals";
 import type { Value } from "@udecode/plate";
+import { Plate } from "@udecode/plate/react";
+import React, { useCallback, useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import ImageSelector from "../image-selector";
 import TextArea from "../text-area";
 import { FixedToolbar } from "../ui/fixed-toolbar";
@@ -43,7 +43,7 @@ const DescriptionInput = React.memo(
   ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
     <TextArea
       placeholder={textConstants.description}
-      className="w-full bg-[#f8f8fb] rounded-lg resize-none p-4 pt-4"
+      className="w-full bg-[#f8f8fb] rounded-lg p-4 pt-4"
       autoGrow
       maxlength={255}
       debounce={100}

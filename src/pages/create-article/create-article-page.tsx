@@ -4,6 +4,7 @@ import Content from "@/shared/components/content";
 import Divider from "@/shared/components/divider";
 import Header from "@/shared/components/header";
 import { useQueryParams } from "@/shared/hooks/use-query-params";
+import { formatDate } from "@/shared/utils/globals";
 import {
   IonButtons,
   IonIcon,
@@ -14,7 +15,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { chevronBack, menu } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
 import { useDevice } from "../../shared/hooks/use-device";
 import { TableOfContentsWithEmitter } from "./components/table-of-contents/table-of-contents";
 import { TextEditorWithEmitterAndStore } from "./components/text-editor-wrapper/text-editor-wrapper";
@@ -27,12 +27,14 @@ type CreateArticlePageQueryParams = {
 const CreateArticlePage: React.FC = () => {
   const { id } = useQueryParams<CreateArticlePageQueryParams>();
   const { isMobile } = useDevice();
-  const history = useHistory();
-  const { onPost, submitLoading, isSubmitDisabled } = useCreateArticle(id);
-
-  const onClose = () => {
-    history.goBack();
-  };
+  const {
+    onPost,
+    onClose,
+    submitLoading,
+    isSubmitDisabled,
+    lastDraftSavedAt,
+    draft,
+  } = useCreateArticle(id);
 
   return (
     <>
@@ -50,11 +52,7 @@ const CreateArticlePage: React.FC = () => {
         <Header hidden={!isMobile}>
           <IonToolbar>
             <IonButtons slot="start">
-              <Button
-                fill="clear"
-                color="dark"
-                onClick={() => history.goBack()}
-              >
+              <Button fill="clear" color="dark" onClick={onClose}>
                 <IonIcon icon={chevronBack} />
               </Button>
             </IonButtons>
@@ -84,11 +82,18 @@ const CreateArticlePage: React.FC = () => {
                 <TextEditorWithEmitterAndStore
                   className="flex-1 min-h-0"
                   articleId={id}
+                  draft={draft}
                 />
 
                 <div className="hidden flex-col md:flex">
                   <Divider height={1} className="my-2" />
                   <div className="flex-row items-center flex gap-2">
+                    {lastDraftSavedAt && (
+                      <div className="text-sm text-gray-500">
+                        {textConstants.savedDraft}{" "}
+                        {formatDate(lastDraftSavedAt)}
+                      </div>
+                    )}
                     <div className="flex-1" />
 
                     <Button fill="clear" color="dark" onClick={onClose}>
@@ -128,4 +133,5 @@ const textConstants = {
   save: "Save",
   tableOfContents: "Table of Contents",
   close: "Back",
+  savedDraft: "Saved draft at",
 };
