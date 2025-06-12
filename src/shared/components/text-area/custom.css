@@ -1,0 +1,16 @@
+ion-textarea.custom {
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 1;
+
+  --padding-bottom: 0px;
+  --padding-top: 0px;
+  /* --padding-end: 0px; */
+  /* --padding-start: 0px; */
+
+  --ion-item-border-color: #0000;
+  --highlight-color: #000;
+}
+
+ion-textarea.custom .sc-ion-textarea-md {
+  --highlight-height: 0px;
+}

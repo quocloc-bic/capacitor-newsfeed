@@ -5,15 +5,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import type { CreateArticlePayload } from "@/core/types/create-article";
 import { Editor, EditorContainer } from "@/shared/components/ui/editor";
+import { useDevice } from "@/shared/hooks/use-device";
 import { cn } from "@/shared/utils/globals";
 import type { Value } from "@udecode/plate";
 import ImageSelector from "../image-selector";
-import TextInput from "../text-input";
+import TextArea from "../text-area";
 import { FixedToolbar } from "../ui/fixed-toolbar";
 import { FixedToolbarButtons } from "../ui/fixed-toolbar-buttons";
 import "./text-editor.css";
 import { useCreateEditor } from "./use-create-editor";
-import { useDevice } from "@/shared/hooks/use-device";
 
 export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   article?: CreateArticlePayload;
@@ -25,13 +25,20 @@ export interface TextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TitleInput = React.memo(
   ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
-    <TextInput
+    <TextArea
       placeholder={textConstants.title}
       className="w-full font-bold text-2xl p-0"
+      autoGrow
+      debounce={100}
       maxlength={64}
       value={value}
       onIonInput={(e) => {
         onChange(e.detail.value ?? "");
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
       }}
     />
   )
@@ -39,13 +46,20 @@ const TitleInput = React.memo(
 
 const DescriptionInput = React.memo(
   ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
-    <TextInput
+    <TextArea
       placeholder={textConstants.description}
-      className="w-full p-0 bg-[#f8f8fb] rounded-lg py-2 px-4"
+      className="w-full bg-[#f8f8fb] rounded-lg resize-none p-4 pt-4"
+      autoGrow
       maxlength={255}
+      debounce={100}
       value={value}
       onIonInput={(e) => {
         onChange(e.detail.value ?? "");
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
       }}
     />
   )

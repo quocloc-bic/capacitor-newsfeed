@@ -1,4 +1,9 @@
-import { useIonAlert, useIonLoading, useIonToast } from "@ionic/react";
+import {
+  useIonAlert,
+  useIonLoading,
+  useIonToast,
+  type AlertButton,
+} from "@ionic/react";
 
 const useAlertPresenter = () => {
   const [showIonAlert, dismissIonAlert] = useIonAlert();
@@ -13,19 +18,14 @@ const useAlertPresenter = () => {
 
   const showConfirmationAlert = async (
     message: string,
-    confirmButtonTitle: string,
-    onConfirm: () => void
+    buttons: AlertButton[]
   ) => {
+    const defaultButtons = [{ text: "Cancel", role: "cancel" }];
+
     await dismissAll();
     await showIonAlert({
       message,
-      buttons: [
-        {
-          text: confirmButtonTitle,
-          handler: onConfirm,
-        },
-        { text: "Cancel", role: "cancel" },
-      ],
+      buttons: [...defaultButtons, ...buttons],
     });
   };
 

@@ -42,20 +42,22 @@ export const useArticleMenu = ({
       return;
     }
 
-    showConfirmationAlert(
-      textConstants.deleteArticleConfirmation,
-      textConstants.deleteArticleConfirmationButton,
-      async () => {
-        await deleteArticle(article.id);
-        removeArticleId(article.id);
+    showConfirmationAlert(textConstants.deleteArticleConfirmation, [
+      {
+        text: textConstants.deleteArticleConfirmationButton,
+        role: "destructive",
+        handler: async () => {
+          await deleteArticle(article.id);
+          removeArticleId(article.id);
 
-        if (onDidDelete) {
-          onDidDelete(article.id);
-        }
+          if (onDidDelete) {
+            onDidDelete(article.id);
+          }
 
-        await showToast("Article deleted successfully", "success");
-      }
-    );
+          await showToast("Article deleted successfully", "success");
+        },
+      },
+    ]);
   };
 
   const menuOptions: OptionsMenuOption[] = [
