@@ -56,7 +56,7 @@ const CreateArticlePage: React.FC = () => {
                 <IonIcon icon={chevronBack} />
               </Button>
             </IonButtons>
-            <IonTitle className="mx-4">{textConstants.title}</IonTitle>
+            <IonTitle>{textConstants.title}</IonTitle>
             <IonButtons slot="end" className="flex gap-2 pr-2">
               <IonMenuToggle className="flex justify-center items-center">
                 <IonIcon icon={menu} />
