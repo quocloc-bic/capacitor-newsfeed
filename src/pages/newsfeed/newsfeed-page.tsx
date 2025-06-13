@@ -1,15 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import useNewsfeedPage from "./newsfeed-page.hook";
 import NewsfeedItem from "./components/newsfeed-item/newsfeed-item";
 import FloatingButton from "./components/floating-button";
 import { useHistory } from "react-router-dom";
 import {
+  IonButtons,
+  IonIcon,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonList,
   IonPage,
   IonRefresher,
   IonRefresherContent,
+  IonToolbar,
   type InfiniteScrollCustomEvent,
   type RefresherEventDetail,
 } from "@ionic/react";
@@ -18,12 +21,33 @@ import { AppRoutes } from "@/core/app-routes";
 import NewsfeedItemSkeleton from "./components/newsfeed-item-skeleton";
 import NewsfeedNoContent from "./components/newsfeed-no-content";
 import { delay } from "@/shared/utils/globals";
+import Header from "@/shared/components/header";
+import Button from "@/shared/components/button";
+import { moon, sunny } from "ionicons/icons";
 
 const NewsfeedPage: React.FC = () => {
   const { articleIds, loading, loadMore, lastCreatedAt, reload } =
     useNewsfeedPage();
 
   const history = useHistory();
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("darkMode");
+      return stored === "true";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("darkMode", isDarkMode.toString());
+  }, [isDarkMode]);
 
   const handleCreateArticle = useCallback(() => {
     history.push(AppRoutes.CreateArticle);
@@ -45,6 +69,10 @@ const NewsfeedPage: React.FC = () => {
     await reload();
     event.detail.complete();
   }
+
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode(!isDarkMode);
+  }, [isDarkMode]);
 
   if (loading) {
     return (
@@ -68,6 +96,15 @@ const NewsfeedPage: React.FC = () => {
 
   return (
     <IonPage className="bg-background">
+      <Header>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <Button fill="clear" color="dark" onClick={handleToggleDarkMode}>
+              <IonIcon icon={isDarkMode ? moon : sunny} />
+            </Button>
+          </IonButtons>
+        </IonToolbar>
+      </Header>
       <Content>
         <div className="flex justify-center pt-[var(--ion-safe-area-top)]">
           <div className="max-w-screen-md w-full p-4">

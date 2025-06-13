@@ -17,7 +17,7 @@ const FloatingButton = ({
   return (
     <div className={finalClassName} {...props}>
       <Button
-        className="color-white bg-blue-500 !rounded-full flex items-center justify-center h-12 w-12 overflow-hidden"
+        className="color-primary-foreground bg-brand !rounded-full flex items-center justify-center h-12 w-12 overflow-hidden"
         onClick={onClick}
       >
         <IonIcon slot="icon-only" icon={add} size="large" />
